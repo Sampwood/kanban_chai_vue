@@ -17,16 +17,23 @@
       <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
+    
+    <modal></modal>
   </div>
 </template>
 
 <script>
+import modal from './modalCopy'
+
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+    'modal': modal
   }
 }
 </script>
@@ -49,5 +56,9 @@ li {
 
 a {
   color: #42b983;
+}
+
+.modal {
+  display: block;
 }
 </style>

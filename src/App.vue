@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <header-chai></header-chai>
-    <main-chai></main-chai>
-    <!-- <img src="./assets/logo.png">
-    <router-view></router-view> -->
+    <!-- <main-chai></main-chai> -->
+    <!-- <img src="./assets/logo.png"> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -30,5 +30,22 @@
     text-align: center;
     color: #2c3e50;
     // margin-top: 60px;
+  }
+  .svg-icon {
+    display: inline-flex;
+    align-self: center;
+    position: relative;
+    height: 1em;
+    width: 1em;
+  }
+
+  .svg-icon svg {
+    height:1em;
+    width:1em;
+  }
+
+  .svg-icon.svg-baseline svg {
+    bottom: -0.125em;
+    position: absolute;
   }
 </style>
