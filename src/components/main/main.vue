@@ -18,7 +18,7 @@
 
 <script>
   import 'vue-awesome/icons/plus'
-  import { mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
   import section from './section'
 
   export default {
@@ -38,6 +38,9 @@
       'section-chai': section
     },
     methods: {
+      ...mapActions([
+        'getSections'
+      ]),
       showAddSectionInput () {
         this.show = false
       },
@@ -60,6 +63,9 @@
           el.focus()
         }
       }
+    },
+    created () {
+      this.getSections()
     }
   }
 </script>

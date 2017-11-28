@@ -10,6 +10,7 @@ function resolve (dir) {
 }
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     app: './src/main.js'
   },
@@ -51,7 +52,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/bootstrap/js/src')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
