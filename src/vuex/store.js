@@ -72,7 +72,8 @@ const actions = {
       commit('initSections', sections)
     })
   },
-  addCard ({}, { sectionId }) {
+  addCard ({ commit }, sectionId) {
+    commit('addCard', sectionId)
   }
 }
 
