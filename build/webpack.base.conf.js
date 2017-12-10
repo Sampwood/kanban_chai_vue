@@ -52,7 +52,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/bootstrap/js/src')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/_bootstrap@4.0.0-beta.2@bootstrap/js/src')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

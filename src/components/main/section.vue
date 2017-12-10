@@ -1,11 +1,10 @@
 <template>
-  <div class="card-columns col-2">
+  <div class="card-columns col-2" @dragover="allowDrop" @drop="drop">
     <header class="list-header">
-      <span class="list-title" v-text="title"></span>
-      <span v-text="cards.length"></span>
+      <span class="list-title" v-text="sectionData.title"></span>
+      <span v-text="number"></span>
     </header>
-    <card-chai v-for="card in cards" :create-date="card.createDate" :key="card.id"
-        :title="card.title" :description="card.description" :category="card.category"></card-chai>
+    <card-chai v-for="card in sectionData.cards" :card-data="card" :key="card.key"></card-chai>
     <button type="button" class="btn btn-secondary" data-toggle="modal" :data-target="'#' + modalId">
       <icon name="plus"></icon>
     </button>
@@ -20,7 +19,7 @@
 
 <script>
   import 'vue-awesome/icons/plus'
-  import { mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
   import card from './card'
   import modal from './modal'
   import cardCreate from './cardCreate'
@@ -29,7 +28,10 @@
     name: 'section',
     computed: {
       modalId: function () {
-        return 'section' + this.title.replace(/\s+/g, '')
+        return 'section' + this.sectionData.title.replace(/\s+/g, '')
+      },
+      number: function () {
+        return this.sectionData.cards ? this.sectionData.cards.length : 0
       }
     },
     components: {
@@ -38,29 +40,32 @@
       'card-create-chai': cardCreate
     },
     props: {
-      id: {
-        required: true,
-        type: Number,
-        default: 0
-      },
-      title: {
-        required: true,
-        type: String,
-        default: ''
-      },
-      cards: {
-        type: Array,
-        default: function () {
-          return []
-        }
+      sectionData: {
+        required: true
       }
     },
     methods: {
-      ...mapMutations([
-        'addCard'
+      allowDrop (event) {
+        event.preventDefault()
+      },
+      drop (event) {
+        event.preventDefault()
+        var cardKey = event.dataTransfer.getData('cardKey')
+        var sectionKey = event.dataTransfer.getData('sectionKey')
+        if (sectionKey !== this.sectionData.key) {
+          this.updateCardParentSection({
+            cardKey: cardKey,
+            oldSectionKey: sectionKey,
+            newSectionKey: this.sectionData.key
+          })
+        }
+      },
+      ...mapActions([
+        'postCard',
+        'updateCardParentSection'
       ]),
       addNewCard () {
-        this.addCard({ sectionId: this.id })
+        this.postCard({ sectionKey: this.sectionData.key })
         return true
       }
     }
@@ -70,6 +75,7 @@
 <style scoped>
   .card-columns {
     column-count: 1;
+    min-width: 125px;
   }
   header {
     text-align: left;
