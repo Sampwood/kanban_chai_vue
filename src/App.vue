@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <header-chai></header-chai>
     <!-- <main-chai></main-chai> -->
     <!-- <img src="./assets/logo.png"> -->
     <router-view></router-view>
@@ -8,15 +7,8 @@
 </template>
 
 <script>
-  import header from './components/header'
-  import main from './components/main/main'
-
   export default {
-    name: 'app',
-    components: {
-      'header-chai': header,
-      'main-chai': main
-    }
+    name: 'app'
   }
 </script>
 

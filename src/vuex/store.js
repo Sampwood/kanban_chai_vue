@@ -1,14 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import wilddog from 'wilddog'
+import wilddogServer from './wilddogSDK'
 
 // 获取数据
 // import data from './dataServer'
-const wilddogApp = wilddog.initializeApp({
-  authDomain: 'wd.wilddogio.com',
-  syncURL: 'https://wd.wilddogio.com'
-})
-const sync = wilddogApp.sync()
+const sync = wilddogServer.sync()
 
 Vue.use(Vuex)
 
@@ -31,55 +27,67 @@ const mutations = {
   updateCardForm (state, { key, value }) {
     state.cardForm[key] = value
   },
-  addCard (state, { sectionId }) {
-    state.sections.forEach(section => {
-      if (sectionId === section.id) {
-        let card = Object.assign({ id: section.cards.length, createDate: new Date().toLocaleString() }, state.cardForm)
-        console.log(card)
-        section.cards.push(card)
-      }
-    })
+  addCard (state, { section, card }) {
+    section.cards.push(card)
   }
 }
 
 // 用于更改状态的action函数，能获取异步数据
 const actions = {
+  loginAction (context, formData) {
+    wilddogServer.auth().signInWithEmailAndPassword(formData.email, formData.password)
+      .then(function (res) {
+        formData.callback ? formData.callback() : ''
+      }).catch(function (error) {
+        // 错误处理
+        console.error(error)
+      })
+  },
   getSections ({ commit }) {
-    sync.ref().on('value', function (snapshot) {
-      let data = snapshot.val()
-      console.log(JSON.stringify(data))
-      // TODO: get datas from db
-      let sections = [{
-        id: 0,
-        title: 'To Do',
-        cards: []
-      },
-      {
-        id: 1,
-        title: 'Ongoing',
-        cards: []
-      },
-      {
-        id: 2,
-        title: 'Blocked',
-        cards: []
-      },
-      {
-        id: 3,
-        title: 'Done',
-        cards: []
-      }]
-      commit('initSections', sections)
+    sync.ref('board/sections').on('value', function (snapshot) {
+      commit('initSections', snapshot.val() ? snapshot.val() : [])
     })
   },
-  addCard ({ commit }, sectionId) {
-    commit('addCard', sectionId)
+  postSection (context, section) {
+    sync.ref('board/sections').push(section)
+  },
+  postCard ({ state }, { sectionKey }) {
+    let card = {
+      createDate: new Date().toLocaleString()
+    }
+    card = Object.assign(card, state.cardForm)
+    sync.ref(`board/sections/${sectionKey}/cards`).push(card)
+  },
+  updateCardParentSection ({ state }, {cardKey, oldSectionKey, newSectionKey}) {
+    let cardData = state.sections[oldSectionKey].cards[cardKey]
+    sync.ref('board/sections/').update({
+      [`${oldSectionKey}/cards/${cardKey}`]: null,
+      [`${newSectionKey}/cards/${cardKey}`]: cardData
+    })
   }
 }
 
 // 用于获取state的值
 const getters = {
-
+  getterSections (state) {
+    let data = state.sections
+    let sections = []
+    if (data) {
+      for (let sectionKey of Object.keys(data)) {
+        let section = Object.assign({key: sectionKey}, data[sectionKey])
+        if (section.cards) {
+          let cardList = []
+          for (let cardKey of Object.keys(section.cards)) {
+            let card = Object.assign({key: cardKey}, section.cards[cardKey])
+            cardList.push(card)
+          }
+          section.cards = cardList
+        }
+        sections.push(section)
+      }
+    }
+    return sections
+  }
 }
 
 export default new Vuex.Store({

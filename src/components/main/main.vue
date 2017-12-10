@@ -1,15 +1,15 @@
 <template>
   <main class="container-fluid">
     <div class="row">
-      <section-chai v-for="section in sections" :title="section.title" 
-          :cards="section.cards" :key="section.id" :id="section.id"></section-chai>
+      <section-chai v-for="section in getterSections" :section-data="section" :key="section.key" ></section-chai>
       <div class="col-2 text-left">
         <div class="input-group add-section">
           <button type="button" class="btn btn-secondary" v-if="show" @click="showAddSectionInput">
             <icon name="plus"></icon>
           </button>
           <input type="text" class="form-control" aria-label="Add new section" 
-              v-if="!show" v-focus v-on:blur="addSection" v-on:keyup.enter="addSection" v-model="sectionTitle">
+              v-if="!show" v-focus v-on:blur="addSection" v-on:keyup.enter="addSection" v-model="sectionTitle"
+              v-on:keyup.esc="show = true">
         </div>
       </div>
     </div>
@@ -18,7 +18,7 @@
 
 <script>
   import 'vue-awesome/icons/plus'
-  import { mapState, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import section from './section'
 
   export default {
@@ -30,8 +30,8 @@
       }
     },
     computed: {
-      ...mapState([
-        'sections'
+      ...mapGetters([
+        'getterSections'
       ])
     },
     components: {
@@ -39,18 +39,22 @@
     },
     methods: {
       ...mapActions([
-        'getSections'
+        'getSections',
+        'postSection'
       ]),
       showAddSectionInput () {
         this.show = false
       },
       addSection () {
+        if (this.sectionTitle.trim().length === 0) {
+          this.show = true
+        }
         if (this.show) {
           return
         }
         if (this.sectionTitle.replace(/\s+/g, '')) {
-          let id = this.sections.length
-          this.sections.push({id: id, title: this.sectionTitle, cards: []})
+          this.postSection({title: this.sectionTitle})
+          this.sectionTitle = ''
         }
         this.show = true
       }
@@ -83,5 +87,10 @@
   }
   .add-section {
     margin-top: 40px;
+    display: flex;
+    justify-content: center;
+  }
+  .text-left {
+    min-width: 125px;
   }
 </style>
