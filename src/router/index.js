@@ -27,7 +27,6 @@ const router = new Router({
   ]
 })
 router.beforeEach((to, from, next) => {
-  console.log(wilddogServer.auth().currentUser)
   if (to.name === 'Kanban' && !wilddogServer.auth().currentUser) {
     next('/')
   } else {

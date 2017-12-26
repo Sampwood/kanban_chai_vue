@@ -5,6 +5,7 @@ import wilddogServer from './wilddogSDK'
 // 获取数据
 // import data from './dataServer'
 const sync = wilddogServer.sync()
+let uid
 
 Vue.use(Vuex)
 
@@ -38,29 +39,30 @@ const actions = {
     wilddogServer.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(function (res) {
         formData.callback ? formData.callback() : ''
+        uid = wilddogServer.auth().currentUser.uid
       }).catch(function (error) {
         // 错误处理
         console.error(error)
       })
   },
   getSections ({ commit }) {
-    sync.ref('board/sections').on('value', function (snapshot) {
+    sync.ref(`${uid}/sections`).on('value', function (snapshot) {
       commit('initSections', snapshot.val() ? snapshot.val() : [])
     })
   },
   postSection (context, section) {
-    sync.ref('board/sections').push(section)
+    sync.ref(`${uid}/sections`).push(section)
   },
   postCard ({ state }, { sectionKey }) {
     let card = {
       createDate: new Date().toLocaleString()
     }
     card = Object.assign(card, state.cardForm)
-    sync.ref(`board/sections/${sectionKey}/cards`).push(card)
+    sync.ref(`${uid}/sections/${sectionKey}/cards`).push(card)
   },
   updateCardParentSection ({ state }, {cardKey, oldSectionKey, newSectionKey}) {
     let cardData = state.sections[oldSectionKey].cards[cardKey]
-    sync.ref('board/sections/').update({
+    sync.ref(`${uid}/sections`).update({
       [`${oldSectionKey}/cards/${cardKey}`]: null,
       [`${newSectionKey}/cards/${cardKey}`]: cardData
     })
