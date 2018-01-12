@@ -1,5 +1,5 @@
 <template>
-  <div class="card-columns col-2" @dragover="allowDrop" @drop="drop">
+  <div class="card-columns" @dragover="allowDrop" @drop="drop">
     <header class="list-header">
       <span class="list-title" v-text="sectionData.title"></span>
       <span v-text="number"></span>
@@ -75,7 +75,8 @@
 <style scoped>
   .card-columns {
     column-count: 1;
-    min-width: 125px;
+    min-width: 310px;
+    padding: 0 1rem;
   }
   header {
     text-align: left;
