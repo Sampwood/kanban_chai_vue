@@ -25,7 +25,7 @@ const router = new Router({
 // import data from './vuex/dataServer'
 // 获取数据
 const card = {
-  id: 0,
+  key: '0',
   title: 'Special title treatment',
   description: 'With supporting text below as a natural lead-in to additional content.',
   createDate: new Date().toLocaleString()
@@ -34,22 +34,22 @@ const card = {
 const data = {
   sections: [
     {
-      key: 0,
+      key: '0',
       title: 'To Do',
       cards: [Object.assign({}, card)]
     },
     {
-      key: 1,
+      key: '1',
       title: 'Ongoing',
       cards: [Object.assign({}, card)]
     },
     {
-      key: 2,
+      key: '2',
       title: 'Blocked',
       cards: [Object.assign({}, card)]
     },
     {
-      key: 3,
+      key: '3',
       title: 'Done',
       cards: [Object.assign({}, card)]
     }
@@ -87,29 +87,50 @@ const actions = {
   loginAction (context, formData) {
   },
   getSections ({ commit }) {
-		commit('initSections')
-	},
+    commit('initSections')
+  },
   postSection (context, section) {
-		context.state.sections.push(section)
+    context.state.sections.push(section)
   },
   postCard ({ state }, { sectionKey }) {
-		let card = {
+    let card = {
       createDate: new Date().toLocaleString()
     }
     card = Object.assign(card, state.cardForm)
-		for(let section of state.sections) {
-			if(section.key === sectionKey) {
-				section.cards.push(card)
-			}
-		}
+    for (let section of state.sections) {
+      if (section.key === sectionKey) {
+        section.cards.push(card)
+      }
+    }
   },
   updateCardParentSection ({ state }, {cardKey, oldSectionKey, newSectionKey}) {
+    console.log(state.sections)
+    let card
+    let newSection
+    for (let section of state.sections) {
+      if (section.key === oldSectionKey) {
+        for (let i = 0; i < section.cards.length; i++) {
+          if (section.cards[i].key === cardKey) {
+            card = section.cards[i]
+            section.cards.splice(i, 1)
+          }
+        }
+      }
+      if (section.key === newSectionKey) {
+        newSection = section
+      }
+    }
+    if (card) {
+      newSection.cards.push(card)
+    }
   }
 }
 
 // 用于获取state的值
 const getters = {
-
+  getterSections (state) {
+    return state.sections
+  }
 }
 
 const store = new Vuex.Store({
