@@ -105,6 +105,25 @@ const actions = {
     }
   },
   updateCardParentSection ({ state }, {cardKey, oldSectionKey, newSectionKey}) {
+    console.log(state.sections)
+    let card
+    let newSection
+    for (let section of state.sections) {
+      if (section.key === oldSectionKey) {
+        for (let i = 0; i < section.cards.length; i++) {
+          if (section.cards[i].key === cardKey) {
+            card = section.cards[i]
+            section.cards.splice(i, 1)
+          }
+        }
+      }
+      if (section.key === newSectionKey) {
+        newSection = section
+      }
+    }
+    if (card) {
+      newSection.cards.push(card)
+    }
   }
 }
 

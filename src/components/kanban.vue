@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="kanban">
     <header-chai></header-chai>
     <main-chai></main-chai>
   </div>
@@ -19,4 +19,9 @@
 </script>
 
 <style>
+  #kanban {
+    height: 100vh;
+    background-image: url(../assets/themes/theme-8.jpg);
+    background-size: cover;
+  }
 </style>
