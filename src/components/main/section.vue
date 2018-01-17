@@ -25,7 +25,7 @@
   import cardCreate from './cardCreate'
 
   export default {
-    name: 'section',
+    name: 'sectionChai',
     computed: {
       modalId: function () {
         return 'section' + this.sectionData.title.replace(/\s+/g, '')

@@ -6,14 +6,14 @@
 </template>
 
 <script>
-  import header from './header'
-  import main from './main/main'
+  import headerChai from './header'
+  import mainChai from './main/main'
 
   export default {
     name: 'kanban',
     components: {
-      'header-chai': header,
-      'main-chai': main
+      'header-chai': headerChai,
+      'main-chai': mainChai
     }
   }
 </script>

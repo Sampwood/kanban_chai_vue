@@ -19,10 +19,10 @@
 <script>
   import 'vue-awesome/icons/plus'
   import { mapGetters, mapActions } from 'vuex'
-  import section from './section'
+  import sectionChai from './section'
 
   export default {
-    name: 'main',
+    name: 'mainChai',
     data () {
       return {
         show: true,
@@ -35,7 +35,7 @@
       ])
     },
     components: {
-      'section-chai': section
+      'section-chai': sectionChai
     },
     methods: {
       ...mapActions([

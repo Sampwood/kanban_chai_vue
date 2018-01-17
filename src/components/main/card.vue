@@ -1,5 +1,6 @@
 <template>
   <div class="card text-left" draggable="true" @dragstart='drag'>
+    <!--
     <div class="card-header category">
       <i class="svg-icon svg-baseline">
         <icon name="sticky-note-o"></icon>
@@ -12,6 +13,11 @@
       <button type="button" class="btn btn-primary hide" @click="getDetail" disabled>Detail</button>
     </div>
     <div class="card-footer text-muted" v-text="cardData.createDate"></div>
+    -->
+    
+    <div class="card-body">
+      <p class="card-text description" v-text="cardData.description"></p>
+    </div>
   </div>
 </template>
 
