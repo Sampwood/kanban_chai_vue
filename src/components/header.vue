@@ -11,7 +11,7 @@
           <a class="nav-link home" href="#">主页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Activity</a>
+          <a class="nav-link disabled" href="#">行为</a>
         </li>
         <li class="nav-item">
           <a class="nav-link statistics disabled" href="#">统计</a>

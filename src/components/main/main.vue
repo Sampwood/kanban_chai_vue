@@ -77,16 +77,15 @@
 </script>
 
 <style scoped>
-  main {
-    padding-top: 4.5rem;
-  }
   .main-panel {
     height: 100%;
+    padding: 4.5rem 0 0;
   }
   .board {
     overflow: hidden;
     overflow-x: auto;
-    height: 100%
+    height: 100%;
+    padding: 0 1rem;
   }
   .row {
     margin: 0;
