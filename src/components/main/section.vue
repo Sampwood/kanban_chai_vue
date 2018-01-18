@@ -74,9 +74,14 @@
 
 <style scoped>
   .card-columns {
-    column-count: 1;
     min-width: 310px;
     padding: 0 1rem;
+    height: 90%;
+    overflow: auto;
+    column-count: unset;
+  }
+  .card-columns:hover {
+    background-color: rgba(190, 190, 190, 0.5);
   }
   header {
     text-align: left;

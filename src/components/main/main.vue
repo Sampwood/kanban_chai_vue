@@ -90,6 +90,7 @@
   .row {
     margin: 0;
     flex-wrap: nowrap;
+    height: 100%;
   }
   .btn svg {
     position: relative;

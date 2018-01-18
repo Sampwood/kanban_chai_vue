@@ -48,4 +48,7 @@
   .hide {
     display: none;
   }
+  .card {
+    cursor: pointer;
+  }
 </style>
