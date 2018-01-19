@@ -16,7 +16,7 @@
     -->
     
     <div class="card-body">
-      <p class="card-text description" v-text="cardData.description"></p>
+      <p class="card-text description" v-text="cardData.title"></p>
     </div>
   </div>
 </template>
@@ -50,5 +50,8 @@
   }
   .card {
     cursor: pointer;
+  }
+  .card:last-child {
+    margin-bottom: 0;
   }
 </style>

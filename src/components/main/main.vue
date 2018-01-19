@@ -79,13 +79,13 @@
 <style scoped>
   .main-panel {
     height: 100%;
-    padding: 4.5rem 0 0;
+    padding: 3.5rem 0 0;
   }
   .board {
     overflow: hidden;
     overflow-x: auto;
     height: 100%;
-    padding: 0 1rem;
+    padding: 1rem 1rem;
   }
   .row {
     margin: 0;

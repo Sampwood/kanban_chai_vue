@@ -4,16 +4,26 @@
       <span class="list-title" v-text="sectionData.title"></span>
       <span v-text="number"></span>
     </header>
-    <card-chai v-for="card in sectionData.cards" :card-data="card" :key="card.key"></card-chai>
+    <div class="card-list">
+      <card-chai v-for="card in sectionData.cards" :card-data="card" :key="card.key"></card-chai>
+    </div>
+    <button type="button" class="btn btn-secondary" v-if="show" @click="showAddCardInput">
+      <icon name="plus"></icon>
+    </button>
+    <input type="text" class="form-control" aria-label="Add new card" 
+        v-if="!show" v-focus v-on:keyup.enter="addCard" v-model="cardContent"
+        v-on:keyup.esc="show = true" v-on:blur="show = true">
+    <!--
     <button type="button" class="btn btn-secondary" data-toggle="modal" :data-target="'#' + modalId">
       <icon name="plus"></icon>
     </button>
     <modal-chai :modal-id="modalId" modal-title="新的标签" :callback="addNewCard">
-      <!-- 替换modal组件中的<slot name="modal-body"></slot>插槽 -->
+      <!-- 替换modal组件中的<slot name="modal-body"></slot>插槽 
       <div slot="modal-body">
         <card-create-chai></card-create-chai>
       </div>
     </modal-chai>
+    -->
   </div>
 </template>
 
@@ -26,6 +36,12 @@
 
   export default {
     name: 'sectionChai',
+    data () {
+      return {
+        show: true,
+        cardContent: ''
+      }
+    },
     computed: {
       modalId: function () {
         return 'section' + this.sectionData.title.replace(/\s+/g, '')
@@ -67,6 +83,26 @@
       addNewCard () {
         this.postCard({ sectionKey: this.sectionData.key })
         return true
+      },
+      addCard () {
+        if (this.cardContent.trim().length === 0) {
+          return
+        }
+        this.postCard({ sectionKey: this.sectionData.key, cardTitle: this.cardContent })
+        this.show = true
+        this.cardContent = ''
+      },
+      showAddCardInput () {
+        this.show = false
+      }
+    },
+    // 自定义指令
+    directives: {
+      // 获得焦点指令
+      focus: {
+        inserted: function (el) {
+          el.focus()
+        }
       }
     }
   }
@@ -74,10 +110,10 @@
 
 <style scoped>
   .card-columns {
+    width: 310px;
     min-width: 310px;
     padding: 0 1rem;
-    height: 90%;
-    overflow: auto;
+    height: 100%;
     column-count: unset;
   }
   .card-columns:hover {
@@ -86,6 +122,11 @@
   header {
     text-align: left;
     line-height: 40px;
+  }
+  .card-list {
+    max-height: calc( 100% - 92px );
+    overflow: auto;
+    margin-bottom: 0.75rem;
   }
   .btn {
     color: #111;

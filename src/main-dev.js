@@ -64,7 +64,8 @@ const data = {
 const state = {
   sections: data.sections,
   cardForm: {
-    category: '',
+    key: '1',
+    category: 'Feature',
     title: '',
     description: ''
   }
@@ -93,11 +94,12 @@ const actions = {
   postSection (context, section) {
     context.state.sections.push(section)
   },
-  postCard ({ state }, { sectionKey }) {
+  postCard ({ state }, { sectionKey, cardTitle }) {
     let card = {
       createDate: new Date().toLocaleString()
     }
-    card = Object.assign(card, state.cardForm)
+    let newKey = parseInt(state.cardForm.key) + 1 + ''
+    card = Object.assign(card, state.cardForm, {title: cardTitle, key: newKey})
     for (let section of state.sections) {
       if (section.key === sectionKey) {
         section.cards.push(card)
