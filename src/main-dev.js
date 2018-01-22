@@ -68,7 +68,8 @@ const state = {
     category: 'Feature',
     title: '',
     description: ''
-  }
+  },
+  isShowDetail: false
 }
 
 // 用于更改状态的mutation函数，但只能进行同步操作
@@ -81,6 +82,9 @@ const mutations = {
   },
   addCard (state, { section, card }) {
     section.cards.push(card)
+  },
+  updateShowDetail (state, isShow) {
+    state.isShowDetail = isShow
   }
 }
 
@@ -94,11 +98,12 @@ const actions = {
   postSection (context, section) {
     context.state.sections.push(section)
   },
-  postCard ({ state }, { sectionKey, cardTitle }) {
+  postCard ({ state, commit }, { sectionKey, cardTitle }) {
     let card = {
       createDate: new Date().toLocaleString()
     }
     let newKey = parseInt(state.cardForm.key) + 1 + ''
+    commit('updateCardForm', { key: 'key', value: newKey })
     card = Object.assign(card, state.cardForm, {title: cardTitle, key: newKey})
     for (let section of state.sections) {
       if (section.key === sectionKey) {
@@ -133,6 +138,9 @@ const actions = {
 const getters = {
   getterSections (state) {
     return state.sections
+  },
+  getterShowDetail (state) {
+    return state.isShowDetail
   }
 }
 

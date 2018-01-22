@@ -1,6 +1,6 @@
 <template>
   <main class="container-fluid main-panel">
-    <div class="board">
+    <div class="board" v-scroll>
       <div class="row">
         <section-chai v-for="section in getterSections" :section-data="section" :key="section.key" ></section-chai>
         <div class="section-add-column text-left">
@@ -14,6 +14,8 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="detail" :class="{'d-none': !getterShowDetail}">
     </div>
   </main>
 </template>
@@ -33,7 +35,8 @@
     },
     computed: {
       ...mapGetters([
-        'getterSections'
+        'getterSections',
+        'getterShowDetail'
       ])
     },
     components: {
@@ -68,6 +71,18 @@
         inserted: function (el) {
           el.focus()
         }
+      },
+      scroll: {
+        bind: function (el) {
+          let horizontalWheel = function (event) {
+            if (event.preventDefault) {
+              event.preventDefault()
+            }
+            this.scrollLeft += event.deltaY
+          }
+
+          el.addEventListener('wheel', horizontalWheel, false)
+        }
       }
     },
     created () {
@@ -80,12 +95,12 @@
   .main-panel {
     height: 100%;
     padding: 3.5rem 0 0;
+    display: flex;
   }
   .board {
-    overflow: hidden;
     overflow-x: auto;
     height: 100%;
-    padding: 1rem 1rem;
+    padding: 0 1rem;
   }
   .row {
     margin: 0;
@@ -107,5 +122,10 @@
   }
   .text-left {
     min-width: 125px;
+  }
+  .detail {
+    height: 100%;
+    width: 500px;
+    background-color: white;
   }
 </style>

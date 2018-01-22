@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-left" draggable="true" @dragstart='drag'>
+  <div class="card text-left" draggable="true" @dragstart='drag' @click="showDetailInfo">
     <!--
     <div class="card-header category">
       <i class="svg-icon svg-baseline">
@@ -23,6 +23,7 @@
 
 <script>
   import 'vue-awesome/icons/sticky-note-o'
+  import { mapMutations } from 'vuex'
 
   export default {
     name: 'card',
@@ -36,9 +37,15 @@
       }
     },
     methods: {
+      ...mapMutations([
+        'updateShowDetail'
+      ]),
       drag (event) {
         event.dataTransfer.setData('cardKey', this.cardData.key)
         event.dataTransfer.setData('sectionKey', this.$parent.sectionData.key)
+      },
+      showDetailInfo () {
+        this.updateShowDetail(true)
       }
     }
   }
@@ -53,5 +60,8 @@
   }
   .card:last-child {
     margin-bottom: 0;
+  }
+  .card-body {
+    padding: 0.5rem;
   }
 </style>

@@ -112,7 +112,7 @@
   .card-columns {
     width: 310px;
     min-width: 310px;
-    padding: 0 1rem;
+    padding: 1rem;
     height: 100%;
     column-count: unset;
   }
