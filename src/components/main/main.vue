@@ -101,6 +101,7 @@
     overflow-x: auto;
     height: 100%;
     padding: 0 1rem;
+    flex: 1;
   }
   .row {
     margin: 0;

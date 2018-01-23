@@ -32,5 +32,8 @@
 </script>
 
 <style scoped>
-    
+  nav {
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(38, 50, 56, .2);
+  }
 </style>
