@@ -1,6 +1,6 @@
 <template>
   <main class="container-fluid main-panel">
-    <div class="board" v-scroll>
+    <article class="board" v-scroll>
       <div class="row">
         <section-chai v-for="section in getterSections" :section-data="section" :key="section.key" ></section-chai>
         <div class="section-add-column text-left">
@@ -14,9 +14,9 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="detail" :class="{'d-none': !getterShowDetail}">
-    </div>
+    </article>
+    <aside class="detail" :class="{'d-none': !getterShowDetail}">
+    </aside>
   </main>
 </template>
 
