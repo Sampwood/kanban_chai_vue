@@ -24,6 +24,7 @@
 <script>
   import 'vue-awesome/icons/sticky-note-o'
   import { mapMutations } from 'vuex'
+  import { CARD } from '../../vuex/data-type.js'
 
   export default {
     name: 'card',
@@ -45,7 +46,7 @@
         event.dataTransfer.setData('sectionKey', this.$parent.sectionData.key)
       },
       showDetailInfo () {
-        this.updateShowDetail(true)
+        this.updateShowDetail({type: CARD, key: this.cardData.key})
       }
     }
   }

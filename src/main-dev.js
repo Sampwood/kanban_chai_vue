@@ -69,7 +69,12 @@ const state = {
     title: '',
     description: ''
   },
-  isShowDetail: false
+  isShowDetail: false,
+  asideDetail: {
+    isShow: false,
+    type: '',
+    key: ''
+  }
 }
 
 // 用于更改状态的mutation函数，但只能进行同步操作
@@ -83,8 +88,16 @@ const mutations = {
   addCard (state, { section, card }) {
     section.cards.push(card)
   },
-  updateShowDetail (state, isShow) {
-    state.isShowDetail = isShow
+  updateShowDetail (state, { type, key }) {
+    if (type === state.asideDetail.type && key === state.asideDetail.key) {
+      state.asideDetail.isShow = false
+      state.asideDetail.type = ''
+      state.asideDetail.key = ''
+    } else {
+      state.asideDetail.isShow = true
+      state.asideDetail.type = type
+      state.asideDetail.key = key
+    }
   }
 }
 
@@ -140,7 +153,7 @@ const getters = {
     return state.sections
   },
   getterShowDetail (state) {
-    return state.isShowDetail
+    return state.asideDetail.isShow
   }
 }
 
