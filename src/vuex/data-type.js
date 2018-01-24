@@ -1,4 +1,4 @@
-export default {
-  SECTION: 'section',
-  CARD: 'card'
-}
+let SECTION = 'section'
+let CARD = 'card'
+
+export {SECTION, CARD}
