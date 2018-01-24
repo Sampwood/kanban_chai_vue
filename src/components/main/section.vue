@@ -117,7 +117,7 @@
     column-count: unset;
   }
   .card-columns:hover {
-    background-color: rgba(190, 190, 190, 0.5);
+    background-color: rgba(0, 0, 0, 0.1);
   }
   header {
     text-align: left;

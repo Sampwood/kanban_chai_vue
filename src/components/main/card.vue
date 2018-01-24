@@ -14,9 +14,16 @@
     </div>
     <div class="card-footer text-muted" v-text="cardData.createDate"></div>
     -->
-    
+
+    <div class="card-header card-attachments">
+      <img class="card-img-top" :src="attachmentUrl" alt="attachment">
+    </div>
     <div class="card-body">
-      <p class="card-text description" v-text="cardData.title"></p>
+      <div class="card-labels"></div>
+      <div class="card-dates"></div>
+      <p class="card-text card-title" v-text="cardData.title"></p>
+      <div class="card-tags"></div>
+      <div class="card-indicators"></div>
     </div>
   </div>
 </template>
@@ -28,6 +35,11 @@
 
   export default {
     name: 'card',
+    data () {
+      return {
+        attachmentUrl: require('@/assets/zoro.jpg')
+      }
+    },
     props: {
       cardData: {
         required: true
@@ -61,6 +73,9 @@
   }
   .card:last-child {
     margin-bottom: 0;
+  }
+  .card-attachments {
+    padding: 0;
   }
   .card-body {
     padding: 0.5rem;

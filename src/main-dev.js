@@ -23,13 +23,32 @@ const router = new Router({
 })
 
 // import data from './vuex/dataServer'
+// const labels = ['No colour label', 'Blue', 'Orange', 'Cyan', 'Yellow', 'Pink', 'Purple', 'Red', 'Green']
+// const priority = ['No priority', 'Low', 'Normal', 'Medium', 'High', 'Critical']
 // 获取数据
 const card = {
   key: '0',
-  category: 'Feature',
   title: 'Special title treatment',
   description: 'With supporting text below as a natural lead-in to additional content.',
-  createDate: new Date().toLocaleString()
+  pipNum: -1,
+  labelNum: 0,
+  priority: 0,
+  assignee: null,
+  startDate: null,
+  dueDate: null,
+  estimate: 0,
+  spendTime: 0,
+  items: [],
+  tags: [],
+  attachments: [],
+  comments: [],
+  activity: [
+    {
+      type: 'created new card',
+      time: new Date().toLocaleString(),
+      content: null
+    }
+  ]
 }
 
 const data = {
