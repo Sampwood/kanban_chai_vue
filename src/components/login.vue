@@ -63,11 +63,11 @@
 <style scoped>
   .container-login {
     height: 100vh;
-    background: url('../assets/many.jpg') center top repeat-y;
+    background: url('../assets/img/many.jpg') center top repeat-y;
   }
   .main-login {
     height: 100%;
-    background: url('../assets/bg.jpg') center top no-repeat;
+    background: url('../assets/img/bg.jpg') center top no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
