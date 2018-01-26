@@ -145,6 +145,11 @@
     height: 20px;
     background-color: unset;
   }
+  .status svg {
+    width: 18px;
+    height: 18px;
+    left: 0;
+  }
   .status-progress {
     display: inline-block;
     position: absolute;
