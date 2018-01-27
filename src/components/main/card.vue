@@ -4,7 +4,7 @@
       <img class="card-img-top" :src="attachmentUrl" alt="attachment">
     </div>
     <div class="card-body">
-      <div class="card-labels">
+      <div class="card-labels flex">
         <div class="color-label"><span class="color-label-text">Blue</span></div>
         <div class="priority card-label-item">
           <icon name="thermometer-0"></icon>
@@ -16,10 +16,19 @@
           <span class="status-text">50%</span>
         </div>
       </div>
-      <div class="card-dates">
-        <span class="start-date">25 Jan</span>
-        <span class="due-date">31 Jan</span>
-        <span class="estimate">50h</span>
+      <div class="card-dates flex">
+        <div class="start-date">
+          <icon name="hourglass-start"></icon>
+          <span>25 Jan</span>
+        </div>
+        <div class="due-date">
+          <icon name="hourglass-end"></icon>
+          <span>31 Jan</span>
+        </div>
+        <div class="estimate">
+          <icon name="clock-o"></icon>
+          <span>50h</span>
+        </div>
       </div>
       <p class="card-text card-title" v-text="cardData.title"></p>
       <div class="card-tags">
@@ -40,6 +49,9 @@
   import 'vue-awesome/icons/sticky-note-o'
   import 'vue-awesome/icons/thermometer-0'
   import 'vue-awesome/icons/check-circle'
+  import 'vue-awesome/icons/hourglass-start'
+  import 'vue-awesome/icons/hourglass-end'
+  import 'vue-awesome/icons/clock-o'
 
   export default {
     name: 'card',
@@ -89,10 +101,13 @@
   .card-body {
     padding: 0.5rem;
   }
+  .flex {
+    display: flex;
+  }
   .card-labels {
     font-size: 13px;
     line-height: 20px;
-    display: flex;
+    margin-bottom: .5rem;
   }
   .color-label {
     margin-left: -.5rem;
