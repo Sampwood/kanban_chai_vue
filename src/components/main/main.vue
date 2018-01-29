@@ -16,6 +16,7 @@
       </div>
     </article>
     <aside class="detail" :class="{'d-none': !getterShowDetail}">
+      <aside-chai></aside-chai>
     </aside>
   </main>
 </template>
@@ -24,6 +25,7 @@
   import 'vue-awesome/icons/plus'
   import { mapGetters, mapActions } from 'vuex'
   import sectionChai from './section'
+  import asideChai from '../aside'
 
   export default {
     name: 'mainChai',
@@ -40,7 +42,8 @@
       ])
     },
     components: {
-      'section-chai': sectionChai
+      'section-chai': sectionChai,
+      'aside-chai': asideChai
     },
     methods: {
       ...mapActions([

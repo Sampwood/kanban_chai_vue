@@ -90,7 +90,7 @@ const state = {
   },
   isShowDetail: false,
   asideDetail: {
-    isShow: false,
+    isShow: true,
     type: '',
     key: ''
   }

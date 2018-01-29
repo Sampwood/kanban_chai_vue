@@ -133,6 +133,7 @@
   }
   .color-label-text {
     background-color: inherit;
+    vertical-align: middle;
   }
   .color-label-text:before {
     content: '';
