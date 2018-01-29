@@ -16,7 +16,7 @@
           <span class="status-text">50%</span>
         </div>
       </div>
-      <div class="card-dates flex">
+      <div class="card-dates flex card-icon">
         <div class="start-date">
           <icon name="hourglass-start"></icon>
           <span>25 Jan</span>
@@ -30,14 +30,26 @@
           <span>50h</span>
         </div>
       </div>
-      <p class="card-text card-title" v-text="cardData.title"></p>
-      <div class="card-tags">
-        <span class="tag">#DEMO</span>
+      <div class="card-content">
+        <p class="card-text card-title" v-text="cardData.title"></p>
+        <icon name="align-left" class="card-icon"></icon>
       </div>
-      <div class="card-indicators">
-        <span class="item-progress">1/2</span>
-        <span class="comments">1</span>
-        <span class="attachments">1</span>
+      <div class="card-tags flex card-icon">
+        <span class="tag">DEMO</span>
+      </div>
+      <div class="card-indicators flex card-icon">
+        <div class="item-progress">
+          <icon name="check-square-o"></icon>
+          <span>1/2</span>
+        </div>
+        <div class="comments">
+          <icon name="comments"></icon>
+          <span>1</span>
+        </div>
+        <div class="attachments">
+          <icon name="paperclip"></icon>
+          <span>1</span>
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +64,10 @@
   import 'vue-awesome/icons/hourglass-start'
   import 'vue-awesome/icons/hourglass-end'
   import 'vue-awesome/icons/clock-o'
+  import 'vue-awesome/icons/check-square-o'
+  import 'vue-awesome/icons/comments'
+  import 'vue-awesome/icons/paperclip'
+  import 'vue-awesome/icons/align-left'
 
   export default {
     name: 'card',
@@ -103,10 +119,8 @@
   }
   .flex {
     display: flex;
-  }
-  .card-labels {
     font-size: 13px;
-    line-height: 20px;
+    height: 20px;
     margin-bottom: .5rem;
   }
   .color-label {
@@ -177,5 +191,27 @@
   }
   .status-text {
     position: relative;
+  }
+  .card-icon {
+    color: rgba(38,50,56,.5);
+  }
+  .card-icon > div {
+    margin-right: 1rem;
+  }
+  .card-icon svg {
+    vertical-align: top;
+  }
+  .tag:before {
+    content: '#';
+    margin-right: 3px;
+  }
+  .card-indicators {
+    margin-bottom: 0;
+  }
+  .card-content p {
+    display: inline-block;
+  }
+  .card-content svg {
+    vertical-align: middle;
   }
 </style>
