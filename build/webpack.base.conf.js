@@ -30,7 +30,8 @@ module.exports = {
       // webpack 使用 jQuery，如果是自行下载的
       // 'jquery': path.resolve(__dirname, '../src/assets/libs/jquery/jquery.min'),
       // 如果使用NPM安装的jQuery
-      'jquery': 'jquery'
+      'jquery': 'jquery',
+      'popper': 'popper.js'
     }
   },
   module: {
@@ -84,7 +85,8 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       '$': 'jquery',
-      'jQuery': 'jquery'
+      'jQuery': 'jquery',
+      'Popper': 'popper'
     })
   ]
 }
