@@ -33,16 +33,98 @@
         </div>
         <div class="card-detail">
           <div class="card-title-content">
-            <textarea class="title-content textarea-content">Special title treatment</textarea>
+            <div class="title-content textarea-content" contenteditable="true">Special title treatment</div>
             <div class="color-palette">
               <icon name="paint-brush"></icon>
             </div>
           </div>
           <hr class="separator">
           <div class="card-description">
-            <textarea class="textarea-content">Hello, world</textarea>
+            <div class="textarea-content" contenteditable="true">Hello, world</div>
           </div>
         </div>
+        <hr>
+        <div class="priority-selection flex">
+          <div class="dropdown show">
+            <a class="btn btn-success btn-sm dropdown-toggle" href="#" data-toggle="dropdown">
+              <icon name="thermometer-0"></icon>
+              Normal priority
+            </a>
+            <div class="dropdown-menu">
+              <button class="btn-light dropdown-item">No priority></button>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="timing flex">
+          <form>
+            <div class="form-group row">
+              <label for="startDate" class="col-sm-5 col-form-label col-form-label-sm">Start date</label>
+              <div class="col-sm-7">
+                <input type="date" class="form-control form-control-sm" id="startDate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="dueDate" class="col-sm-5 col-form-label col-form-label-sm">Due date</label>
+              <div class="col-sm-7">
+                <input type="date" class="form-control form-control-sm" id="dueDate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="estimate" class="col-sm-5 col-form-label col-form-label-sm">estimate</label>
+              <div class="col-sm-7">
+                <input type="number" class="form-control form-control-sm" id="estimate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="spentTime" class="col-sm-5 col-form-label col-form-label-sm">Spent time</label>
+              <div class="col-sm-7">
+                <input type="date" class="form-control form-control-sm" id="spentTime">
+              </div>
+            </div>
+          </form>
+        </div>
+        <hr>
+        <div class="checklist text-left m-3">
+          <header>
+            <strong>Checklist</strong>
+          </header>
+          <div>
+            <div class="d-flex justify-content-between checklist-status">
+              <strong><span>0</span>% done</strong>
+              <div>0 of 1</div>
+            </div>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+              </div>
+              <div class="d-flex justify-content-between checklist-item">
+                <div>1</div>
+                <div>
+                  <span>Weight</span>
+                  <span>1</span>
+                  <input type="range" min="1" max="10" step="1">
+                  <icon name="trash-o"></icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-light">Add an item</button>
+        </div>
+        <hr>
+        <div class="d-flex m-3">
+          <div class="border p-1 tag">
+            <icon name="plus-circle"></icon>
+            <span>Add a tag</span>
+          </div>
+        </div>
+        <hr>
+        <div class="text-left m-3">
+          <header><strong>Attachments</strong></header>
+        </div>
+
       </div>
       
       <div class="tab-pane" id="activity" role="tabpanel">activity</div>
@@ -53,11 +135,16 @@
 <script>
   import 'vue-awesome/icons/trash-o'
   import 'vue-awesome/icons/paint-brush'
+  import 'vue-awesome/icons/thermometer-0'
+  import 'vue-awesome/icons/plus-circle'
 </script>
 
 <style scoped>
-  .aside-container {
-    margin: 1rem;
+  button {
+    cursor: pointer;
+  }
+  .nav-tabs {
+    padding: 1rem 1rem 0;
   }
   .tab-content {
     margin-top: 1rem;
@@ -66,7 +153,7 @@
     height: 24px;
   }
   .color-label {
-    margin-left: -.5rem;
+    margin-left: -1rem;
     padding: 0 1rem;
     position: relative;
 
@@ -139,7 +226,7 @@
   }
   .flex {
     display: flex;
-    margin-bottom: 1rem;
+    margin: 1rem;
   }
   .create-position {
     color: #868e96;
@@ -164,8 +251,10 @@
     color: #2c3e50;
   }
   .card-detail {
+    margin: 1rem;
     border: 1px solid rgba(38,50,56,.2);
     border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(38,50,56,.1);
   }
   .card-title-content {
     position: relative;
@@ -173,21 +262,33 @@
   .textarea-content {
     border: none;
     width: 100%;
-    resize: none;
     min-height: 35px;
-    overflow: hidden;
-    height: auto;
     padding: .5rem 1rem;
+    word-wrap: break-word;
+    text-align: left;
+  }
+  .textarea-content:focus {
+    outline: none;
   }
   .title-content {
     padding-right: 3rem;
   }
   .color-palette {
     position: absolute;
-    top: .5rem;
+    top: .75rem;
     right: 1rem;
   }
   .separator {
     margin: 0 1rem;
+  }
+  .checklist-status {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: .5rem;
+  }
+  .checklist-item {
+    flex: 1;
+  }
+  .tag {
+    border-radius: 16px;
   }
 </style>
