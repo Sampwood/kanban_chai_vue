@@ -129,7 +129,7 @@
   }
   .detail {
     height: 100%;
-    width: 500px;
+    width: 450px;
     background-color: white;
   }
 </style>

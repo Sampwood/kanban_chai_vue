@@ -1,6 +1,6 @@
 <template>
   <div class="aside-container">
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs px-3 pt-3" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#details" role="tab">Card Details</a>
       </li>
@@ -8,46 +8,51 @@
         <a class="nav-link" data-toggle="tab" href="#activity" role="tab">Activity</a>
       </li>
     </ul>
-    <div class="tab-content">
-      <div class="tab-pane active" id="details" role="tabpanel">
-        <div class="header-line flex">
-          <div class="color-label"><span class="color-label-text">Blue</span></div>
+    <div class="tab-content text-left">
+      <div class="tab-pane active mt-3" id="details" role="tabpanel">
+        <div class="header-line d-flex m-3">
+          <div class="color-label dropdown">
+            <a class="color-label-text dropdown-toggle text-white pl-3" href="#" data-toggle="dropdown">Blue</a>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">No colour tag</div>
+            </div>
+          </div>
           <div class="status">
             <span class="status-progress"></span>
             <icon name="check-circle"></icon>
             <span class="status-text">50%</span>
           </div>
-          <div class="delete-icon">
+          <div class="delete-icon ml-auto mr-0">
             <icon name="trash-o"></icon>
           </div>
         </div>
-        <div class="create-position flex">
+        <div class="create-position d-flex m-3">
           <div class="create-info">
             <img src="../../static/avatar.jpg">
             <span>12 Jan 2018 16:14</span>
           </div>
-          <div class="position-info">
+          <div class="position-info pl-3">
             <div class="position-title">Card in list</div>
             <div class="position-detail">Doing</div>
           </div>
         </div>
         <div class="card-detail">
           <div class="card-title-content">
-            <div class="title-content textarea-content" contenteditable="true">Special title treatment</div>
+            <div class="textarea-content pr-5" contenteditable="true">Special title treatment</div>
             <div class="color-palette">
               <icon name="paint-brush"></icon>
             </div>
           </div>
-          <hr class="separator">
+          <hr class="my-0 mx-3">
           <div class="card-description">
             <div class="textarea-content" contenteditable="true">Hello, world</div>
           </div>
         </div>
         <hr>
-        <div class="priority-selection flex">
-          <div class="dropdown show">
+        <div class="priority-selection d-flex m-3">
+          <div class="dropdown">
             <a class="btn btn-success btn-sm dropdown-toggle" href="#" data-toggle="dropdown">
-              <icon name="thermometer-0"></icon>
+              <icon name="thermometer-0" class="align-middle"></icon>
               Normal priority
             </a>
             <div class="dropdown-menu">
@@ -56,73 +61,124 @@
           </div>
         </div>
         <hr>
-        <div class="timing flex">
+        <div class="timing d-flex m-3">
           <form>
             <div class="form-group row">
-              <label for="startDate" class="col-sm-5 col-form-label col-form-label-sm">Start date</label>
-              <div class="col-sm-7">
-                <input type="date" class="form-control form-control-sm" id="startDate">
+              <label for="startDate" class="col-sm-4 col-form-label col-form-label-sm">Start date</label>
+              <div class="col-sm-8">
+                <input type="datetime-local" class="form-control form-control-sm" id="startDate">
               </div>
             </div>
             <div class="form-group row">
-              <label for="dueDate" class="col-sm-5 col-form-label col-form-label-sm">Due date</label>
-              <div class="col-sm-7">
-                <input type="date" class="form-control form-control-sm" id="dueDate">
+              <label for="dueDate" class="col-sm-4 col-form-label col-form-label-sm">Due date</label>
+              <div class="col-sm-8">
+                <input type="datetime-local" class="form-control form-control-sm" id="dueDate">
               </div>
             </div>
             <div class="form-group row">
-              <label for="estimate" class="col-sm-5 col-form-label col-form-label-sm">estimate</label>
-              <div class="col-sm-7">
+              <label for="estimate" class="col-sm-4 col-form-label col-form-label-sm">estimate</label>
+              <div class="col-sm-8">
                 <input type="number" class="form-control form-control-sm" id="estimate">
               </div>
             </div>
             <div class="form-group row">
-              <label for="spentTime" class="col-sm-5 col-form-label col-form-label-sm">Spent time</label>
-              <div class="col-sm-7">
-                <input type="date" class="form-control form-control-sm" id="spentTime">
+              <label for="spentTime" class="col-sm-4 col-form-label col-form-label-sm">Spent time</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control-plaintext form-control-sm" readonly id="spentTime" value="0">
               </div>
             </div>
           </form>
         </div>
         <hr>
-        <div class="checklist text-left m-3">
-          <header>
+        <div class="checklist m-3 font-small">
+          <header class="mb-3">
             <strong>Checklist</strong>
           </header>
-          <div>
+          <div class="mb-3">
             <div class="d-flex justify-content-between checklist-status">
               <strong><span>0</span>% done</strong>
               <div>0 of 1</div>
             </div>
             <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input type="checkbox" aria-label="Checkbox for following text input">
-                </div>
+              <div class="mr-auto">
+                <input type="checkbox" class="align-middle">
+                <span class="align-middle">1</span>
               </div>
-              <div class="d-flex justify-content-between checklist-item">
-                <div>1</div>
-                <div>
-                  <span>Weight</span>
-                  <span>1</span>
-                  <input type="range" min="1" max="10" step="1">
-                  <icon name="trash-o"></icon>
-                </div>
+              <div>
+                <span class="align-middle">Weight</span>
+                <span class="align-middle rounded-circle text-white bg-secondary weight-value">1</span>
+                <input type="range" min="1" max="10" step="1" class="align-middle">
+                <icon name="trash-o" class="align-middle"></icon>
               </div>
             </div>
           </div>
-          <button class="btn btn-light">Add an item</button>
+          <button class="btn btn-sm btn-light border border-secondary">Add an item</button>
         </div>
         <hr>
-        <div class="d-flex m-3">
-          <div class="border p-1 tag">
-            <icon name="plus-circle"></icon>
-            <span>Add a tag</span>
+        <div class="m-3 font-small">
+          <header class="mb-3">
+            <strong>Tags</strong>
+          </header>
+          <div class="dropdown font-small">
+            <a class="btn btn-sm btn-light border border-secondary p-1 dropdown-toggle tag" href="#" data-toggle="dropdown">
+              <icon name="plus-circle"></icon>
+              <span>Add a tag</span>
+            </a>
+            <div class="dropdown-menu">
+              <input type="text" class="dropdown-item tag-input" placeholder="Start typing a name">
+              <hr class="m-0">
+              <div class="dropdown-item">Demo</div>
+            </div>
           </div>
         </div>
         <hr>
-        <div class="text-left m-3">
-          <header><strong>Attachments</strong></header>
+        <div class="m-3 font-small">
+          <header class="mb-3"><strong>Attachments</strong></header>
+          <div class="attach-list pl-2 mb-3">
+            <div class="attachment d-flex justify-content-between">
+              <div>
+                <icon name="picture-o" class="align-middle"></icon>
+                <span>avatar.jpg</span>
+                <icon name="thumb-tack" class="align-middle"></icon>
+              </div>
+              <div class="attach-action">
+                <icon name="thumb-tack" class="align-middle"></icon>
+                <span>Unpin</span>
+                <icon name="download" class="align-middle"></icon>
+                <span>Download</span>
+                <icon name="trash-o" class="align-middle" onclick="alert(1)"></icon>
+              </div>
+              <div class="attach-info">
+                <span>31.01.2018</span>
+                <img class="userpic" src="../../static/avatar.jpg">
+              </div>
+            </div>
+          </div>
+          <div class="custom-file attach-file">
+            <input type="file" class="custom-file-input" id="attachFile">
+            <label class="btn btn-sm btn-light border border-secondary" for="attachFile">Attach a file</label>
+          </div>
+        </div>
+        <hr>
+        <div class="m-3 font-small">
+          <div class="comment-list">
+            <div>
+              <div class="d-flex justify-content-between">
+                <img class="userpic" src="../../static/avatar.jpg">
+                <span>31 Jan 2018 14:01</span>
+              </div>
+              <p class="ml-4 p-2 rounded comment-content">hello</p>
+            </div>
+          </div>
+          <div class="comment-form">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control">
+              </div>
+              <button type="button" class="btn btn-sm btn-primary">Send</button>
+              <button type="button" class="btn btn-sm btn-light">Cancel</button>
+            </form>
+          </div>
         </div>
 
       </div>
@@ -137,24 +193,31 @@
   import 'vue-awesome/icons/paint-brush'
   import 'vue-awesome/icons/thermometer-0'
   import 'vue-awesome/icons/plus-circle'
+  import 'vue-awesome/icons/picture-o'
+  import 'vue-awesome/icons/thumb-tack'
+  import 'vue-awesome/icons/download'
 </script>
 
 <style scoped>
   button {
     cursor: pointer;
   }
-  .nav-tabs {
-    padding: 1rem 1rem 0;
+  .font-small {
+    font-size: 14px;
+  }
+  .aside-container {
+    height: 100%;
   }
   .tab-content {
-    margin-top: 1rem;
+    height: calc(100% - 60px);
+    overflow: auto;
   }
   .header-line {
     height: 24px;
   }
   .color-label {
     margin-left: -1rem;
-    padding: 0 1rem;
+    padding-right: 1rem;
     position: relative;
 
     color: white;
@@ -163,6 +226,7 @@
   .color-label-text {
     background-color: inherit;
     vertical-align: middle;
+    text-decoration: none;
   }
   .color-label-text:before {
     content: '';
@@ -184,6 +248,7 @@
     background-color: inherit;
     border-right: 6px solid;
     border-bottom: 12px solid transparent;
+    border-top: none;
   }
   .status {
     overflow: hidden;
@@ -215,18 +280,10 @@
   .status-text {
     position: relative;
   }
-  .delete-icon {
-    margin-left: auto;
-    margin-right: 0;
-  }
   .delete-icon svg {
     width: 1rem;
     height: 1.5rem;
     color: #868e96;
-  }
-  .flex {
-    display: flex;
-    margin: 1rem;
   }
   .create-position {
     color: #868e96;
@@ -239,10 +296,6 @@
   .create-info img {
     height: 40px;
     width: 40px;
-  }
-  .position-info {
-    padding-left: 1rem;
-    text-align: left;
   }
   .position-info div {
     line-height: 20px;
@@ -270,25 +323,62 @@
   .textarea-content:focus {
     outline: none;
   }
-  .title-content {
-    padding-right: 3rem;
-  }
   .color-palette {
     position: absolute;
     top: .75rem;
     right: 1rem;
   }
-  .separator {
-    margin: 0 1rem;
-  }
   .checklist-status {
     border-bottom: 1px solid #dee2e6;
     margin-bottom: .5rem;
   }
-  .checklist-item {
-    flex: 1;
+  .weight-value {
+    width: 21px;
+    display: inline-block;
+    text-align: center;
   }
   .tag {
     border-radius: 16px;
+  }
+  .tag svg {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+  .tag-input:focus {
+    outline: none;
+  }
+  .tag-input:active {
+    background: none;
+  }
+  .attachment {
+    cursor: pointer;
+  }
+  .attach-action {
+    display: none;
+  }
+  .attachment:hover .attach-action {
+    display: block;
+  }
+  .attachment:hover .attach-info {
+    display: none;
+  }
+  .attach-file {
+    width: 100px;
+  }
+  .attach-file label {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+  }
+  .userpic {
+    width: 20px;
+    height: 20px;
+  }
+  .comment-content {
+    word-wrap: break-word;
+    max-width: 90%;
+    display: inline-block;
+    background: #e9f5fe;
   }
 </style>
