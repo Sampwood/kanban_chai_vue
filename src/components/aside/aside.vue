@@ -54,12 +54,6 @@
 </script>
 
 <style scoped>
-  button {
-    cursor: pointer;
-  }
-  .font-small {
-    font-size: 14px;
-  }
   .aside-container {
     height: 100%;
   }

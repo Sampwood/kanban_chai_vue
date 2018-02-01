@@ -3,10 +3,11 @@
     <div class="header-line d-flex m-3">
       <div class="color-label dropdown">
         <a class="color-label-text dropdown-toggle text-white pl-3" href="#" data-toggle="dropdown">Blue</a>
-        <div class="dropdown-menu">
+        <div class="mt-2 dropdown-menu font-small">
           <div class="dropdown-item">No colour tag</div>
           <div class="dropdown-item" v-for="colour in colours" :key="colour">
             <colour-tag :bg-color="colour"></colour-tag>
+            <span class="colour-content" v-text="colour"></span>
           </div>
         </div>
       </div>
@@ -33,7 +34,14 @@
       <div class="card-title-content">
         <div class="textarea-content pr-5" contenteditable="true">Special title treatment</div>
         <div class="color-palette">
-          <icon name="paint-brush"></icon>
+          <div class="dropdown">
+            <button class="btn btn-sm btn-link dropdown-toggle paint-brush" data-toggle="dropdown">
+              <icon name="paint-brush"></icon>
+            </button>
+            <div class="mt-0 dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="#">Actio</a>
+            </div>
+          </div>
         </div>
       </div>
       <hr class="my-0 mx-3">
@@ -101,6 +109,9 @@
     border-right: 6px solid;
     border-bottom: 12px solid transparent;
     border-top: none;
+  }
+  .colour-content {
+    text-transform: capitalize;
   }
   .status {
     overflow: hidden;
@@ -177,7 +188,10 @@
   }
   .color-palette {
     position: absolute;
-    top: .75rem;
+    top: .5rem;
     right: 1rem;
+  }
+  .paint-brush:after {
+    content: none;
   }
 </style>

@@ -25,6 +25,7 @@
     color: #2c3e50;
     // margin-top: 60px;
   }
+
   .svg-icon {
     display: inline-flex;
     align-self: center;
@@ -32,14 +33,22 @@
     height: 1em;
     width: 1em;
   }
-
   .svg-icon svg {
     height:1em;
     width:1em;
   }
-
   .svg-icon.svg-baseline svg {
     bottom: -0.125em;
     position: absolute;
+  }
+
+  button {
+    cursor: pointer;
+  }
+  .font-small {
+    font-size: 14px;
+  }
+  .c-pointer {
+    cursor: pointer;
   }
 </style>
