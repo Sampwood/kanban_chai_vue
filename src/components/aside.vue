@@ -366,10 +366,15 @@
   .attach-file {
     width: 100px;
   }
+  .attach-file input {
+    min-width: 0;
+    height: 80%;
+  }
   .attach-file label {
     position: absolute;
     top: 0;
     cursor: pointer;
+    width: 100%;
   }
   .userpic {
     width: 20px;
