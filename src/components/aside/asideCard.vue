@@ -34,14 +34,7 @@
       <div class="card-title-content">
         <div class="textarea-content pr-5" contenteditable="true">Special title treatment</div>
         <div class="color-palette">
-          <div class="dropdown">
-            <button class="btn btn-sm btn-link dropdown-toggle paint-brush" data-toggle="dropdown">
-              <icon name="paint-brush"></icon>
-            </button>
-            <div class="mt-0 dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Actio</a>
-            </div>
-          </div>
+          <color-palette></color-palette>  
         </div>
       </div>
       <hr class="my-0 mx-3">
@@ -55,13 +48,14 @@
 <script>
   import 'vue-awesome/icons/check-circle'
   import 'vue-awesome/icons/trash-o'
-  import 'vue-awesome/icons/paint-brush'
   import colourTag from '../common/colourTag'
+  import colorPalette from '../common/colorPalette'
 
   export default {
     name: 'asideCardChai',
     components: {
-      'colour-tag': colourTag
+      'colour-tag': colourTag,
+      'color-palette': colorPalette
     },
     data () {
       return {
@@ -190,8 +184,5 @@
     position: absolute;
     top: .5rem;
     right: 1rem;
-  }
-  .paint-brush:after {
-    content: none;
   }
 </style>

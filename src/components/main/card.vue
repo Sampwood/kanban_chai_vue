@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="card-labels flex">
-        <div class="color-label"><span class="color-label-text">Blue</span></div>
+        <colour-tag bg-color="blue" tag-text="Blue" class="color-label"></colour-tag>
         <div class="priority card-label-item">
           <icon name="thermometer-0"></icon>
           <span class="priority-text">Normal</span>
@@ -68,6 +68,7 @@
   import 'vue-awesome/icons/comments'
   import 'vue-awesome/icons/paperclip'
   import 'vue-awesome/icons/align-left'
+  import colourTag from '../common/colourTag'
 
   export default {
     name: 'card',
@@ -96,6 +97,9 @@
       showDetailInfo () {
         this.updateShowDetail({type: CARD, key: this.cardData.key})
       }
+    },
+    components: {
+      'colour-tag': colourTag
     }
   }
 </script>
@@ -125,35 +129,6 @@
   }
   .color-label {
     margin-left: -.5rem;
-    padding: 0 10px 0 8px;
-    position: relative;
-
-    color: white;
-    background-color: #007bff;
-  }
-  .color-label-text {
-    background-color: inherit;
-    vertical-align: middle;
-  }
-  .color-label-text:before {
-    content: '';
-    position: absolute;
-    right: 0;
-    width: 10px;
-    height: 10px;
-    background-color: inherit;
-    border-right: 5px solid;
-    border-top: 10px solid transparent;
-  }
-  .color-label-text:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 10px;
-    height: 10px;
-    background-color: inherit;
-    border-right: 5px solid;
-    border-bottom: 10px solid transparent;
   }
   .card-label-item {
     margin-left: .5rem;
