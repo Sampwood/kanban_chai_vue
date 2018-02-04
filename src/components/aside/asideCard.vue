@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="header-line d-flex m-3">
-      <div class="color-label dropdown">
-        <a class="color-label-text dropdown-toggle text-white pl-3" href="#" data-toggle="dropdown">Blue</a>
+      <div class="dropdown">
+        <colour-tag class="color-label dropdown-toggle" data-toggle="dropdown" bg-color="blue" tag-text="Blue"></colour-tag>
         <div class="mt-2 dropdown-menu font-small">
           <div class="dropdown-item">No colour tag</div>
           <div class="dropdown-item" v-for="colour in colours" :key="colour">
@@ -71,38 +71,23 @@
   }
   .color-label {
     margin-left: -1rem;
-    padding-right: 1rem;
-    position: relative;
-
-    color: white;
-    background-color: #007bff;
+    font-size: 1rem;
+    height: 24px;
+    vertical-align: baseline;
   }
-  .color-label-text {
-    background-color: inherit;
-    vertical-align: middle;
-    text-decoration: none;
-  }
-  .color-label-text:before {
-    content: '';
-    position: absolute;
-    right: 0;
-    width: 12px;
+  .color-label:before {
+    right: -6px;
     height: 12px;
-    background-color: inherit;
-    border-right: 6px solid;
-    border-top: 12px solid transparent;
-  }
-  .color-label-text:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
     width: 12px;
+    border-right-width: 6px;
+    border-top-width: 12px;
+  }
+  .color-label:after {
+    right: -6px;
     height: 12px;
-    background-color: inherit;
-    border-right: 6px solid;
-    border-bottom: 12px solid transparent;
-    border-top: none;
+    width: 12px;
+    border-right-width: 6px;
+    border-top-width: 12px;
   }
   .colour-content {
     text-transform: capitalize;

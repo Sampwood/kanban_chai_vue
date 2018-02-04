@@ -34,7 +34,8 @@
     top: 0;
     height: 10px;
     width: 10px;
-    border-right: 5px solid transparent !important;
+    border-right: 5px solid;
+    border-right-color: transparent !important;
     border-top: 10px solid;
     border-bottom: none;
   }
@@ -45,7 +46,8 @@
     right: -5px;
     height: 10px;
     width: 10px;
-    border-right: 5px solid transparent !important;
+    border-right: 5px solid;
+    border-right-color: transparent !important;
     border-bottom: 10px solid;
     border-top: none;
   }
