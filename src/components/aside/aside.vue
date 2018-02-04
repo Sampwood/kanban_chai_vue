@@ -1,6 +1,6 @@
 <template>
   <div class="aside-container">
-    <ul class="nav nav-tabs px-3 pt-3" role="tablist">
+    <ul class="nav nav-tabs pt-3 pl-3 pr-5" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#details" role="tab">Card Details</a>
       </li>
@@ -26,6 +26,9 @@
       </div>
       <div class="tab-pane" id="activity" role="tabpanel">activity</div>
     </div>
+    <button type="button" class="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   </div>
 </template>
@@ -56,6 +59,12 @@
 <style scoped>
   .aside-container {
     height: 100%;
+    position: relative;
+  }
+  .close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
   }
   .tab-content {
     height: calc(100% - 60px);

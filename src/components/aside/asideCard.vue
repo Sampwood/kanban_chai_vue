@@ -70,6 +70,7 @@
     height: 24px;
   }
   .color-label {
+    cursor: pointer;
     margin-left: -1rem;
     font-size: 1rem;
     height: 24px;
