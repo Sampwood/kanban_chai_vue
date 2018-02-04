@@ -3,7 +3,7 @@
     <header class="mb-3">
       <strong>Checklist</strong>
     </header>
-    <div class="mb-3">
+    <div class="mb-3" :class="{'d-none': !hasItems}">
       <div class="d-flex justify-content-between checklist-status">
         <strong><span>0</span>% done</strong>
         <div>0 of 1</div>
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-sm btn-light border border-secondary">Add an item</button>
+    <button class="btn btn-sm btn-light border border-secondary" @click="hasItems=!hasItems">Add an item</button>
   </div>
 </template>
 
@@ -29,7 +29,12 @@
   import 'vue-awesome/icons/trash-o'
 
   export default {
-    name: 'asideChecklistChai'
+    name: 'asideChecklistChai',
+    data () {
+      return {
+        hasItems: false
+      }
+    }
   }
 </script>
 
