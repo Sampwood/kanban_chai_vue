@@ -95,7 +95,11 @@
         event.dataTransfer.setData('sectionKey', this.$parent.sectionData.key)
       },
       showDetailInfo () {
-        this.updateShowDetail({type: CARD, key: this.cardData.key})
+        this.updateShowDetail({
+          type: CARD,
+          sectionKey: this.$parent.sectionData.key,
+          cardKey: this.cardData.key
+        })
       }
     },
     components: {

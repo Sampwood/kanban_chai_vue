@@ -1,22 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import wilddogServer from './wilddogSDK'
+
+import * as wilddogServer from './wilddogSDK'
+import * as staticDataServer from './dev/dataServer'
+import { CARD } from './data-type.js'
 
 // 获取数据
-// import data from './dataServer'
-const sync = wilddogServer.sync()
-let uid
+let server
 
 Vue.use(Vuex)
 
 // 创建一个对象来保存应用启动时的初始状态
 const state = {
-  // sections: data.sections,
   sections: [],
   cardForm: {
-    category: '',
+    key: '1',
+    category: 'Feature',
     title: '',
     description: ''
+  },
+  isShowDetail: false,
+  asideDetail: {
+    isShow: false,
+    type: '',
+    key: ''
   }
 }
 
@@ -30,71 +37,66 @@ const mutations = {
   },
   addCard (state, { section, card }) {
     section.cards.push(card)
+  },
+  updateShowDetail (state, detailData) {
+    if (detailData.type === CARD) {
+      let key = detailData.sectionKey + '-' + detailData.cardKey
+      if (detailData.type === state.asideDetail.type && key === state.asideDetail.key) {
+        state.asideDetail.isShow = false
+        state.asideDetail.type = ''
+        state.asideDetail.key = ''
+      } else {
+        state.asideDetail.isShow = true
+        state.asideDetail.type = detailData.type
+        state.asideDetail.key = key
+      }
+    }
   }
 }
 
 // 用于更改状态的action函数，能获取异步数据
 const actions = {
   loginAction (context, formData) {
-    wilddogServer.auth().signInWithEmailAndPassword(formData.email, formData.password)
-      .then(function (res) {
-        formData.callback ? formData.callback() : ''
-        uid = wilddogServer.auth().currentUser.uid
-      }).catch(function (error) {
-        // 错误处理
-        console.error(error)
-      })
+    server.login(formData)
   },
   getSections ({ commit }) {
-    sync.ref(`${uid}/sections`).on('value', function (snapshot) {
-      commit('initSections', snapshot.val() ? snapshot.val() : [])
+    server.getSections(function (snapshot) {
+      commit('initSections', snapshot || [])
     })
   },
-  postSection (context, section) {
-    sync.ref(`${uid}/sections`).push(section)
+  postSection ({ dispatch }, section) {
+    server.postSection(section, () => dispatch('getSections'))
   },
-  postCard ({ state }, { sectionKey }) {
-    let card = {
-      createDate: new Date().toLocaleString()
-    }
-    card = Object.assign(card, state.cardForm)
-    sync.ref(`${uid}/sections/${sectionKey}/cards`).push(card)
+  postCard ({ dispatch }, { sectionKey, cardTitle }) {
+    server.postCard(sectionKey, cardTitle, () => dispatch('getSections'))
   },
-  updateCardParentSection ({ state }, {cardKey, oldSectionKey, newSectionKey}) {
-    let cardData = state.sections[oldSectionKey].cards[cardKey]
-    sync.ref(`${uid}/sections`).update({
-      [`${oldSectionKey}/cards/${cardKey}`]: null,
-      [`${newSectionKey}/cards/${cardKey}`]: cardData
-    })
+  updateCardParentSection ({ dispatch }, {cardKey, oldSectionKey, newSectionKey}) {
+    server.updateCardParentSection(cardKey, oldSectionKey, newSectionKey, () => dispatch('getSections'))
   }
 }
 
 // 用于获取state的值
 const getters = {
   getterSections (state) {
-    let data = state.sections
-    let sections = []
-    if (data) {
-      for (let sectionKey of Object.keys(data)) {
-        let section = Object.assign({key: sectionKey}, data[sectionKey])
-        if (section.cards) {
-          let cardList = []
-          for (let cardKey of Object.keys(section.cards)) {
-            let card = Object.assign({key: cardKey}, section.cards[cardKey])
-            cardList.push(card)
-          }
-          section.cards = cardList
-        }
-        sections.push(section)
-      }
-    }
-    return sections
+    return state.sections
+  },
+  getterShowDetail (state) {
+    return state.asideDetail.isShow
   }
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state,
   mutations,
   actions,
   getters
 })
+
+export default function (env) {
+  if (env === 'pro') {
+    server = wilddogServer
+  } else {
+    server = staticDataServer
+  }
+  return store
+}
