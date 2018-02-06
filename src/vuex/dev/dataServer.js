@@ -66,7 +66,7 @@ export function postCard (sectionKey, cardTitle, callback) {
   }
   let section = dashboardData.sections.filter(section => section.key === sectionKey)[0]
   let newKey = section.cards.length + 1 + ''
-  card = Object.assign(card, cardDemo, {title: cardTitle, key: newKey})
+  card = Object.assign(card, {title: cardTitle, key: newKey})
   section.cards.push(card)
   callback()
 }

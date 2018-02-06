@@ -4,8 +4,8 @@
       <div class="dropdown">
         <colour-tag class="color-label dropdown-toggle" data-toggle="dropdown" bg-color="blue" tag-text="Blue"></colour-tag>
         <div class="mt-2 dropdown-menu font-small">
-          <div class="dropdown-item">No colour tag</div>
-          <div class="dropdown-item" v-for="colour in colours" :key="colour">
+          <div class="dropdown-item" v-text="colours[0]"></div>
+          <div class="dropdown-item" v-for="colour in colours.filter((i,j) => j > 0)" :key="colour">
             <colour-tag :bg-color="colour"></colour-tag>
             <span class="colour-content" v-text="colour"></span>
           </div>
@@ -27,19 +27,19 @@
       </div>
       <div class="position-info pl-3">
         <div class="position-title">Card in list</div>
-        <div class="position-detail">Doing</div>
+        <div class="position-detail" v-text="sectionTitle"></div>
       </div>
     </div>
     <div class="card-detail">
       <div class="card-title-content">
-        <div class="textarea-content pr-5" contenteditable="true">Special title treatment</div>
+        <div class="textarea-content pr-5" contenteditable="true" v-text="cardData.title"></div>
         <div class="color-palette">
           <color-palette></color-palette>  
         </div>
       </div>
       <hr class="my-0 mx-3">
       <div class="card-description">
-        <div class="textarea-content" contenteditable="true">Hello, world</div>
+        <div class="textarea-content description" contenteditable="true" v-text="cardData.description" placeholder="Edit card description"></div>
       </div>
     </div>
   </div>
@@ -50,6 +50,7 @@
   import 'vue-awesome/icons/trash-o'
   import colourTag from '../common/colourTag'
   import colorPalette from '../common/colorPalette'
+  import { COLOURS } from '@/vuex/data-type'
 
   export default {
     name: 'asideCardChai',
@@ -59,7 +60,16 @@
     },
     data () {
       return {
-        colours: ['blue', 'orange', 'cyan', 'yellow', 'pink', 'purple', 'red', 'green']
+        colours: COLOURS
+      }
+    },
+    props: {
+      cardData: {
+        required: true
+      },
+      sectionTitle: {
+        type: String,
+        required: true
       }
     }
   }
@@ -165,6 +175,11 @@
   }
   .textarea-content:focus {
     outline: none;
+  }
+  .description:empty:not(:focus):before {
+    content: attr(placeholder);
+    font-size: 14px;
+    color: rgba(38,50,56,.5);
   }
   .color-palette {
     position: absolute;

@@ -6,8 +6,6 @@ import { CARD } from '../data-type.js'
 Vue.use(Vuex)
 
 import dashboardData from './dataServer'
-// const labels = ['No colour label', 'Blue', 'Orange', 'Cyan', 'Yellow', 'Pink', 'Purple', 'Red', 'Green']
-// const priority = ['No priority', 'Low', 'Normal', 'Medium', 'High', 'Critical']
 
 // 创建一个对象来保存应用启动时的初始状态
 const state = {

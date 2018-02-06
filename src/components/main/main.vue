@@ -15,7 +15,7 @@
         </div>
       </div>
     </article>
-    <aside class="detail" :class="{'d-none': !getterShowDetail}">
+    <aside class="detail" v-if="getterShowDetail.isShow">
       <aside-chai></aside-chai>
     </aside>
   </main>

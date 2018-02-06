@@ -3,7 +3,7 @@
     <header class="mb-3">
       <strong>Checklist</strong>
     </header>
-    <div class="mb-3" :class="{'d-none': !hasItems}">
+    <div class="mb-3" v-if="hasItems">
       <div class="d-flex justify-content-between checklist-status">
         <strong><span>0</span>% done</strong>
         <div>0 of 1</div>

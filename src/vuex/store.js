@@ -19,11 +19,11 @@ const state = {
     title: '',
     description: ''
   },
-  isShowDetail: false,
   asideDetail: {
     isShow: false,
     type: '',
-    key: ''
+    sectionKey: '',
+    cardKey: ''
   }
 }
 
@@ -40,15 +40,16 @@ const mutations = {
   },
   updateShowDetail (state, detailData) {
     if (detailData.type === CARD) {
-      let key = detailData.sectionKey + '-' + detailData.cardKey
-      if (detailData.type === state.asideDetail.type && key === state.asideDetail.key) {
+      if (detailData.type === state.asideDetail.type && detailData.sectionKey === state.asideDetail.sectionKey && detailData.cardKey === state.asideDetail.cardKey) {
         state.asideDetail.isShow = false
         state.asideDetail.type = ''
-        state.asideDetail.key = ''
+        state.asideDetail.sectionKey = ''
+        state.asideDetail.cardKey = ''
       } else {
         state.asideDetail.isShow = true
         state.asideDetail.type = detailData.type
-        state.asideDetail.key = key
+        state.asideDetail.sectionKey = detailData.sectionKey
+        state.asideDetail.cardKey = detailData.cardKey
       }
     }
   }
@@ -81,7 +82,7 @@ const getters = {
     return state.sections
   },
   getterShowDetail (state) {
-    return state.asideDetail.isShow
+    return state.asideDetail
   }
 }
 

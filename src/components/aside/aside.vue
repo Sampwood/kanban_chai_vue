@@ -10,7 +10,7 @@
     </ul>
     <div class="tab-content text-left">
       <div class="tab-pane active mt-3" id="details" role="tabpanel">
-        <aside-card></aside-card>
+        <aside-card :card-data="cardData" :section-title="sectionData.title"></aside-card>
         <hr>
         <aside-priority></aside-priority>
         <hr>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   import asideCardChai from './asideCard'
   import asidePriorityChai from './asidePriority'
   import asideTimingChai from './asideTiming'
@@ -44,6 +46,33 @@
 
   export default {
     name: 'asideChai',
+    computed: {
+      ...mapGetters([
+        'getterSections',
+        'getterShowDetail'
+      ]),
+      sectionData: function () {
+        let section = this.getterSections.filter(section => section.key === this.getterShowDetail.sectionKey)[0]
+
+        if (!section) {
+          console.error('no related section founded!')
+          return {}
+        }
+        return section
+      },
+      cardData: function () {
+        if (!this.sectionData.cards) {
+          return {}
+        }
+        let card = this.sectionData.cards.filter(card => card.key === this.getterShowDetail.cardKey)[0]
+
+        if (!card) {
+          console.error('no related card founded!')
+          return {}
+        }
+        return card
+      }
+    },
     components: {
       'aside-card': asideCardChai,
       'aside-priority': asidePriorityChai,
