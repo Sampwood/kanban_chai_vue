@@ -26,6 +26,7 @@
     position: relative;
     padding: 0 8px;
     color: white;
+    text-transform: capitalize;
   }
   .colour:before {
     content: '';
@@ -98,5 +99,12 @@
   }
   .green:before, .green:after {
     border-color: var(--green);
+  }
+  .gray {
+    background: var(--gray);
+    Text-transform: none;
+  }
+  .gray:before, .gray:after {
+    border-color: var(--gray);
   }
 </style>

@@ -5,7 +5,7 @@ import Icon from 'vue-awesome/components/Icon'
 
 import App from './App'
 import Kanban from '@/components/kanban'
-import storeFactory from './vuex/store'
+import store from './vuex/store'
 
 Vue.config.productionTip = false
 
@@ -21,8 +21,6 @@ const router = new Router({
     }
   ]
 })
-
-const store = storeFactory('dev')
 
 /* eslint-disable no-new */
 new Vue({

@@ -2,12 +2,11 @@
   <div>
     <div class="header-line d-flex m-3">
       <div class="dropdown">
-        <colour-tag class="color-label dropdown-toggle" data-toggle="dropdown" bg-color="blue" tag-text="Blue"></colour-tag>
+        <colour-tag class="color-label dropdown-toggle" data-toggle="dropdown" :bg-color="labelColor" :tag-text="labelText"></colour-tag>
         <div class="mt-2 dropdown-menu font-small">
-          <div class="dropdown-item" v-text="colours[0]"></div>
-          <div class="dropdown-item" v-for="colour in colours.filter((i,j) => j > 0)" :key="colour">
-            <colour-tag :bg-color="colour"></colour-tag>
-            <span class="colour-content" v-text="colour"></span>
+          <div class="dropdown-item c-pointer" v-for="(colour, index) in colours" :key="colour" @click="selectColourTag(index)">
+            <colour-tag :bg-color="colour" v-if="index > 0"></colour-tag>
+            <span :class="{'colour-content': index > 0}" v-text="colour"></span>
           </div>
         </div>
       </div>
@@ -70,6 +69,24 @@
       sectionTitle: {
         type: String,
         required: true
+      }
+    },
+    computed: {
+      labelColor: function () {
+        let labelNum = this.cardData.colourLabelNum
+        if (labelNum && labelNum > 0) {
+          return this.colours[labelNum]
+        }
+        return 'gray'
+      },
+      labelText: function () {
+        let labelNum = this.cardData.colourLabelNum || 0
+        return this.colours[labelNum]
+      }
+    },
+    methods: {
+      selectColourTag: function (index) {
+        console.log(index)
       }
     }
   }

@@ -9,6 +9,9 @@ const sync = wilddogServer.sync()
 let uid
 let sections = []
 
+export function auth () {
+  return wilddogServer.auth()
+}
 export function login (formData) {
   wilddogServer.auth().signInWithEmailAndPassword(formData.email, formData.password)
     .then(function (res) {

@@ -3,7 +3,7 @@ const cardDemo = {
   title: 'Special title treatment',
   description: 'With supporting text below as a natural lead-in to additional content.',
   pipNum: -1,
-  labelNum: 0,
+  colourLabelNum: 1,
   priority: 0,
   assignee: null,
   startDate: null,
@@ -50,6 +50,9 @@ const dashboardData = {
   sectionTitle: ''
 }
 
+export function auth () {
+  return {currentUser: 'Sampwood'}
+}
 export function login (formData) {
   // TODO
 }
@@ -89,5 +92,8 @@ export function updateCardParentSection (cardKey, oldSectionKey, newSectionKey, 
   if (card) {
     newSection.cards.push(card)
   }
+  callback()
+}
+export function updateCardData (cardData, callback) {
   callback()
 }

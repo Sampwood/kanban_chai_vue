@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import * as wilddogServer from './wilddogSDK'
-import * as staticDataServer from './dev/dataServer'
+// import * as server from './wilddogSDK'
+import * as server from './dev/dataServer'
 import { CARD } from './data-type.js'
-
-// 获取数据
-let server
 
 Vue.use(Vuex)
 
@@ -73,6 +70,9 @@ const actions = {
   },
   updateCardParentSection ({ dispatch }, {cardKey, oldSectionKey, newSectionKey}) {
     server.updateCardParentSection(cardKey, oldSectionKey, newSectionKey, () => dispatch('getSections'))
+  },
+  updateCardData ({ dispatch }, cardData) {
+    server.updateCardData(cardData, () => dispatch('getSections'))
   }
 }
 
@@ -86,18 +86,9 @@ const getters = {
   }
 }
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
   state,
   mutations,
   actions,
   getters
 })
-
-export default function (env) {
-  if (env === 'pro') {
-    server = wilddogServer
-  } else {
-    server = staticDataServer
-  }
-  return store
-}

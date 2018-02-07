@@ -5,14 +5,12 @@ import Icon from 'vue-awesome/components/Icon'
 import WildVue from 'wildvue'
 import App from './App'
 import router from './router'
-import storeFactory from './vuex/store'
+import store from './vuex/store'
 
 Vue.config.productionTip = false
 
 Vue.component('icon', Icon)
 Vue.use(WildVue)
-
-const store = storeFactory('pro')
 
 /* eslint-disable no-new */
 new Vue({
