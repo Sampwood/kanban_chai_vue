@@ -17,7 +17,7 @@ const cardDemo = {
   activity: [
     {
       type: 'created new card',
-      time: new Date().toLocaleString(),
+      time: new Date(),
       content: null
     }
   ]
