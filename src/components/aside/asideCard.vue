@@ -10,12 +10,12 @@
           </div>
         </div>
       </div>
-      <div class="status">
+      <div class="status ml-auto">
         <span class="status-progress"></span>
         <icon name="check-circle"></icon>
         <span class="status-text">50%</span>
       </div>
-      <div class="delete-icon ml-auto mr-0">
+      <div class="delete-icon mr-0">
         <icon name="trash-o"></icon>
       </div>
     </div>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import 'vue-awesome/icons/check-circle'
   import 'vue-awesome/icons/trash-o'
   import colourTag from '../common/colourTag'
@@ -73,20 +74,28 @@
     },
     computed: {
       labelColor: function () {
-        let labelNum = this.cardData.colourLabelNum
+        let labelNum = this.cardData.colourTagNum
         if (labelNum && labelNum > 0) {
           return this.colours[labelNum]
         }
         return 'gray'
       },
       labelText: function () {
-        let labelNum = this.cardData.colourLabelNum || 0
+        let labelNum = this.cardData.colourTagNum || 0
         return this.colours[labelNum]
       }
     },
     methods: {
+      ...mapActions([
+        'updateCardData'
+      ]),
       selectColourTag: function (index) {
-        console.log(index)
+        this.updateCardData({
+          sectionKey: this.$parent.sectionData.key,
+          cardKey: this.cardData.key,
+          key: 'colourTagNum',
+          value: index
+        })
       }
     }
   }
@@ -124,7 +133,7 @@
     overflow: hidden;
     border: 1px solid #c8e6c9;
     background-color: unset;
-    margin-left: 2rem;
+    margin-right: 2rem;
     position: relative;
     padding: 0 1rem 0 1.5rem;
     border-radius: 12px;

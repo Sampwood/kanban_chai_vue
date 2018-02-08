@@ -26,7 +26,7 @@
       </div>
       <div class="tab-pane" id="activity" role="tabpanel">activity</div>
     </div>
-    <button type="button" class="close">
+    <button type="button" class="close" @click="closeAside()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
 
   import asideCardChai from './asideCard'
   import asidePriorityChai from './asidePriority'
@@ -43,6 +43,7 @@
   import asideTagsChai from './asideTags'
   import asideAttachmentsChai from './asideAttachments'
   import asideCommentsChai from './asideComments'
+  import { CLOSE } from '../../vuex/data-type.js'
 
   export default {
     name: 'asideChai',
@@ -81,6 +82,14 @@
       'aside-tags': asideTagsChai,
       'aside-attachments': asideAttachmentsChai,
       'aside-comments': asideCommentsChai
+    },
+    methods: {
+      ...mapMutations([
+        'updateShowDetail'
+      ]),
+      closeAside () {
+        this.updateShowDetail({type: CLOSE})
+      }
     }
   }
 </script>

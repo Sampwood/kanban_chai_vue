@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 // import * as server from './wilddogSDK'
 import * as server from './dev/dataServer'
-import { CARD } from './data-type.js'
+import { CARD, CLOSE } from './data-type.js'
 
 Vue.use(Vuex)
 
@@ -36,12 +36,11 @@ const mutations = {
     section.cards.push(card)
   },
   updateShowDetail (state, detailData) {
-    if (detailData.type === CARD) {
+    if (detailData.type === CLOSE) {
+      state.asideDetail = {isShow: false}
+    } else if (detailData.type === CARD) {
       if (detailData.type === state.asideDetail.type && detailData.sectionKey === state.asideDetail.sectionKey && detailData.cardKey === state.asideDetail.cardKey) {
-        state.asideDetail.isShow = false
-        state.asideDetail.type = ''
-        state.asideDetail.sectionKey = ''
-        state.asideDetail.cardKey = ''
+        state.asideDetail = {isShow: false}
       } else {
         state.asideDetail.isShow = true
         state.asideDetail.type = detailData.type
@@ -71,8 +70,8 @@ const actions = {
   updateCardParentSection ({ dispatch }, {cardKey, oldSectionKey, newSectionKey}) {
     server.updateCardParentSection(cardKey, oldSectionKey, newSectionKey, () => dispatch('getSections'))
   },
-  updateCardData ({ dispatch }, cardData) {
-    server.updateCardData(cardData, () => dispatch('getSections'))
+  updateCardData ({ dispatch }, {sectionKey, cardKey, key, value}) {
+    server.updateCardData(sectionKey, cardKey, key, value, () => dispatch('getSections'))
   }
 }
 

@@ -3,7 +3,7 @@ const cardDemo = {
   title: 'Special title treatment',
   description: 'With supporting text below as a natural lead-in to additional content.',
   pipNum: -1,
-  colourLabelNum: 1,
+  colourTagNum: 1,
   priority: 0,
   assignee: null,
   startDate: null,
@@ -94,6 +94,10 @@ export function updateCardParentSection (cardKey, oldSectionKey, newSectionKey, 
   }
   callback()
 }
-export function updateCardData (cardData, callback) {
+export function updateCardData (sectionKey, cardKey, key, value, callback) {
+  let card = dashboardData.sections.filter(section => section.key === sectionKey)
+    .map(section => section.cards).reduce((result, item) => result.concat(item), [])
+    .filter(card => card.key === cardKey)[0]
+  card[key] = value
   callback()
 }
