@@ -4,6 +4,7 @@ const cardDemo = {
   description: 'With supporting text below as a natural lead-in to additional content.',
   pipNum: -1,
   colourTagNum: 1,
+  bgColorNum: -1,
   priority: 0,
   assignee: null,
   startDate: null,

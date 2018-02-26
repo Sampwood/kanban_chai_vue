@@ -31,21 +31,15 @@
         <div class="position-detail" v-text="sectionTitle"></div>
       </div>
     </div>
-    <div class="card-detail" :class="{'card-descr-edit': isEditDescr}">
+    <div class="card-detail" :class="[detailEdit, detailBgColor]">
       <div class="card-title-content">
         <div class="textarea-content pr-5" contenteditable="true" v-text="cardData.title" @keyup.enter="updateTitle"
           @keydown.enter.prevent></div>
         <div class="color-palette">
-          <color-palette></color-palette>  
+          <color-palette :select="selectBg"></color-palette>  
         </div>
       </div>
       <hr class="my-0 mx-3">
-      <div class="card-description d-none">
-        <div class="textarea-content">
-          <div v-for="descriptionText in descriptionHtml" v-text="descriptionText"></div>
-        </div>
-        <textarea class="textarea-content" v-model="descr" placeholder="Edit card description" @click="editDescr"></textarea>
-      </div>
       <div class="card-description" @click="editDescr">
         <autosize-textarea v-model="descr" class="textarea-content" placeholder="Edit card description"></autosize-textarea>
       </div>
@@ -64,7 +58,7 @@
   import colourTag from '../common/colourTag'
   import colorPalette from '../common/colorPalette'
   import autosizeTextarea from '../common/autosizeTextarea'
-  import { COLOURS } from '@/vuex/data-type'
+  import { ALL_COLOURS, COLOURS } from '@/vuex/data-type'
 
   export default {
     name: 'asideCardChai',
@@ -75,9 +69,10 @@
     },
     data () {
       return {
+        allColours: ALL_COLOURS,
         colours: COLOURS,
         isEditDescr: false,
-        descr: 'hello'
+        descr: this.cardData.description
       }
     },
     props: {
@@ -104,8 +99,11 @@
       createTime: function () {
         return this.cardData.activity[0].time.toLocaleString()
       },
-      descriptionHtml () {
-        return this.descr.split('\n')
+      detailEdit: function () {
+        return this.isEditDescr ? 'card-descr-edit' : ''
+      },
+      detailBgColor: function () {
+        return this.cardData.bgColorNum > -1 ? 'bg-' + this.allColours[this.cardData.bgColorNum] : ''
       }
     },
     methods: {
@@ -131,12 +129,15 @@
         this.isEditDescr = true
       },
       saveDescr () {
-        console.log(this.descr)
         this.changeCardData('description', this.descr)
         this.isEditDescr = false
       },
       cancelEdit () {
         this.isEditDescr = false
+        this.descr = this.cardData.description
+      },
+      selectBg (index) {
+        this.changeCardData('bgColorNum', index)
       }
     }
   }
@@ -242,6 +243,7 @@
     width: 100%;
     resize: none;
     overflow: hidden;
+    background: transparent;
   }
   .textarea-content {
     border: none;

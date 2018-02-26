@@ -51,4 +51,40 @@
   .c-pointer {
     cursor: pointer;
   }
+  .bg-light {
+    background: var(--light);
+  }
+  .bg-blue {
+    background: var(--blue);
+  }
+  .bg-indigo {
+    background: var(--indigo);
+  }
+  .bg-purple {
+    background: var(--purple);
+  }
+  .bg-pink {
+    background: var(--pink);
+  }
+  .bg-red {
+    background: var(--red);
+  }
+  .bg-orange {
+    background: var(--orange);
+  }
+  .bg-yellow {
+    background: var(--yellow);
+  }
+  .bg-green {
+    background: var(--green);
+  }
+  .bg-teal {
+    background: var(--teal);
+  }
+  .bg-cyan {
+    background: var(--cyan);
+  }
+  .bg-gray {
+    background: var(--gray);
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="colour" :class="bgColor" v-text="tagText"></div>
+  <div class="colour" :class="'bg-'+bgColor" v-text="tagText"></div>
 </template>
 
 <script>
@@ -52,59 +52,31 @@
     border-bottom: 10px solid;
     border-top: none;
   }
-  .blue {
-    background: var(--blue);
-  }
-  .blue:before, .blue:after {
+  .bg-blue:before, .bg-blue:after {
     border-color: var(--blue);
   }
-  .orange {
-    background: var(--orange);
-  }
-  .orange:before, .orange:after {
+  .bg-orange:before, .bg-orange:after {
     border-color: var(--orange);
   }
-  .cyan {
-    background: var(--cyan);
-  }
-  .cyan:before, .cyan:after {
+  .bg-cyan:before, .bg-cyan:after {
     border-color: var(--cyan);
   }
-  .yellow {
-    background: var(--yellow);
-  }
-  .yellow:before, .yellow:after {
+  .bg-yellow:before, .bg-yellow:after {
     border-color: var(--yellow);
   }
-  .pink {
-    background: var(--pink);
-  }
-  .pink:before, .pink:after {
+  .bg-pink:before, .bg-pink:after {
     border-color: var(--pink);
   }
-  .purple {
-    background: var(--purple);
-  }
-  .purple:before, .purple:after {
+  .bg-purple:before, .bg-purple:after {
     border-color: var(--purple);
   }
-  .red {
-    background: var(--red);
-  }
-  .red:before, .red:after {
+  .bg-red:before, .bg-red:after {
     border-color: var(--red);
   }
-  .green {
-    background: var(--green);
-  }
-  .green:before, .green:after {
+  .bg-green:before, .bg-green:after {
     border-color: var(--green);
   }
-  .gray {
-    background: var(--gray);
-    Text-transform: none;
-  }
-  .gray:before, .gray:after {
+  .bg-gray:before, .bg-gray:after {
     border-color: var(--gray);
   }
 </style>

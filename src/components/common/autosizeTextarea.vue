@@ -8,15 +8,20 @@
   export default {
     name: 'autosizeTextarea',
     props: ['value', 'placeholder'],
+    methods: {
+      updateValue: function (value) {
+        this.$emit('input', value)
+      }
+    },
     mounted: function () {
       this.$nextTick(function () {
         autosize(this.$el)
       })
     },
-    methods: {
-      updateValue: function (value) {
-        this.$emit('input', value)
-      }
+    updated: function () {
+      this.$nextTick(function () {
+        autosize.update(this.$el)
+      })
     }
   }
 </script>
