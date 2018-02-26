@@ -65,12 +65,14 @@ export function postSection (section, callback) {
   callback()
 }
 export function postCard (sectionKey, cardTitle, callback) {
-  let card = {
-    createDate: new Date().toLocaleString()
-  }
   let section = dashboardData.sections.filter(section => section.key === sectionKey)[0]
   let newKey = section.cards.length + 1 + ''
-  card = Object.assign(card, {title: cardTitle, key: newKey})
+  let card = {
+    title: cardTitle,
+    key: newKey,
+    createDate: new Date().toLocaleString()
+  }
+  card = Object.assign(cardDemo, card)
   section.cards.push(card)
   callback()
 }
