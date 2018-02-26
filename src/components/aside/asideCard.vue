@@ -40,11 +40,14 @@
         </div>
       </div>
       <hr class="my-0 mx-3">
-      <div class="card-description">
-        <textarea class="textarea-content" v-model="descr" placeholder="Edit card description" @click="editDescr"></textarea>
+      <div class="card-description d-none">
         <div class="textarea-content">
           <div v-for="descriptionText in descriptionHtml" v-text="descriptionText"></div>
         </div>
+        <textarea class="textarea-content" v-model="descr" placeholder="Edit card description" @click="editDescr"></textarea>
+      </div>
+      <div class="card-description" @click="editDescr">
+        <autosize-textarea v-model="descr" class="textarea-content" placeholder="Edit card description"></autosize-textarea>
       </div>
       <div class="p-3 confirm-buttons" v-if="isEditDescr">
         <button type="button" class="btn btn-primary btn-sm" @click="saveDescr">save changes</button>
@@ -60,13 +63,15 @@
   import 'vue-awesome/icons/trash-o'
   import colourTag from '../common/colourTag'
   import colorPalette from '../common/colorPalette'
+  import autosizeTextarea from '../common/autosizeTextarea'
   import { COLOURS } from '@/vuex/data-type'
 
   export default {
     name: 'asideCardChai',
     components: {
       'colour-tag': colourTag,
-      'color-palette': colorPalette
+      'color-palette': colorPalette,
+      'autosize-textarea': autosizeTextarea
     },
     data () {
       return {
@@ -232,15 +237,11 @@
   .card-title-content {
     position: relative;
   }
-  .card-description {
-    position: relative;
-  }
   .card-description textarea {
-    height: auto;
+    height: 100%;
     width: 100%;
     resize: none;
     overflow: hidden;
-    position: absolute;
   }
   .textarea-content {
     border: none;
@@ -253,9 +254,6 @@
   .textarea-content:focus {
     outline: none;
   }
-  .textarea-content div {
-    min-height: 24px;
-  }
   .color-palette {
     position: absolute;
     top: .5rem;
@@ -263,5 +261,6 @@
   }
   .confirm-buttons {
     background: #e9f5fe;
+    border-radius: 4px;
   }
 </style>
