@@ -43,7 +43,7 @@
   import asideTagsChai from './asideTags'
   import asideAttachmentsChai from './asideAttachments'
   import asideCommentsChai from './asideComments'
-  import { CLOSE } from '../../vuex/data-type.js'
+  import { CLOSE } from '@/vuex/data-type'
 
   export default {
     name: 'asideChai',
@@ -56,7 +56,7 @@
         let section = this.getterSections.filter(section => section.key === this.getterShowDetail.sectionKey)[0]
 
         if (!section) {
-          console.error('no related section founded!')
+          console.warn('no related section founded!')
           return {}
         }
         return section
@@ -68,7 +68,7 @@
         let card = this.sectionData.cards.filter(card => card.key === this.getterShowDetail.cardKey)[0]
 
         if (!card) {
-          console.error('no related card founded!')
+          console.warn('no related card founded!')
           return {}
         }
         return card

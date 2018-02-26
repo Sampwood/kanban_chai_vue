@@ -17,7 +17,7 @@
         <icon name="check-circle"></icon>
         <span class="status-text">50%</span>
       </div>
-      <div class="delete-icon mr-0">
+      <div class="delete-icon mr-0 c-pointer" @click="deleteThisCard">
         <icon name="trash-o"></icon>
       </div>
     </div>
@@ -52,13 +52,13 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
   import 'vue-awesome/icons/check-circle'
   import 'vue-awesome/icons/trash-o'
   import colourTag from '../common/colourTag'
   import colorPalette from '../common/colorPalette'
   import autosizeTextarea from '../common/autosizeTextarea'
-  import { ALL_COLOURS, COLOURS } from '@/vuex/data-type'
+  import { ALL_COLOURS, COLOURS, CLOSE } from '@/vuex/data-type'
 
   export default {
     name: 'asideCardChai',
@@ -108,7 +108,10 @@
     },
     methods: {
       ...mapActions([
-        'updateCardData'
+        'updateCardData', 'deleteCard'
+      ]),
+      ...mapMutations([
+        'updateShowDetail'
       ]),
       changeCardData (key, value) {
         this.updateCardData({
@@ -138,6 +141,10 @@
       },
       selectBg (index) {
         this.changeCardData('bgColorNum', index)
+      },
+      deleteThisCard () {
+        this.deleteCard({sectionKey: this.$parent.sectionData.key, cardKey: this.cardData.key})
+        this.updateShowDetail({type: CLOSE})
       }
     }
   }

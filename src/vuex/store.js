@@ -72,6 +72,9 @@ const actions = {
   },
   updateCardData ({ dispatch }, {sectionKey, cardKey, key, value}) {
     server.updateCardData(sectionKey, cardKey, key, value, () => dispatch('getSections'))
+  },
+  deleteCard ({ dispatch }, {sectionKey, cardKey}) {
+    server.deleteCard(sectionKey, cardKey, () => dispatch('getSections'))
   }
 }
 

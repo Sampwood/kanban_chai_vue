@@ -102,3 +102,16 @@ export function updateCardData (sectionKey, cardKey, key, value, callback) {
   card[key] = value
   callback()
 }
+export function deleteCard (sectionKey, cardKey) {
+  for (let section of dashboardData.sections) {
+    if (section.key === sectionKey) {
+      for (let i = 0; i < section.cards.length; i++) {
+        if (section.cards[i].key === cardKey) {
+          section.cards.splice(i, 1)
+          break
+        }
+      }
+      break
+    }
+  }
+}
