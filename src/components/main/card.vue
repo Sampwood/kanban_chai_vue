@@ -6,9 +6,8 @@
     <div class="card-body">
       <div class="card-labels flex">
         <colour-tag bg-color="blue" tag-text="Blue" class="color-label"></colour-tag>
-        <div class="priority card-label-item">
-          <icon name="thermometer-0"></icon>
-          <span class="priority-text">Normal</span>
+        <div class="card-label-item" v-if="cardData.priority > 0">
+          <priority :text="priorities[cardData.priority]" :level="cardData.priority"></priority>
         </div>
         <checklist-status :progress="1"></checklist-status>
       </div>
@@ -53,10 +52,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
-  import { CARD } from '../../vuex/data-type.js'
-  import 'vue-awesome/icons/sticky-note-o'
-  import 'vue-awesome/icons/thermometer-0'
-  import 'vue-awesome/icons/check-circle'
+  import { CARD, PRIORITY } from '@/vuex/data-type'
   import 'vue-awesome/icons/hourglass-start'
   import 'vue-awesome/icons/hourglass-end'
   import 'vue-awesome/icons/clock-o'
@@ -66,12 +62,14 @@
   import 'vue-awesome/icons/align-left'
   import colourTag from '../common/colourTag'
   import checklistStatus from '../common/checklistStatus'
+  import priority from '../common/priority'
 
   export default {
     name: 'card',
     data () {
       return {
-        attachmentUrl: require('@/assets/img/zoro.jpg')
+        attachmentUrl: require('@/assets/img/zoro.jpg'),
+        priorities: PRIORITY
       }
     },
     props: {
@@ -101,7 +99,8 @@
     },
     components: {
       'colour-tag': colourTag,
-      'checklist-status': checklistStatus
+      'checklist-status': checklistStatus,
+      priority
     }
   }
 </script>
@@ -134,17 +133,8 @@
   }
   .card-label-item {
     margin-left: .5rem;
-    position: relative;
-    padding: 0 10px 0 22px;
     border-radius: 10px;
-    color: #28a745;
-    background-color: #e8f5e9;
-  }
-  .card-label-item svg {
-    height: 20px;
-    width: 12px;
-    position: absolute;
-    left: 6px;
+    overflow: hidden;
   }
   .card-icon {
     color: rgba(38,50,56,.5);

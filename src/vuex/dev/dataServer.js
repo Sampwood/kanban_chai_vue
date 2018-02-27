@@ -5,7 +5,7 @@ const cardDemo = {
   pipNum: -1,
   colourTagNum: 1,
   bgColorNum: -1,
-  priority: 0,
+  priority: 1,
   assignee: null,
   startDate: null,
   dueDate: null,

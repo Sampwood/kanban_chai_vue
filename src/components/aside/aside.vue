@@ -10,9 +10,9 @@
     </ul>
     <div class="tab-content text-left">
       <div class="tab-pane active mt-3" id="details" role="tabpanel">
-        <aside-card :card-data="cardData" :section-title="sectionData.title"></aside-card>
+        <aside-card :card-data="cardData" :section-title="sectionData.title" :update-data="changeCardData"></aside-card>
         <hr>
-        <aside-priority></aside-priority>
+        <aside-priority :card-data="cardData" :update-data="changeCardData"></aside-priority>
         <hr>
         <aside-timing></aside-timing>
         <hr>
@@ -34,8 +34,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
-
+  import { mapActions, mapGetters, mapMutations } from 'vuex'
   import asideCardChai from './asideCard'
   import asidePriorityChai from './asidePriority'
   import asideTimingChai from './asideTiming'
@@ -84,11 +83,22 @@
       'aside-comments': asideCommentsChai
     },
     methods: {
+      ...mapActions([
+        'updateCardData'
+      ]),
       ...mapMutations([
         'updateShowDetail'
       ]),
       closeAside () {
         this.updateShowDetail({type: CLOSE})
+      },
+      changeCardData (cardKey, key, value) {
+        this.updateCardData({
+          sectionKey: this.sectionData.key,
+          cardKey,
+          key,
+          value
+        })
       }
     }
   }

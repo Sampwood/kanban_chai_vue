@@ -5,7 +5,7 @@
         <colour-tag class="color-label dropdown-toggle" data-toggle="dropdown" :bg-color="labelColor"
           :tag-text="labelText"></colour-tag>
         <div class="mt-2 dropdown-menu font-small">
-          <div class="dropdown-item c-pointer" v-for="(colour, index) in colours" :key="colour"
+          <div class="dropdown-item c-pointer" v-for="(colour, index) in tagColours" :key="colour"
             @click="selectColourTag(index)">
             <colour-tag :bg-color="colour" v-if="index > 0"></colour-tag>
             <span :class="{'colour-content': index > 0}" v-text="colour"></span>
@@ -50,14 +50,14 @@
 </template>
 
 <script>
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapMutations } from 'vuex'
   import 'vue-awesome/icons/check-circle'
   import 'vue-awesome/icons/trash-o'
   import colourTag from '../common/colourTag'
   import colorPalette from '../common/colorPalette'
   import autosizeTextarea from '../common/autosizeTextarea'
   import checklistStatus from '../common/checklistStatus'
-  import { ALL_COLOURS, COLOURS, CLOSE } from '@/vuex/data-type'
+  import { ALL_COLOURS, TAG_COLOURS, CLOSE } from '@/vuex/data-type'
 
   export default {
     name: 'asideCardChai',
@@ -70,7 +70,7 @@
     data () {
       return {
         allColours: ALL_COLOURS,
-        colours: COLOURS,
+        tagColours: TAG_COLOURS,
         isEditDescr: false,
         descr: this.cardData.description
       }
@@ -82,19 +82,23 @@
       sectionTitle: {
         type: String,
         required: true
+      },
+      updateData: {
+        type: Function,
+        required: true
       }
     },
     computed: {
       labelColor: function () {
         let labelNum = this.cardData.colourTagNum
         if (labelNum && labelNum > 0) {
-          return this.colours[labelNum]
+          return this.tagColours[labelNum]
         }
         return 'gray'
       },
       labelText: function () {
         let labelNum = this.cardData.colourTagNum || 0
-        return this.colours[labelNum]
+        return this.tagColours[labelNum]
       },
       createTime: function () {
         return this.cardData.activity[0].time.toLocaleString()
@@ -107,32 +111,21 @@
       }
     },
     methods: {
-      ...mapActions([
-        'updateCardData', 'deleteCard'
-      ]),
       ...mapMutations([
         'updateShowDetail'
       ]),
-      changeCardData (key, value) {
-        this.updateCardData({
-          sectionKey: this.$parent.sectionData.key,
-          cardKey: this.cardData.key,
-          key: key,
-          value: value
-        })
-      },
       selectColourTag: function (index) {
-        this.changeCardData('colourTagNum', index)
+        this.updateData(this.cardData.key, 'colourTagNum', index)
       },
       updateTitle (event) {
         let cardTitle = event.target.innerText
-        this.changeCardData('title', cardTitle)
+        this.updateData(this.cardData.key, 'title', cardTitle)
       },
       editDescr () {
         this.isEditDescr = true
       },
       saveDescr () {
-        this.changeCardData('description', this.descr)
+        this.updateData(this.cardData.key, 'description', this.descr)
         this.isEditDescr = false
       },
       cancelEdit () {
@@ -140,7 +133,7 @@
         this.descr = this.cardData.description
       },
       selectBg (index) {
-        this.changeCardData('bgColorNum', index)
+        this.updateData(this.cardData.key, 'bgColorNum', index)
       },
       deleteThisCard () {
         this.deleteCard({sectionKey: this.$parent.sectionData.key, cardKey: this.cardData.key})
