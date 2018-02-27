@@ -14,7 +14,7 @@
         <hr>
         <aside-priority :card-data="cardData" :update-data="changeCardData"></aside-priority>
         <hr>
-        <aside-timing></aside-timing>
+        <aside-timing :card-data="cardData"></aside-timing>
         <hr>
         <aside-checklist></aside-checklist>
         <hr>

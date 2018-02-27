@@ -7,7 +7,7 @@ const cardDemo = {
   bgColorNum: -1,
   priority: 1,
   assignee: null,
-  startDate: null,
+  startDate: new Date(),
   dueDate: null,
   estimate: 0,
   spendTime: 0,
