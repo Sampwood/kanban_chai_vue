@@ -12,13 +12,11 @@
           </div>
         </div>
       </div>
-      <div class="status ml-auto">
-        <span class="status-progress"></span>
-        <icon name="check-circle"></icon>
-        <span class="status-text">50%</span>
-      </div>
-      <div class="delete-icon mr-0 c-pointer" @click="deleteThisCard">
-        <icon name="trash-o"></icon>
+      <div class="d-flex ml-auto">
+        <checklist-status class="checklist" :progress="1"></checklist-status>
+        <div class="delete-icon mr-0 c-pointer" @click="deleteThisCard">
+          <icon name="trash-o"></icon>
+        </div>
       </div>
     </div>
     <div class="create-position d-flex m-3">
@@ -58,6 +56,7 @@
   import colourTag from '../common/colourTag'
   import colorPalette from '../common/colorPalette'
   import autosizeTextarea from '../common/autosizeTextarea'
+  import checklistStatus from '../common/checklistStatus'
   import { ALL_COLOURS, COLOURS, CLOSE } from '@/vuex/data-type'
 
   export default {
@@ -65,7 +64,8 @@
     components: {
       'colour-tag': colourTag,
       'color-palette': colorPalette,
-      'autosize-textarea': autosizeTextarea
+      'autosize-textarea': autosizeTextarea,
+      'checklist-status': checklistStatus
     },
     data () {
       return {
@@ -178,35 +178,8 @@
   .colour-content {
     text-transform: capitalize;
   }
-  .status {
-    overflow: hidden;
-    border: 1px solid #c8e6c9;
-    background-color: unset;
-    margin-right: 2rem;
-    position: relative;
-    padding: 0 1rem 0 1.5rem;
-    border-radius: 12px;
-    color: #28a745;
-
-  }
-  .status svg {
-    width: 22px;
-    height: 22px;
-    left: 0;
-    position: absolute;
-  }
-  .status-progress {
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-
-    width: 50%;
-    background-color: #c8e6c9;
-  }
-  .status-text {
-    position: relative;
+  .checklist {
+    margin: auto 1rem;
   }
   .delete-icon svg {
     width: 1rem;

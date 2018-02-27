@@ -10,11 +10,7 @@
           <icon name="thermometer-0"></icon>
           <span class="priority-text">Normal</span>
         </div>
-        <div class="status card-label-item">
-          <span class="status-progress"></span>
-          <icon name="check-circle"></icon>
-          <span class="status-text">50%</span>
-        </div>
+        <checklist-status :progress="1"></checklist-status>
       </div>
       <div class="card-dates flex card-icon">
         <div class="start-date">
@@ -69,6 +65,7 @@
   import 'vue-awesome/icons/paperclip'
   import 'vue-awesome/icons/align-left'
   import colourTag from '../common/colourTag'
+  import checklistStatus from '../common/checklistStatus'
 
   export default {
     name: 'card',
@@ -103,7 +100,8 @@
       }
     },
     components: {
-      'colour-tag': colourTag
+      'colour-tag': colourTag,
+      'checklist-status': checklistStatus
     }
   }
 </script>
@@ -147,30 +145,6 @@
     width: 12px;
     position: absolute;
     left: 6px;
-  }
-  .status {
-    overflow: hidden;
-    border: 1px solid #c8e6c9;
-    height: 20px;
-    background-color: unset;
-  }
-  .status svg {
-    width: 18px;
-    height: 18px;
-    left: 0;
-  }
-  .status-progress {
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-
-    width: 50%;
-    background-color: #c8e6c9;
-  }
-  .status-text {
-    position: relative;
   }
   .card-icon {
     color: rgba(38,50,56,.5);
