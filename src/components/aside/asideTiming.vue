@@ -4,19 +4,22 @@
       <div class="form-group row">
         <label for="startDate" class="col-sm-4 col-form-label col-form-label-sm">Start date</label>
         <div class="col-sm-8">
-          <input type="datetime-local" class="form-control form-control-sm" id="startDate" :value="startDate">
+          <input type="datetime-local" class="form-control form-control-sm" :value="startDate"
+            @input="updateStartDate($event.target.value)">
         </div>
       </div>
       <div class="form-group row">
         <label for="dueDate" class="col-sm-4 col-form-label col-form-label-sm">Due date</label>
         <div class="col-sm-8">
-          <input type="datetime-local" class="form-control form-control-sm" id="dueDate" :value="dueDate">
+          <input type="datetime-local" class="form-control form-control-sm" :value="dueDate"
+            @input="updateDueDate($event.target.value)">
         </div>
       </div>
       <div class="form-group row">
         <label for="estimate" class="col-sm-4 col-form-label col-form-label-sm">Estimate(h)</label>
         <div class="col-sm-8">
-          <input type="number" class="form-control form-control-sm" id="estimate" :value="cardData.estimate">
+          <input type="number" class="form-control form-control-sm" :value="cardData.estimate"
+            @input="updateEstimate($event.target.value)">
         </div>
       </div>
       <div class="form-group row">
@@ -36,6 +39,10 @@
     props: {
       cardData: {
         required: true
+      },
+      updateData: {
+        type: Function,
+        required: true
       }
     },
     computed: {
@@ -53,14 +60,26 @@
         }
         let month = time.getMonth() + 1
         month = month > 9 ? month : '0' + month
-        return time.getFullYear() + '-' + month + '-' + time.getDate() + 'T' + time.getHours() + ':' + time.getMinutes()
+        let date = time.getDate()
+        date = date > 9 ? date : '0' + date
+        let hour = time.getHours()
+        hour = hour > 9 ? hour : '0' + hour
+        let minute = time.getMinutes()
+        minute = minute > 9 ? minute : '0' + minute
+        return time.getFullYear() + '-' + month + '-' + date + 'T' + hour + ':' + minute
+      },
+      updateStartDate (value) {
+        this.updateData(this.cardData.key, 'startDate', new Date(value))
+      },
+      updateDueDate (value) {
+        this.updateData(this.cardData.key, 'dueDate', new Date(value))
+      },
+      updateEstimate (value) {
+        this.updateData(this.cardData.key, 'estimate', value)
       }
     }
   }
 </script>
 
 <style scoped>
-  .timing {
-    width: 80%
-  }
 </style>
