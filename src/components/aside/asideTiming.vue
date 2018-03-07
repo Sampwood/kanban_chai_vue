@@ -25,8 +25,12 @@
       <div class="form-group row">
         <label for="spentTime" class="col-sm-4 col-form-label col-form-label-sm">Spent time(h)</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control-plaintext form-control-sm" readonly id="spentTime"
-            :value="cardData.spendTime">
+          <div class="d-flex spend-time" v-if="show">
+            <input type="number" class="form-control-plaintext form-control-sm" readonly :value="cardData.spendTime">
+            <button type="button" class="btn btn-success btn-sm" @click="showLogTime">Log Time</button>
+          </div>
+          <input type="number" class="form-control form-control-sm" v-model="spendTime"
+            @keyup.enter="logTime" @keyup.esc="show = true" @blur="show = true" v-if="!show" v-focus>
         </div>
       </div>
     </form>
@@ -36,6 +40,12 @@
 <script>
   export default {
     name: 'asideTimingChai',
+    data () {
+      return {
+        show: true,
+        spendTime: 0
+      }
+    },
     props: {
       cardData: {
         required: true
@@ -76,10 +86,29 @@
       },
       updateEstimate (value) {
         this.updateData(this.cardData.key, 'estimate', value)
+      },
+      logTime () {
+        this.updateData(this.cardData.key, 'spendTime', this.cardData.spendTime + parseFloat(this.spendTime))
+        this.show = true
+      },
+      showLogTime () {
+        this.show = false
+      }
+    },
+    // 自定义指令
+    directives: {
+      // 获得焦点指令
+      focus: {
+        inserted: function (el) {
+          el.focus()
+        }
       }
     }
   }
 </script>
 
 <style scoped>
+  .spend-time {
+    justify-content: space-between
+  }
 </style>
