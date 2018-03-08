@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import 'bootstrap/js/src/modal'
   import $ from 'jquery'
 
   export default {
