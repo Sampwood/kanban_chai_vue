@@ -68,7 +68,7 @@
     name: 'card',
     data () {
       return {
-        attachmentUrl: require('@/assets/img/zoro.jpg'),
+        attachmentUrl: require('../../assets/img/zoro.jpg'),
         priorities: PRIORITY
       }
     },
