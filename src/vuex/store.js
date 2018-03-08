@@ -28,6 +28,7 @@ const state = {
 const mutations = {
   initSections (state, sections) {
     state.sections = sections
+    console.log(sections)
   },
   updateCardForm (state, { key, value }) {
     state.cardForm[key] = value
@@ -75,6 +76,9 @@ const actions = {
   },
   deleteCard ({ dispatch }, {sectionKey, cardKey}) {
     server.deleteCard(sectionKey, cardKey, () => dispatch('getSections'))
+  },
+  postListInCard ({dispatch}, {sectionKey, cardKey, key, item}) {
+    server.postListInCard(sectionKey, cardKey, key, item, () => dispatch('getSections'))
   }
 }
 

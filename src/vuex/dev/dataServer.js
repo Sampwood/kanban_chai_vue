@@ -1,27 +1,29 @@
-const cardDemo = {
-  key: '0',
-  title: 'Special title treatment',
-  description: 'With supporting text below as a natural lead-in to additional content.',
-  pipNum: -1,
-  colourTagNum: 1,
-  bgColorNum: -1,
-  priority: 1,
-  assignee: null,
-  startDate: new Date(),
-  dueDate: null,
-  estimate: 0,
-  spendTime: 0,
-  items: [],
-  tags: [],
-  attachments: [],
-  comments: [],
-  activity: [
-    {
-      type: 'created new card',
-      time: new Date(),
-      content: null
-    }
-  ]
+const cardDemo = function () {
+  return {
+    key: '0',
+    title: 'Special title treatment',
+    description: 'With supporting text below as a natural lead-in to additional content.',
+    pipNum: -1,
+    colourTagNum: 1,
+    bgColorNum: -1,
+    priority: 1,
+    assignee: null,
+    startDate: new Date(),
+    dueDate: null,
+    estimate: 0,
+    spendTime: 0,
+    checklist: [],
+    tags: [],
+    attachments: [],
+    comments: [],
+    activity: [
+      {
+        type: 'created new card',
+        time: new Date(),
+        content: null
+      }
+    ]
+  }
 }
 
 const dashboardData = {
@@ -29,26 +31,37 @@ const dashboardData = {
     {
       key: '0',
       title: 'To Do',
-      cards: [Object.assign({}, cardDemo)]
+      cards: [cardDemo()]
     },
     {
       key: '1',
       title: 'Ongoing',
-      cards: [Object.assign({}, cardDemo)]
+      cards: [cardDemo()]
     },
     {
       key: '2',
       title: 'Blocked',
-      cards: [Object.assign({}, cardDemo)]
+      cards: [cardDemo()]
     },
     {
       key: '3',
       title: 'Done',
-      cards: [Object.assign({}, cardDemo)]
+      cards: [cardDemo()]
     }
   ],
   show: true,
   sectionTitle: ''
+}
+
+const getSection = function (sectionKey) {
+  return dashboardData.sections.filter(section => section.key === sectionKey)[0]
+}
+const getCard = function (sectionKey, cardKey) {
+  let section = getSection(sectionKey)
+  if (!section) {
+    return
+  }
+  return section.cards.filter(card => card.key === cardKey)[0]
 }
 
 export function auth () {
@@ -65,8 +78,8 @@ export function postSection (section, callback) {
   callback()
 }
 export function postCard (sectionKey, cardTitle, callback) {
-  let section = dashboardData.sections.filter(section => section.key === sectionKey)[0]
-  let newKey = section.cards.length + 1 + ''
+  let section = getSection(sectionKey)
+  let newKey = new Date().getTime() + ''
   let card = {
     title: cardTitle,
     key: newKey,
@@ -77,19 +90,13 @@ export function postCard (sectionKey, cardTitle, callback) {
   callback()
 }
 export function updateCardParentSection (cardKey, oldSectionKey, newSectionKey, callback) {
+  let cards = getSection(oldSectionKey).cards
   let card
-  let newSection
-  for (let section of dashboardData.sections) {
-    if (section.key === oldSectionKey) {
-      for (let i = 0; i < section.cards.length; i++) {
-        if (section.cards[i].key === cardKey) {
-          card = section.cards[i]
-          section.cards.splice(i, 1)
-        }
-      }
-    }
-    if (section.key === newSectionKey) {
-      newSection = section
+  let newSection = getSection(newSectionKey)
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i].key === cardKey) {
+      card = cards[i]
+      cards.splice(i, 1)
     }
   }
   if (card) {
@@ -98,22 +105,21 @@ export function updateCardParentSection (cardKey, oldSectionKey, newSectionKey, 
   callback()
 }
 export function updateCardData (sectionKey, cardKey, key, value, callback) {
-  let card = dashboardData.sections.filter(section => section.key === sectionKey)
-    .map(section => section.cards).reduce((result, item) => result.concat(item), [])
-    .filter(card => card.key === cardKey)[0]
+  let card = getCard(sectionKey, cardKey)
   card[key] = value
   callback()
 }
 export function deleteCard (sectionKey, cardKey) {
-  for (let section of dashboardData.sections) {
-    if (section.key === sectionKey) {
-      for (let i = 0; i < section.cards.length; i++) {
-        if (section.cards[i].key === cardKey) {
-          section.cards.splice(i, 1)
-          break
-        }
-      }
+  let section = getSection(sectionKey)
+  for (let i = 0; i < section.cards.length; i++) {
+    if (section.cards[i].key === cardKey) {
+      section.cards.splice(i, 1)
       break
     }
   }
+}
+export function postListInCard (sectionKey, cardKey, key, item, callback) {
+  let card = getCard(sectionKey, cardKey)
+  card[key].push(Object.assign({id: new Date().getTime()}, item))
+  callback()
 }

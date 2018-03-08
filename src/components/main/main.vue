@@ -70,12 +70,6 @@
     },
     // 自定义指令
     directives: {
-      // 获得焦点指令
-      focus: {
-        inserted: function (el) {
-          el.focus()
-        }
-      },
       scroll: {
         bind: function (el) {
           let horizontalWheel = function (event) {

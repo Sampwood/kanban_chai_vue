@@ -16,7 +16,7 @@
         <hr>
         <aside-timing :card-data="cardData" :update-data="changeCardData"></aside-timing>
         <hr>
-        <aside-checklist></aside-checklist>
+        <aside-checklist :card-data="cardData" :update-data="changeCardData" :post-item="postItem"></aside-checklist>
         <hr>
         <aside-tags></aside-tags>
         <hr>
@@ -84,7 +84,8 @@
     },
     methods: {
       ...mapActions([
-        'updateCardData'
+        'updateCardData',
+        'postListInCard'
       ]),
       ...mapMutations([
         'updateShowDetail'
@@ -98,6 +99,14 @@
           cardKey,
           key,
           value
+        })
+      },
+      postItem (cardKey, key, item) {
+        this.postListInCard({
+          sectionKey: this.sectionData.key,
+          cardKey,
+          key,
+          item
         })
       }
     }

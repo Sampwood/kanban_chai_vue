@@ -12,6 +12,12 @@ Vue.config.productionTip = false
 Vue.component('icon', Icon)
 Vue.use(WildVue)
 
+Vue.directive('focus', {
+  inserted: function (el) {
+    el.focus()
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   store,
