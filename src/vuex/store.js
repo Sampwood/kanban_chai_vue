@@ -79,6 +79,9 @@ const actions = {
   },
   postListInCard ({dispatch}, {sectionKey, cardKey, key, item}) {
     server.postListInCard(sectionKey, cardKey, key, item, () => dispatch('getSections'))
+  },
+  deleteListInCard ({dispatch}, {sectionKey, cardKey, key, id}) {
+    server.deleteListInCard(sectionKey, cardKey, key, id, () => dispatch('getSections'))
   }
 }
 

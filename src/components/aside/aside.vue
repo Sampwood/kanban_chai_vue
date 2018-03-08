@@ -18,7 +18,7 @@
         <hr>
         <aside-checklist :card-data="cardData" :update-data="changeCardData" :post-item="postItem"></aside-checklist>
         <hr>
-        <aside-tags></aside-tags>
+        <aside-tags :card-data="cardData" :post-item="postItem" :delete-item="deleteItem"></aside-tags>
         <hr>
         <aside-attachments></aside-attachments>
         <hr>
@@ -85,7 +85,8 @@
     methods: {
       ...mapActions([
         'updateCardData',
-        'postListInCard'
+        'postListInCard',
+        'deleteListInCard'
       ]),
       ...mapMutations([
         'updateShowDetail'
@@ -107,6 +108,14 @@
           cardKey,
           key,
           item
+        })
+      },
+      deleteItem (cardKey, key, id) {
+        this.deleteListInCard({
+          sectionKey: this.sectionData.key,
+          cardKey,
+          key,
+          id
         })
       }
     }

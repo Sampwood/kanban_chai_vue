@@ -123,3 +123,13 @@ export function postListInCard (sectionKey, cardKey, key, item, callback) {
   card[key].push(Object.assign({id: new Date().getTime()}, item))
   callback()
 }
+export function deleteListInCard (sectionKey, cardKey, key, id, callback) {
+  let card = getCard(sectionKey, cardKey)
+  for (let i = 0; i < card[key].length; i++) {
+    if (card[key][i].id === id) {
+      card[key].splice(i, 1)
+      break
+    }
+  }
+  callback()
+}
