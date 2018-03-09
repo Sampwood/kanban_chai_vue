@@ -19,7 +19,7 @@
           <span class="align-middle rounded-circle text-white bg-secondary weight-value" v-text="item.weight"></span>
           <input type="range" min="1" max="10" step="1" class="align-middle" :value="item.weight"
             @input="updateWeight($event.target.value, item.id)">
-          <div class="d-inline-block" @click="deleteItem(item.id)">
+          <div class="d-inline-block" @click="deleteChecklistItem(item.id)">
             <icon name="trash-o" class="align-middle c-pointer"></icon>
           </div>
         </div>
@@ -57,11 +57,15 @@
       cardData: {
         required: true
       },
-      updateData: {
+      postItem: {
         type: Function,
         required: true
       },
-      postItem: {
+      updateItem: {
+        type: Function,
+        required: true
+      },
+      deleteItem: {
         type: Function,
         required: true
       }
@@ -74,31 +78,17 @@
         this.hasItems = true
         this.postItem(this.cardData.key, 'checklist', item)
       },
-      updateItem (key, value, id) {
-        let checklist = Object.assign([], this.cardData.checklist)
-        for (let i = 0; i < checklist.length; i++) {
-          if (checklist[i].id === id) {
-            checklist[i][key] = value
-            break
-          }
-        }
-        this.updateData(this.cardData.key, 'checklist', checklist)
+      updateChecklist (key, value, id) {
+        this.updateItem(this.cardData.key, 'checklist', id, key, value)
       },
       updateWeight (value, id) {
-        this.updateItem('weight', parseInt(value), id)
+        this.updateChecklist('weight', parseInt(value), id)
       },
       updateStatus (value, id) {
-        this.updateItem('isDone', value, id)
+        this.updateChecklist('isDone', value, id)
       },
-      deleteItem (id) {
-        let checklist = Object.assign([], this.cardData.checklist)
-        for (let i = 0; i < checklist.length; i++) {
-          if (checklist[i].id === id) {
-            checklist.splice(i, 1)
-            break
-          }
-        }
-        this.updateData(this.cardData.key, 'checklist', checklist)
+      deleteChecklistItem (id) {
+        this.deleteItem(this.cardData.key, 'checklist', id)
       }
     }
   }

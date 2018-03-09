@@ -101,7 +101,7 @@
         return this.tagColours[labelNum]
       },
       createTime: function () {
-        return this.cardData.activity[0].time.toLocaleString()
+        return this.cardData.startDate.toLocaleString()
       },
       detailEdit: function () {
         return this.isEditDescr ? 'card-descr-edit' : ''

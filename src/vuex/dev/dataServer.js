@@ -14,7 +14,7 @@ const cardDemo = function () {
     spendTime: 0,
     checklist: [],
     tags: [],
-    attachments: [],
+    attachments: [{id: 0, name: 'avatar.jpg', isPin: true, path: '../../assets/img/zoro.jpg', uploadDate: new Date()}],
     comments: [],
     activity: [
       {
@@ -118,16 +118,26 @@ export function deleteCard (sectionKey, cardKey) {
     }
   }
 }
-export function postListInCard (sectionKey, cardKey, key, item, callback) {
+export function postListInCard (sectionKey, cardKey, listName, item, callback) {
   let card = getCard(sectionKey, cardKey)
-  card[key].push(Object.assign({id: new Date().getTime()}, item))
+  card[listName].push(Object.assign({id: new Date().getTime()}, item))
   callback()
 }
-export function deleteListInCard (sectionKey, cardKey, key, id, callback) {
+export function updateListInCard (sectionKey, cardKey, listName, id, key, value, callback) {
   let card = getCard(sectionKey, cardKey)
-  for (let i = 0; i < card[key].length; i++) {
-    if (card[key][i].id === id) {
-      card[key].splice(i, 1)
+  for (let i = 0; i < card[listName].length; i++) {
+    if (card[listName][i].id === id) {
+      card[listName][i][key] = value
+      break
+    }
+  }
+  callback()
+}
+export function deleteListInCard (sectionKey, cardKey, listName, id, callback) {
+  let card = getCard(sectionKey, cardKey)
+  for (let i = 0; i < card[listName].length; i++) {
+    if (card[listName][i].id === id) {
+      card[listName].splice(i, 1)
       break
     }
   }

@@ -1,22 +1,28 @@
 <template>
   <div class="m-3 font-small">
     <header class="mb-3"><strong>Attachments</strong></header>
-    <div class="attach-list pl-2 mb-3">
+    <div class="attach-list pl-2 mb-3" v-for="attachment in cardData.attachments" :key="attachment.id">
       <div class="attachment d-flex justify-content-between">
         <div>
           <icon name="picture-o" class="align-middle"></icon>
-          <span>avatar.jpg</span>
-          <icon name="thumb-tack" class="align-middle"></icon>
+          <span>{{ attachment.name }}</span>
+          <icon name="thumb-tack" class="align-middle" v-if="attachment.isPin"></icon>
         </div>
         <div class="attach-action">
-          <icon name="thumb-tack" class="align-middle"></icon>
-          <span>Unpin</span>
-          <icon name="download" class="align-middle"></icon>
-          <span>Download</span>
-          <icon name="trash-o" class="align-middle" onclick="alert(1)"></icon>
+          <div class="mr-1" @click="updatePin(attachment.id, attachment.isPin)">
+            <icon name="thumb-tack" class="align-middle"></icon>
+            <span>{{ attachment.isPin ? 'Unpin' : 'Pin' }}</span>
+          </div>
+          <div class="mr-1">
+            <icon name="download" class="align-middle"></icon>
+            <span>Download</span>
+          </div>
+          <div>
+            <icon name="trash-o" class="align-middle" onclick="alert(1)"></icon>
+          </div>
         </div>
         <div class="attach-info">
-          <span>31.01.2018</span>
+          <span>{{ attachment.uploadDate.toLocaleDateString() }}</span>
           <img class="userpic" src="../../../static/avatar.jpg">
         </div>
       </div>
@@ -35,7 +41,21 @@
   import 'vue-awesome/icons/trash-o'
 
   export default {
-    name: 'asideAttachmentsChai'
+    name: 'asideAttachmentsChai',
+    props: {
+      cardData: {
+        required: true
+      },
+      updateItem: {
+        type: Function,
+        required: true
+      }
+    },
+    methods: {
+      updatePin (id, isPin) {
+        this.updateItem(this.cardData.key, 'attachments', id, 'isPin', !isPin)
+      }
+    }
   }
 </script>
 
@@ -47,7 +67,7 @@
     display: none;
   }
   .attachment:hover .attach-action {
-    display: block;
+    display: flex;
   }
   .attachment:hover .attach-info {
     display: none;

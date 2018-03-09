@@ -16,11 +16,12 @@
         <hr>
         <aside-timing :card-data="cardData" :update-data="changeCardData"></aside-timing>
         <hr>
-        <aside-checklist :card-data="cardData" :update-data="changeCardData" :post-item="postItem"></aside-checklist>
+        <aside-checklist :card-data="cardData" :post-item="postItem"
+          :update-item="updateItem" :delete-item="deleteItem"></aside-checklist>
         <hr>
         <aside-tags :card-data="cardData" :post-item="postItem" :delete-item="deleteItem"></aside-tags>
         <hr>
-        <aside-attachments></aside-attachments>
+        <aside-attachments :card-data="cardData" :update-item="updateItem"></aside-attachments>
         <hr>
         <aside-comments></aside-comments>
       </div>
@@ -86,6 +87,7 @@
       ...mapActions([
         'updateCardData',
         'postListInCard',
+        'updateListInCard',
         'deleteListInCard'
       ]),
       ...mapMutations([
@@ -102,19 +104,29 @@
           value
         })
       },
-      postItem (cardKey, key, item) {
+      postItem (cardKey, listName, item) {
         this.postListInCard({
           sectionKey: this.sectionData.key,
           cardKey,
-          key,
+          listName,
           item
         })
       },
-      deleteItem (cardKey, key, id) {
+      updateItem (cardKey, listName, id, key, value) {
+        this.updateListInCard({
+          sectionKey: this.sectionData.key,
+          cardKey,
+          listName,
+          id,
+          key,
+          value
+        })
+      },
+      deleteItem (cardKey, listName, id) {
         this.deleteListInCard({
           sectionKey: this.sectionData.key,
           cardKey,
-          key,
+          listName,
           id
         })
       }

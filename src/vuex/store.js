@@ -77,11 +77,14 @@ const actions = {
   deleteCard ({ dispatch }, {sectionKey, cardKey}) {
     server.deleteCard(sectionKey, cardKey, () => dispatch('getSections'))
   },
-  postListInCard ({dispatch}, {sectionKey, cardKey, key, item}) {
-    server.postListInCard(sectionKey, cardKey, key, item, () => dispatch('getSections'))
+  postListInCard ({dispatch}, {sectionKey, cardKey, listName, item}) {
+    server.postListInCard(sectionKey, cardKey, listName, item, () => dispatch('getSections'))
   },
-  deleteListInCard ({dispatch}, {sectionKey, cardKey, key, id}) {
-    server.deleteListInCard(sectionKey, cardKey, key, id, () => dispatch('getSections'))
+  updateListInCard ({dispatch}, {sectionKey, cardKey, listName, id, key, value}) {
+    server.updateListInCard(sectionKey, cardKey, listName, id, key, value, () => dispatch('getSections'))
+  },
+  deleteListInCard ({dispatch}, {sectionKey, cardKey, listName, id}) {
+    server.deleteListInCard(sectionKey, cardKey, listName, id, () => dispatch('getSections'))
   }
 }
 
