@@ -1,6 +1,6 @@
 <template>
   <div class="status">
-    <span class="status-progress" v-bind:style="{ width: progressText }"></span>
+    <span class="status-progress" v-bind:style="{ width: progressValue }"></span>
     <icon name="check-circle"></icon>
     <div class="status-text">
       <span v-text="progressText"></span>
@@ -20,6 +20,9 @@
       }
     },
     computed: {
+      progressValue () {
+        return this.progress * 100 + '%'
+      },
       progressText: function () {
         if (this.progress < 1) {
           return Math.round(this.progress * 100) + '%'
@@ -32,7 +35,6 @@
 
 <style scoped>
   .status {
-    margin-left: .5rem;
     position: relative;
     padding: 0 10px 0 22px;
     border-radius: 10px;

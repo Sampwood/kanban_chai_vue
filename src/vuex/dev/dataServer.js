@@ -12,6 +12,7 @@ const cardDemo = function () {
     dueDate: null,
     estimate: 0,
     spendTime: 0,
+    isDone: false,
     checklist: [],
     tags: [],
     attachments: [{id: 0, name: 'avatar.jpg', isPin: true, path: '../../assets/img/zoro.jpg', uploadDate: new Date()}],

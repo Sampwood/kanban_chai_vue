@@ -79,10 +79,10 @@
         return time.getFullYear() + '-' + month + '-' + date + 'T' + hour + ':' + minute
       },
       updateStartDate (value) {
-        this.updateData(this.cardData.key, 'startDate', new Date(value))
+        this.updateData(this.cardData.key, 'startDate', value ? new Date(value) : null)
       },
       updateDueDate (value) {
-        this.updateData(this.cardData.key, 'dueDate', new Date(value))
+        this.updateData(this.cardData.key, 'dueDate', value ? new Date(value) : null)
       },
       updateEstimate (value) {
         this.updateData(this.cardData.key, 'estimate', value)

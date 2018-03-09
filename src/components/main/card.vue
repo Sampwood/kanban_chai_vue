@@ -1,36 +1,36 @@
 <template>
   <div class="card text-left" draggable="true" @dragstart='drag' @click="showDetailInfo">
     <div class="card-header card-attachments">
-      <img class="card-img-top" :src="attachmentUrl" alt="attachment">
+      <img class="card-img-top" :src="attachmentUrl" alt="attachment" v-if="hasPin">
     </div>
     <div class="card-body">
-      <div class="card-labels flex">
-        <colour-tag bg-color="blue" tag-text="Blue" class="color-label"></colour-tag>
-        <div class="card-label-item" v-if="cardData.priority > 0">
+      <div class="card-labels flex" v-if="hasLabels">
+        <colour-tag :bg-color="labelColor" :tag-text="labelText" class="color-label" v-if="hasTag"></colour-tag>
+        <div class="card-label-item" v-if="hasPriority">
           <priority :text="priorities[cardData.priority]" :level="cardData.priority"></priority>
         </div>
-        <checklist-status :progress="1"></checklist-status>
+        <checklist-status :progress="progress" v-if="cardData.isDone || cardData.checklist.length"></checklist-status>
       </div>
-      <div class="card-dates flex card-icon">
-        <div class="start-date">
+      <div class="card-dates flex card-icon" v-if="startDate || dueDate || cardData.estimate">
+        <div class="start-date" v-if="startDate">
           <icon name="hourglass-start"></icon>
-          <span>25 Jan</span>
+          <span>{{ startDate }}</span>
         </div>
-        <div class="due-date">
+        <div class="due-date" v-if="dueDate">
           <icon name="hourglass-end"></icon>
-          <span>31 Jan</span>
+          <span>{{ dueDate }}</span>
         </div>
-        <div class="estimate">
+        <div class="estimate" v-if="cardData.estimate">
           <icon name="clock-o"></icon>
-          <span>50h</span>
+          <span>{{ cardData.estimate + 'h' }}</span>
         </div>
       </div>
       <div class="card-content">
         <p class="card-text card-title" v-text="cardData.title"></p>
-        <icon name="align-left" class="card-icon"></icon>
+        <icon name="align-left" class="card-icon" v-if="cardData.description"></icon>
       </div>
-      <div class="card-tags flex card-icon">
-        <span class="tag">DEMO</span>
+      <div class="card-tags flex card-icon" v-if="cardData.tags.length">
+        <span class="tag" v-for="tag in cardData.tags">{{ tag.text }}</span>
       </div>
       <div class="card-indicators flex card-icon">
         <div class="item-progress">
@@ -52,7 +52,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
-  import { CARD, PRIORITY } from '@/vuex/data-type'
+  import { CARD, TAG_COLOURS, PRIORITY } from '@/vuex/data-type'
   import 'vue-awesome/icons/hourglass-start'
   import 'vue-awesome/icons/hourglass-end'
   import 'vue-awesome/icons/clock-o'
@@ -69,7 +69,8 @@
     data () {
       return {
         attachmentUrl: require('../../assets/img/zoro.jpg'),
-        priorities: PRIORITY
+        priorities: PRIORITY,
+        tagColours: TAG_COLOURS
       }
     },
     props: {
@@ -79,6 +80,58 @@
       getDetail: {
         type: Function,
         default: function () {}
+      }
+    },
+    computed: {
+      hasPin () {
+        return this.cardData.attachments.length > 0 && this.cardData.attachments[0].isPin
+      },
+      hasTag () {
+        return this.cardData.colourTagNum > 0
+      },
+      hasPriority () {
+        return this.cardData.priority > 0
+      },
+      hasChecklist () {
+        return this.cardData.isDone || this.cardData.checklist.length
+      },
+      hasLabels () {
+        return this.hasTag || this.hasPriority || this.hasChecklist
+      },
+      labelColor: function () {
+        let labelNum = this.cardData.colourTagNum
+        if (labelNum && labelNum > 0) {
+          return this.tagColours[labelNum]
+        }
+        return 'gray'
+      },
+      labelText: function () {
+        let labelNum = this.cardData.colourTagNum || 0
+        return this.tagColours[labelNum]
+      },
+      progress () {
+        if (this.cardData.isDone) {
+          return 1
+        } else {
+          let itemOfDone = this.cardData.checklist.filter(item => item.isDone)
+          let done = itemOfDone.reduce((x, y) => x + y.weight, 0)
+          let all = this.cardData.checklist.reduce((x, y) => x + y.weight, 0)
+          return done / all
+        }
+      },
+      startDate () {
+        if (this.cardData.startDate) {
+          let tmp = this.cardData.startDate.toDateString().split(' ')
+          return tmp[2] + ' ' + tmp[1]
+        }
+        return
+      },
+      dueDate () {
+        if (this.cardData.dueDate) {
+          let tmp = this.cardData.dueDate.toDateString().split(' ')
+          return tmp[2] + ' ' + tmp[1]
+        }
+        return
       }
     },
     methods: {
@@ -132,7 +185,7 @@
     margin-left: -.5rem;
   }
   .card-label-item {
-    margin-left: .5rem;
+    margin-right: .5rem;
     border-radius: 10px;
     overflow: hidden;
   }

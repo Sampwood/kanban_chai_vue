@@ -21,7 +21,7 @@
   .colour {
     height: 20px;
     display: inline-block;
-    margin-right: .5rem;
+    margin-right: 1rem;
     vertical-align: middle;
     position: relative;
     padding: 0 8px;
