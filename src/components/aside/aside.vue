@@ -23,7 +23,7 @@
         <hr>
         <aside-attachments :card-data="cardData" :update-item="updateItem"></aside-attachments>
         <hr>
-        <aside-comments></aside-comments>
+        <aside-comments :card-data="cardData" :post-item="postItem"></aside-comments>
       </div>
       <div class="tab-pane" id="activity" role="tabpanel">activity</div>
     </div>

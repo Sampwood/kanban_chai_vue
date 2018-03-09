@@ -15,7 +15,7 @@ const cardDemo = function () {
     checklist: [],
     tags: [],
     attachments: [{id: 0, name: 'avatar.jpg', isPin: true, path: '../../assets/img/zoro.jpg', uploadDate: new Date()}],
-    comments: [],
+    comments: [{id: 0, message: 'hello', createDate: new Date()}],
     activity: [
       {
         type: 'created new card',

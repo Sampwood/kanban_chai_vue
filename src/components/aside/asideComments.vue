@@ -1,29 +1,62 @@
 <template>
   <div class="m-3 font-small">
-    <div class="comment-list">
+    <div class="comment-list" v-for="comment in cardData.comments" :key="comment.id">
       <div>
         <div class="d-flex justify-content-between">
           <img class="userpic" src="../../../static/avatar.jpg">
-          <span>31 Jan 2018 14:01</span>
+          <span>{{ comment.createDate.toLocaleString() }}</span>
         </div>
-        <p class="ml-4 p-2 rounded comment-content">hello</p>
+        <autosize-textarea class="ml-4 p-2 rounded comment-content" readonly :value="comment.message"></autosize-textarea>
       </div>
     </div>
     <div class="comment-form">
       <form>
         <div class="form-group">
-          <input type="text" class="form-control">
+          <autosize-textarea v-model="newComment" class="textarea-content form-control"></autosize-textarea>
         </div>
-        <button type="button" class="btn btn-sm btn-primary">Send</button>
-        <button type="button" class="btn btn-sm btn-light">Cancel</button>
+        <button type="button" class="btn btn-sm btn-primary" :disabled="hasComment" @click="submit">Send</button>
+        <button type="button" class="btn btn-sm btn-light" :disabled="hasComment" @click="cancel">Cancel</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+  import autosizeTextarea from '../common/autosizeTextarea'
+
   export default {
-    name: 'asideCommentsChai'
+    name: 'asideCommentsChai',
+    components: {
+      'autosize-textarea': autosizeTextarea
+    },
+    data () {
+      return {
+        newComment: ''
+      }
+    },
+    props: {
+      cardData: {
+        required: true
+      },
+      postItem: {
+        type: Function,
+        required: true
+      }
+    },
+    computed: {
+      hasComment () {
+        return this.newComment.trim().length < 1
+      }
+    },
+    methods: {
+      cancel () {
+        this.newComment = ''
+      },
+      submit () {
+        this.postItem(this.cardData.key, 'comments', {message: this.newComment, createDate: new Date()})
+        this.newComment = ''
+      }
+    }
   }
 </script>
 
