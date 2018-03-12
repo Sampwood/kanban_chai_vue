@@ -28,7 +28,6 @@ const state = {
 const mutations = {
   initSections (state, sections) {
     state.sections = sections
-    console.log(sections)
   },
   updateCardForm (state, { key, value }) {
     state.cardForm[key] = value
@@ -38,10 +37,11 @@ const mutations = {
   },
   updateShowDetail (state, detailData) {
     if (detailData.type === CLOSE) {
-      state.asideDetail = {isShow: false}
+      Object.assign(state.asideDetail, {isShow: false, type: '', sectionKey: '', cardKey: ''})
     } else if (detailData.type === CARD) {
-      if (detailData.type === state.asideDetail.type && detailData.sectionKey === state.asideDetail.sectionKey && detailData.cardKey === state.asideDetail.cardKey) {
-        state.asideDetail = {isShow: false}
+      if (detailData.type === state.asideDetail.type && detailData.sectionKey === state.asideDetail.sectionKey &&
+          detailData.cardKey === state.asideDetail.cardKey) {
+        Object.assign(state.asideDetail, {isShow: false, type: '', sectionKey: '', cardKey: ''})
       } else {
         state.asideDetail.isShow = true
         state.asideDetail.type = detailData.type
