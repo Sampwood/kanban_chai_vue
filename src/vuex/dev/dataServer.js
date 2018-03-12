@@ -86,7 +86,7 @@ export function postCard (sectionKey, cardTitle, callback) {
     key: newKey,
     createDate: new Date().toLocaleString()
   }
-  card = Object.assign(cardDemo, card)
+  card = Object.assign(cardDemo(), card)
   section.cards.push(card)
   callback()
 }

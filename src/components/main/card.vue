@@ -9,7 +9,7 @@
         <div class="card-label-item" v-if="hasPriority">
           <priority :text="priorities[cardData.priority]" :level="cardData.priority"></priority>
         </div>
-        <checklist-status :progress="progress" v-if="cardData.isDone || cardData.checklist.length"></checklist-status>
+        <checklist-status :progress="progress" v-if="hasChecklistStatus"></checklist-status>
       </div>
       <div class="card-dates flex card-icon" v-if="startDate || dueDate || cardData.estimate">
         <div class="start-date" v-if="startDate">
@@ -26,24 +26,24 @@
         </div>
       </div>
       <div class="card-content">
-        <p class="card-text card-title" v-text="cardData.title"></p>
+        <p class="card-text card-title mb-0" v-text="cardData.title"></p>
         <icon name="align-left" class="card-icon" v-if="cardData.description"></icon>
       </div>
-      <div class="card-tags flex card-icon" v-if="cardData.tags.length">
+      <div class="card-tags flex card-icon mb-0 mt-2" v-if="cardData.tags && cardData.tags.length">
         <span class="tag" v-for="tag in cardData.tags">{{ tag.text }}</span>
       </div>
-      <div class="card-indicators flex card-icon">
-        <div class="item-progress">
+      <div class="card-indicators flex card-icon mt-2" v-if="hasIndicators">
+        <div class="item-progress" v-if="cardData.checklist && cardData.checklist.length">
           <icon name="check-square-o"></icon>
-          <span>1/2</span>
+          <span>{{ checklistStatus }}</span>
         </div>
-        <div class="comments">
+        <div class="comments" v-if="cardData.comments && cardData.comments.length">
           <icon name="comments"></icon>
-          <span>1</span>
+          <span>{{ cardData.comments.length }}</span>
         </div>
-        <div class="attachments">
+        <div class="attachments" v-if="cardData.attachments && cardData.attachments.length">
           <icon name="paperclip"></icon>
-          <span>1</span>
+          <span>{{ cardData.attachments.length }}</span>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@
     },
     computed: {
       hasPin () {
-        return this.cardData.attachments.length > 0 && this.cardData.attachments[0].isPin
+        return this.cardData.attachments && this.cardData.attachments.length > 0 && this.cardData.attachments[0].isPin
       },
       hasTag () {
         return this.cardData.colourTagNum > 0
@@ -92,11 +92,23 @@
       hasPriority () {
         return this.cardData.priority > 0
       },
-      hasChecklist () {
-        return this.cardData.isDone || this.cardData.checklist.length
+      hasChecklistStatus () {
+        return this.cardData.isDone || this.hasChecklist
       },
       hasLabels () {
-        return this.hasTag || this.hasPriority || this.hasChecklist
+        return this.hasTag || this.hasPriority || this.hasChecklistStatus
+      },
+      hasChecklist () {
+        return this.checklist && this.cardData.checklist.length
+      },
+      hasComments () {
+        return this.cardData.comments && this.cardData.comments.length
+      },
+      hasAttachments () {
+        return this.cardData.attachment && this.cardData.attachments.lenght
+      },
+      hasIndicators () {
+        return this.hasChecklist || this.hasComments || this.hasAttachments
       },
       labelColor: function () {
         let labelNum = this.cardData.colourTagNum
@@ -132,6 +144,10 @@
           return tmp[2] + ' ' + tmp[1]
         }
         return
+      },
+      checklistStatus () {
+        let itemOfDone = this.cardData.checklist.filter(item => item.isDone)
+        return itemOfDone.length + '/' + this.cardData.checklist.length
       }
     },
     methods: {

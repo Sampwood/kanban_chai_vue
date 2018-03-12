@@ -101,6 +101,7 @@
         return this.tagColours[labelNum]
       },
       createTime: function () {
+        console.log(this.cardData)
         return this.cardData.activity[0].time.toLocaleString()
       },
       detailEdit: function () {
