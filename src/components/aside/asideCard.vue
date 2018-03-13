@@ -13,7 +13,11 @@
         </div>
       </div>
       <div class="d-flex ml-auto">
-        <checklist-status class="checklist" :progress="1"></checklist-status>
+        <checklist-status class="checklist" :progress="progress" v-if="hasChecklistStatus"></checklist-status>
+        <div class="align-middle font-small d-flex mr-2" v-if="!hasChecklistStatus">
+          <input type="checkbox" class="my-auto" @change="updateStatus">
+          <span class="my-auto">Mark as Done</span>
+        </div>
         <div class="delete-icon mr-0 c-pointer" @click="deleteThisCard">
           <icon name="trash-o"></icon>
         </div>
@@ -108,6 +112,19 @@
       },
       detailBgColor: function () {
         return this.cardData.bgColorNum > -1 ? 'bg-' + this.allColours[this.cardData.bgColorNum] : ''
+      },
+      hasChecklistStatus () {
+        return this.cardData.isDone || (this.cardData.checklist && this.cardData.checklist.length)
+      },
+      progress () {
+        if (this.cardData.isDone) {
+          return 1
+        } else {
+          let itemOfDone = this.cardData.checklist.filter(item => item.isDone)
+          let done = itemOfDone.reduce((x, y) => x + y.weight, 0)
+          let all = this.cardData.checklist.reduce((x, y) => x + y.weight, 0)
+          return done / all
+        }
       }
     },
     methods: {
@@ -138,6 +155,9 @@
       deleteThisCard () {
         this.deleteCard({sectionKey: this.$parent.sectionData.key, cardKey: this.cardData.key})
         this.updateShowDetail({type: CLOSE})
+      },
+      updateStatus () {
+        this.updateData(this.cardData.key, 'isDone', true)
       }
     }
   }

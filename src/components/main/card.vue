@@ -92,14 +92,14 @@
       hasPriority () {
         return this.cardData.priority > 0
       },
+      hasChecklist () {
+        return this.cardData.checklist && this.cardData.checklist.length
+      },
       hasChecklistStatus () {
         return this.cardData.isDone || this.hasChecklist
       },
       hasLabels () {
         return this.hasTag || this.hasPriority || this.hasChecklistStatus
-      },
-      hasChecklist () {
-        return this.checklist && this.cardData.checklist.length
       },
       hasComments () {
         return this.cardData.comments && this.cardData.comments.length

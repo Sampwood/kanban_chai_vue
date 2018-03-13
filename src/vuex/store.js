@@ -28,6 +28,7 @@ const state = {
 const mutations = {
   initSections (state, sections) {
     state.sections = sections
+    console.log(sections)
   },
   updateCardForm (state, { key, value }) {
     state.cardForm[key] = value
