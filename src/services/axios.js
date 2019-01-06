@@ -1,6 +1,7 @@
 import axios from 'axios'
 import cookie from 'js-cookie'
 import Router from '@/router'
+import { UserException } from '@/utils'
 
 // const CancelToken = axios.CancelToken
 const api = axios.create({
@@ -59,7 +60,7 @@ api.interceptors.response.use((res) => {
       return data.data
     }
   }
-  return false
+  throw new UserException('错误的response状态码')
 }, () => Promise.reject('网络出错，请稍后再试~'))
 
 export default api

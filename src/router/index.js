@@ -6,18 +6,19 @@ import Login from '@/components/login'
 
 // import * as server from '../vuex/wilddogSDK'
 import * as server from '../vuex/dev/dataServer'
+import store from '@/vuex/store'
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'Login',
       component: Login
     },
     {
-      path: '/kanban',
+      path: '/',
       name: 'Kanban',
       component: Kanban
     },

@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import * as server from '@/services/dev/dataServer'
 import service from '@/services'
 import { CARD, CLOSE } from './data-type.js'
+import auth from './auth'
 
 Vue.use(Vuex)
 
@@ -105,5 +106,8 @@ export default new Vuex.Store({
   state,
   mutations,
   actions,
-  getters
+  getters,
+  modules: {
+    auth
+  }
 })
