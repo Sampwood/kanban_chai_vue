@@ -2,9 +2,9 @@ import api from './axios'
 
 export default {
   // 注册
-  apiRegister: params => api.post('/register', params),
+  apiRegister: params => api.post('/api/register', params),
   // 登陆
-  apiLogin: params => api.post('/login', params),
+  apiLogin: params => api.post('/api/login', params),
   // 登出
-  apiLogout: () => api.post('/logout')
+  apiLogout: () => api.post('/api/logout')
 }

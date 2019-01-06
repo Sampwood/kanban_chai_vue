@@ -1,3 +1,4 @@
+import cookie from 'js-cookie'
 import * as types from './mutation-types.js'
 import services from '@/services'
 
@@ -29,6 +30,9 @@ export default {
     async login ({ commit }, params) {
       const data = await services.apiLogin(params)
       commit(types.USER_LOGIN, data)
+      cookie.set('token', data.token, { expires: 7 })
+      cookie.set('username', params.username, { expires: 7 })
+      cookie.set('password', params.password, { expires: 7 })
       return data
     },
     async logout ({ commit }) {

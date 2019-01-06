@@ -7,11 +7,11 @@
         </div>
         <div class="form-login">
           <div class="form-group row">
-            <label for="email" class="col-sm-3 col-form-label">邮箱</label>
+            <label for="username" class="col-sm-3 col-form-label">账号</label>
             <div class="col-sm-9 input-login">
               <div class="split"></div>
-              <input type="email" class="form-control" id="email" placeholder="Enter email"
-                v-model="email">
+              <input type="text" class="form-control" id="username" placeholder="Enter username"
+                v-model="username">
             </div>
           </div>
           <div class="form-group row">
@@ -32,30 +32,28 @@
 </template>
 
 <script>
+  import md5 from 'md5'
   import { mapActions } from 'vuex'
 
   export default {
     name: 'login',
     data: function () {
       return {
-        email: '',
+        username: '',
         password: ''
       }
     },
     methods: {
-      login () {
-        let _component = this
-        _component.loginAction({
-          email: _component.email,
-          password: _component.password,
-          callback () {
-            _component.$router.push('kanban')
-          }
+      async login () {
+        await this.loginAction({
+          username: this.username,
+          password: md5(this.password)
         })
+        this.$router.push('/')
       },
-      ...mapActions([
-        'loginAction'
-      ])
+      ...mapActions({
+        'loginAction': 'auth/login'
+      })
     }
   }
 </script>
@@ -74,7 +72,7 @@
     flex-direction: column;
   }
   .login {
-    width: 395px;
+    width: 400px;
   }
   .title {
     color: #fff;

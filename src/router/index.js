@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/helloWorld/Hello'
+import cookie from 'js-cookie'
 import Kanban from '@/components/kanban'
 import Login from '@/components/login'
-
-// import * as server from '../vuex/wilddogSDK'
-import * as server from '../vuex/dev/dataServer'
 import store from '@/vuex/store'
 
 Vue.use(Router)
@@ -14,24 +11,33 @@ const router = new Router({
   routes: [
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login
     },
     {
       path: '/',
-      name: 'Kanban',
+      name: 'kanban',
+      meta: {
+        requireLogin: true
+      },
       component: Kanban
-    },
-    {
-      path: '/hello',
-      name: 'Hello',
-      component: Hello
     }
   ]
 })
 router.beforeEach((to, from, next) => {
-  if (to.name === 'Kanban' && !server.auth().currentUser) {
+  if (!to.matched.length) {
     next('/')
+  } else if (to.matched.some(record => record.meta.requireLogin)) {
+    if (cookie.get('token')) {
+      next()
+      if (!store.getters['auth/userIsLogin']) {
+        const username = cookie.get('username')
+        const password = cookie.get('password')
+        store.dispatch('auth/login', { username, password })
+      }
+    } else {
+      next('/login')
+    }
   } else {
     next()
   }
