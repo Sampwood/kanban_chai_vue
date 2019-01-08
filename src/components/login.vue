@@ -32,7 +32,6 @@
 </template>
 
 <script>
-  import md5 from 'md5'
   import { mapActions } from 'vuex'
 
   export default {
@@ -47,7 +46,7 @@
       async login () {
         await this.loginAction({
           username: this.username,
-          password: md5(this.password)
+          password: this.password
         })
         this.$router.push('/')
       },

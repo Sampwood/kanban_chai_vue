@@ -4,6 +4,7 @@ import cookie from 'js-cookie'
 import Kanban from '@/components/kanban'
 import Login from '@/components/login'
 import store from '@/vuex/store'
+import * as authTypes from '@/vuex/auth/mutation-types.js'
 
 Vue.use(Router)
 
@@ -28,12 +29,17 @@ router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
     next('/')
   } else if (to.matched.some(record => record.meta.requireLogin)) {
-    if (cookie.get('token')) {
+    const token = cookie.get('token')
+    if (token) {
       next()
       if (!store.getters['auth/userIsLogin']) {
-        const username = cookie.get('username')
-        const password = cookie.get('password')
-        store.dispatch('auth/login', { username, password })
+        const account = sessionStorage.getItem('account')
+        if (account) {
+          store.commit('auth/' + authTypes.USER_LOGIN, JSON.parse(account))
+        } else {
+          const username = cookie.get('username')
+          store.dispatch('auth/getUserInfo', { username, token })
+        }
       }
     } else {
       next('/login')
