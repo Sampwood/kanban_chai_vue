@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import * as server from '@/services/wilddogSDK'
 import * as server from '@/services/dev/dataServer'
 import service from '@/services'
 import { CARD, CLOSE } from './data-type.js'
