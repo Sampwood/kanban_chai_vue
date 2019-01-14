@@ -7,6 +7,19 @@ import App from './App'
 import router from './router'
 import store from './vuex/store'
 
+if (process.env.NODE_ENV === 'production') {
+  import(
+    /* webpackChunkName: "sentry" */
+    /* webpackMode: "lazy" */
+    '@sentry/browser'
+  ).then(Sentry => {
+    Sentry.init({
+      dsn: 'https://0c287e465f4e4287b4b517aba1cf960e@sentry.io/1370779',
+      integrations: [new Sentry.Integrations.Vue({ Vue })]
+    })
+  })
+}
+
 Vue.config.productionTip = false
 
 Vue.component('icon', Icon)
