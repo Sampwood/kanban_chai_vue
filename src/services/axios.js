@@ -2,10 +2,11 @@ import axios from 'axios'
 import cookie from 'js-cookie'
 import Router from '@/router'
 import { UserException } from '@/utils'
+import config from '~config/prod.env'
 
 // const CancelToken = axios.CancelToken
 const api = axios.create({
-  baseURL: process.env.API_LOCATION,
+  baseURL: process.env.NODE_ENV === 'production' ? config.baseTarget : '',
   timeout: 30000, // 超时时间
   responseType: 'json', // default
   headers: {
