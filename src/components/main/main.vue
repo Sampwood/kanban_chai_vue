@@ -1,4 +1,4 @@
-<template>
+  <template>
   <main class="container-fluid main-panel">
     <article class="board" v-scroll>
       <div class="row">
@@ -25,7 +25,6 @@
   import 'vue-awesome/icons/plus'
   import { mapGetters, mapActions } from 'vuex'
   import sectionChai from './section'
-  // import asideChai from '../aside'
   import asideChai from '../aside/aside'
 
   export default {

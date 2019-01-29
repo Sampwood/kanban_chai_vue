@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import * as server from '@/services/dev/dataServer'
-import service from '@/services'
 import { CARD, CLOSE } from './data-type.js'
 import auth from './auth'
 
@@ -55,10 +54,6 @@ const mutations = {
 
 // 用于更改状态的action函数，能获取异步数据
 const actions = {
-  loginAction (context, formData) {
-    // server.login(formData)
-    service.apiLogin(formData)
-  },
   getSections ({ commit }) {
     server.getSections(function (snapshot) {
       commit('initSections', snapshot || [])

@@ -1,6 +1,6 @@
 import cookie from 'js-cookie'
 import * as types from './mutation-types.js'
-import services from '@/services'
+import services from '@/services/auth'
 
 export default {
   namespaced: true,
