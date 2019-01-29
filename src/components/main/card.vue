@@ -133,14 +133,14 @@
       },
       startDate () {
         if (this.cardData.startDate) {
-          let tmp = this.cardData.startDate.toDateString().split(' ')
+          let tmp = new Date(this.cardData.startDate).toDateString().split(' ')
           return tmp[2] + ' ' + tmp[1]
         }
         return
       },
       dueDate () {
         if (this.cardData.dueDate) {
-          let tmp = this.cardData.dueDate.toDateString().split(' ')
+          let tmp = new Date(this.cardData.dueDate).toDateString().split(' ')
           return tmp[2] + ' ' + tmp[1]
         }
         return

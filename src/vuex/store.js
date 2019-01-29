@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import * as server from '@/services/dev/dataServer'
+import service from '@/services/section'
 import { CARD, CLOSE } from './data-type.js'
 import auth from './auth'
 
@@ -29,6 +30,9 @@ const mutations = {
   initSections (state, sections) {
     state.sections = sections
   },
+  addSection (state, section) {
+    if (section) state.sections.push(section)
+  },
   updateCardForm (state, { key, value }) {
     state.cardForm[key] = value
   },
@@ -54,13 +58,13 @@ const mutations = {
 
 // 用于更改状态的action函数，能获取异步数据
 const actions = {
-  getSections ({ commit }) {
-    server.getSections(function (snapshot) {
-      commit('initSections', snapshot || [])
-    })
+  async getSections ({ commit }) {
+    const resData = await service.apiGetSections()
+    commit('initSections', resData || [])
   },
-  postSection ({ dispatch }, section) {
-    server.postSection(section, () => dispatch('getSections'))
+  async postSection ({ commit }, section) {
+    const resData = await service.apiCreateSection(section)
+    commit('addSection', resData.section)
   },
   postCard ({ dispatch }, { sectionKey, cardTitle }) {
     server.postCard(sectionKey, cardTitle, () => dispatch('getSections'))
