@@ -27,7 +27,7 @@
 
 <script>
   export default {
-    name: 'headerChai'
+    name: 'headerChai',
   }
 </script>
 

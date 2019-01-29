@@ -7,13 +7,13 @@
     name: 'colourTag',
     props: {
       bgColor: {
-        required: true
+        required: true,
       },
       tagText: {
         type: String,
-        default: ''
-      }
-    }
+        default: '',
+      },
+    },
   }
 </script>
 

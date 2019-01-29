@@ -21,9 +21,9 @@ const cardDemo = function () {
       {
         type: 'created new card',
         time: new Date(),
-        content: null
-      }
-    ]
+        content: null,
+      },
+    ],
   }
 }
 
@@ -32,26 +32,26 @@ const dashboardData = {
     {
       key: '0',
       title: 'To Do',
-      cards: [cardDemo()]
+      cards: [cardDemo()],
     },
     {
       key: '1',
       title: 'Ongoing',
-      cards: [cardDemo()]
+      cards: [cardDemo()],
     },
     {
       key: '2',
       title: 'Blocked',
-      cards: [cardDemo()]
+      cards: [cardDemo()],
     },
     {
       key: '3',
       title: 'Done',
-      cards: [cardDemo()]
-    }
+      cards: [cardDemo()],
+    },
   ],
   show: true,
-  sectionTitle: ''
+  sectionTitle: '',
 }
 
 const getSection = function (sectionKey) {
@@ -84,7 +84,7 @@ export function postCard (sectionKey, cardTitle, callback) {
   let card = {
     title: cardTitle,
     key: newKey,
-    createDate: new Date().toLocaleString()
+    createDate: new Date().toLocaleString(),
   }
   card = Object.assign(cardDemo(), card)
   section.cards.push(card)

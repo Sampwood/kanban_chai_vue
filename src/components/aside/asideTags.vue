@@ -34,7 +34,7 @@
     data () {
       return {
         tagsHistory: [],
-        tagName: ''
+        tagName: '',
       }
     },
     props: ['cardData', 'postItem', 'deleteItem'],
@@ -58,8 +58,8 @@
       },
       deleteTag (tag) {
         this.deleteItem(this.cardData.key, 'tags', tag.id)
-      }
-    }
+      },
+    },
   }
 </script>
 

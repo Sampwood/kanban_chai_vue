@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'production') {
   ).then(Sentry => {
     Sentry.init({
       dsn: 'https://0c287e465f4e4287b4b517aba1cf960e@sentry.io/1370779',
-      integrations: [new Sentry.Integrations.Vue({ Vue })]
+      integrations: [new Sentry.Integrations.Vue({ Vue })],
     })
   })
 }
@@ -26,7 +26,7 @@ Vue.component('icon', Icon)
 Vue.directive('focus', {
   inserted: function (el) {
     el.focus()
-  }
+  },
 })
 
 /* eslint-disable no-new */
@@ -35,5 +35,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
 })

@@ -10,7 +10,7 @@
   import 'bootstrap/dist/js/bootstrap.js'
 
   export default {
-    name: 'app'
+    name: 'app',
   }
 </script>
 

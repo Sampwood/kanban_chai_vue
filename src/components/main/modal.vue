@@ -31,26 +31,26 @@
       // modal的id
       modalId: {
         type: String,
-        default: ''
+        default: '',
       },
       // modal的标题
       modalTitle: {
         type: String,
-        default: ''
+        default: '',
       },
       // 点击保存的回调函数
       callback: {
         type: Function,
-        default: function () {}
-      }
+        default: function () {},
+      },
     },
     methods: {
       save () {
         if (this.callback()) {
           $('#' + this.modalId).modal('hide')
         }
-      }
-    }
+      },
+    },
   }
 </script>
 

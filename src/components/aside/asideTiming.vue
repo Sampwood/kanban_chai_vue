@@ -43,17 +43,17 @@
     data () {
       return {
         show: true,
-        spendTime: 0
+        spendTime: 0,
       }
     },
     props: {
       cardData: {
-        required: true
+        required: true,
       },
       updateData: {
         type: Function,
-        required: true
-      }
+        required: true,
+      },
     },
     computed: {
       startDate () {
@@ -61,7 +61,7 @@
       },
       dueDate () {
         return this.formateDate(this.cardData.dueDate)
-      }
+      },
     },
     methods: {
       formateDate (time) {
@@ -93,8 +93,8 @@
       },
       showLogTime () {
         this.show = false
-      }
-    }
+      },
+    },
   }
 </script>
 

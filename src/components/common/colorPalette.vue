@@ -19,10 +19,10 @@
     name: 'colorPalette',
     data () {
       return {
-        colors: ALL_COLOURS
+        colors: ALL_COLOURS,
       }
     },
-    props: ['select']
+    props: ['select'],
   }
 </script>
 

@@ -70,17 +70,17 @@
       return {
         attachmentUrl: require('../../assets/img/zoro.jpg'),
         priorities: PRIORITY,
-        tagColours: TAG_COLOURS
+        tagColours: TAG_COLOURS,
       }
     },
     props: {
       cardData: {
-        required: true
+        required: true,
       },
       getDetail: {
         type: Function,
-        default: function () {}
-      }
+        default: function () {},
+      },
     },
     computed: {
       hasPin () {
@@ -148,11 +148,11 @@
       checklistStatus () {
         let itemOfDone = this.cardData.checklist.filter(item => item.isDone)
         return itemOfDone.length + '/' + this.cardData.checklist.length
-      }
+      },
     },
     methods: {
       ...mapMutations([
-        'updateShowDetail'
+        'updateShowDetail',
       ]),
       drag (event) {
         event.dataTransfer.setData('cardKey', this.cardData.key)
@@ -162,15 +162,15 @@
         this.updateShowDetail({
           type: CARD,
           sectionKey: this.$parent.sectionData.key,
-          cardKey: this.cardData.key
+          cardKey: this.cardData.key,
         })
-      }
+      },
     },
     components: {
       'colour-tag': colourTag,
       'checklist-status': checklistStatus,
-      priority
-    }
+      priority,
+    },
   }
 </script>
 

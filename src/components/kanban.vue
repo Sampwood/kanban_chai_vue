@@ -13,8 +13,8 @@
     name: 'kanban',
     components: {
       'header-chai': headerChai,
-      'main-chai': mainChai
-    }
+      'main-chai': mainChai,
+    },
   }
 </script>
 

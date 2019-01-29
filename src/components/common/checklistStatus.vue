@@ -16,8 +16,8 @@
     props: {
       progress: {
         type: Number,
-        required: true
-      }
+        required: true,
+      },
     },
     computed: {
       progressValue () {
@@ -28,8 +28,8 @@
           return Math.round(this.progress * 100) + '%'
         }
         return 'Done'
-      }
-    }
+      },
+    },
   }
 </script>
 

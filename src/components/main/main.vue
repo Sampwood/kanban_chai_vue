@@ -32,23 +32,23 @@
     data () {
       return {
         show: true,
-        sectionTitle: ''
+        sectionTitle: '',
       }
     },
     computed: {
       ...mapGetters([
         'getterSections',
-        'getterShowDetail'
-      ])
+        'getterShowDetail',
+      ]),
     },
     components: {
       'section-chai': sectionChai,
-      'aside-chai': asideChai
+      'aside-chai': asideChai,
     },
     methods: {
       ...mapActions([
         'getSections',
-        'postSection'
+        'postSection',
       ]),
       showAddSectionInput () {
         this.show = false
@@ -65,7 +65,7 @@
           this.sectionTitle = ''
         }
         this.show = true
-      }
+      },
     },
     // 自定义指令
     directives: {
@@ -79,12 +79,12 @@
           }
 
           el.addEventListener('wheel', horizontalWheel, false)
-        }
-      }
+        },
+      },
     },
     created () {
       this.getSections()
-    }
+    },
   }
 </script>
 

@@ -16,12 +16,12 @@
     name: 'priority',
     props: {
       text: {
-        required: true
+        required: true,
       },
       level: {
         type: Number,
-        default: 0
-      }
+        default: 0,
+      },
     },
     computed: {
       priorityColor: function () {
@@ -46,8 +46,8 @@
             color = 'alert-light'
         }
         return color
-      }
-    }
+      },
+    },
   }
 </script>
 

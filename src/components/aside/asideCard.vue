@@ -69,28 +69,28 @@
       'colour-tag': colourTag,
       'color-palette': colorPalette,
       'autosize-textarea': autosizeTextarea,
-      'checklist-status': checklistStatus
+      'checklist-status': checklistStatus,
     },
     data () {
       return {
         allColours: ALL_COLOURS,
         tagColours: TAG_COLOURS,
         isEditDescr: false,
-        descr: this.cardData.description
+        descr: this.cardData.description,
       }
     },
     props: {
       cardData: {
-        required: true
+        required: true,
       },
       sectionTitle: {
         type: String,
-        required: true
+        required: true,
       },
       updateData: {
         type: Function,
-        required: true
-      }
+        required: true,
+      },
     },
     computed: {
       labelColor: function () {
@@ -125,11 +125,11 @@
           let all = this.cardData.checklist.reduce((x, y) => x + y.weight, 0)
           return done / all
         }
-      }
+      },
     },
     methods: {
       ...mapMutations([
-        'updateShowDetail'
+        'updateShowDetail',
       ]),
       selectColourTag: function (index) {
         this.updateData(this.cardData.key, 'colourTagNum', index)
@@ -158,8 +158,8 @@
       },
       updateStatus () {
         this.updateData(this.cardData.key, 'isDone', true)
-      }
-    }
+      },
+    },
   }
 </script>
 

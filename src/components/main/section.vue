@@ -39,7 +39,7 @@
     data () {
       return {
         show: true,
-        cardContent: ''
+        cardContent: '',
       }
     },
     computed: {
@@ -48,17 +48,17 @@
       },
       number: function () {
         return this.sectionData.cards ? this.sectionData.cards.length : 0
-      }
+      },
     },
     components: {
       'card-chai': card,
       'modal-chai': modal,
-      'card-create-chai': cardCreate
+      'card-create-chai': cardCreate,
     },
     props: {
       sectionData: {
-        required: true
-      }
+        required: true,
+      },
     },
     methods: {
       allowDrop (event) {
@@ -72,13 +72,13 @@
           this.updateCardParentSection({
             cardKey: cardKey,
             oldSectionKey: sectionKey,
-            newSectionKey: this.sectionData.key
+            newSectionKey: this.sectionData.key,
           })
         }
       },
       ...mapActions([
         'postCard',
-        'updateCardParentSection'
+        'updateCardParentSection',
       ]),
       addNewCard () {
         this.postCard({ sectionKey: this.sectionData.key })
@@ -94,8 +94,8 @@
       },
       showAddCardInput () {
         this.show = false
-      }
-    }
+      },
+    },
   }
 </script>
 

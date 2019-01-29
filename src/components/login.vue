@@ -39,21 +39,21 @@
     data: function () {
       return {
         username: '',
-        password: ''
+        password: '',
       }
     },
     methods: {
       async login () {
         await this.loginAction({
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         this.$router.push('/')
       },
       ...mapActions({
-        'loginAction': 'auth/login'
-      })
-    }
+        'loginAction': 'auth/login',
+      }),
+    },
   }
 </script>
 

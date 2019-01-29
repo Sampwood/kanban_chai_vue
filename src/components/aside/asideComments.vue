@@ -27,26 +27,26 @@
   export default {
     name: 'asideCommentsChai',
     components: {
-      'autosize-textarea': autosizeTextarea
+      'autosize-textarea': autosizeTextarea,
     },
     data () {
       return {
-        newComment: ''
+        newComment: '',
       }
     },
     props: {
       cardData: {
-        required: true
+        required: true,
       },
       postItem: {
         type: Function,
-        required: true
-      }
+        required: true,
+      },
     },
     computed: {
       hasComment () {
         return this.newComment.trim().length < 1
-      }
+      },
     },
     methods: {
       cancel () {
@@ -55,8 +55,8 @@
       submit () {
         this.postItem(this.cardData.key, 'comments', {message: this.newComment, createDate: new Date()})
         this.newComment = ''
-      }
-    }
+      },
+    },
   }
 </script>
 

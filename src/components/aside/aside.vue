@@ -50,7 +50,7 @@
     computed: {
       ...mapGetters([
         'getterSections',
-        'getterShowDetail'
+        'getterShowDetail',
       ]),
       sectionData: function () {
         let section = this.getterSections.filter(section => section.key === this.getterShowDetail.sectionKey)[0]
@@ -72,7 +72,7 @@
           return {}
         }
         return card
-      }
+      },
     },
     components: {
       'aside-card': asideCardChai,
@@ -81,17 +81,17 @@
       'aside-checklist': asideChecklistChai,
       'aside-tags': asideTagsChai,
       'aside-attachments': asideAttachmentsChai,
-      'aside-comments': asideCommentsChai
+      'aside-comments': asideCommentsChai,
     },
     methods: {
       ...mapActions([
         'updateCardData',
         'postListInCard',
         'updateListInCard',
-        'deleteListInCard'
+        'deleteListInCard',
       ]),
       ...mapMutations([
-        'updateShowDetail'
+        'updateShowDetail',
       ]),
       closeAside () {
         this.updateShowDetail({type: CLOSE})
@@ -101,7 +101,7 @@
           sectionKey: this.sectionData.key,
           cardKey,
           key,
-          value
+          value,
         })
       },
       postItem (cardKey, listName, item) {
@@ -109,7 +109,7 @@
           sectionKey: this.sectionData.key,
           cardKey,
           listName,
-          item
+          item,
         })
       },
       updateItem (cardKey, listName, id, key, value) {
@@ -119,7 +119,7 @@
           listName,
           id,
           key,
-          value
+          value,
         })
       },
       deleteItem (cardKey, listName, id) {
@@ -127,10 +127,10 @@
           sectionKey: this.sectionData.key,
           cardKey,
           listName,
-          id
+          id,
         })
-      }
-    }
+      },
+    },
   }
 </script>
 

@@ -22,26 +22,26 @@
     name: 'asidePriorityChai',
     data () {
       return {
-        priorities: PRIORITY
+        priorities: PRIORITY,
       }
     },
     components: {
-      priority
+      priority,
     },
     props: {
       cardData: {
-        required: true
+        required: true,
       },
       updateData: {
         type: Function,
-        required: true
-      }
+        required: true,
+      },
     },
     methods: {
       selectPriority (index) {
         this.updateData(this.cardData.key, 'priority', index)
-      }
-    }
+      },
+    },
   }
 </script>
 

@@ -32,7 +32,7 @@
       ...mapState({
         storeCategory: 'category',
         storeTitle: 'title',
-        storeDescription: 'description'
+        storeDescription: 'description',
       }),
       title: {
         get () {
@@ -40,7 +40,7 @@
         },
         set (val) {
           this.updateCardForm({ key: 'title', value: val })
-        }
+        },
       },
       category: {
         get () {
@@ -48,7 +48,7 @@
         },
         set (val) {
           this.updateCardForm({ key: 'category', value: val })
-        }
+        },
       },
       description: {
         get () {
@@ -56,14 +56,14 @@
         },
         set (val) {
           this.updateCardForm({ key: 'description', value: val })
-        }
-      }
+        },
+      },
     },
     methods: {
       ...mapMutations([
-        'updateCardForm'
-      ])
-    }
+        'updateCardForm',
+      ]),
+    },
   }
 </script>
 

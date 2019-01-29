@@ -44,18 +44,18 @@
     name: 'asideAttachmentsChai',
     props: {
       cardData: {
-        required: true
+        required: true,
       },
       updateItem: {
         type: Function,
-        required: true
-      }
+        required: true,
+      },
     },
     methods: {
       updatePin (id, isPin) {
         this.updateItem(this.cardData.key, 'attachments', id, 'isPin', !isPin)
-      }
-    }
+      },
+    },
   }
 </script>
 

@@ -11,7 +11,7 @@
     methods: {
       updateValue: function (value) {
         this.$emit('input', value)
-      }
+      },
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -22,7 +22,7 @@
       this.$nextTick(function () {
         autosize.update(this.$el)
       })
-    }
+    },
   }
 </script>
 

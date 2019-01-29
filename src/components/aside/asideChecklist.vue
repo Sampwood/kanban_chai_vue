@@ -40,7 +40,7 @@
       return {
         hasItems: false,
         show: true,
-        checkName: ''
+        checkName: '',
       }
     },
     computed: {
@@ -51,24 +51,24 @@
         let done = this.itemOfDone.reduce((x, y) => x + y.weight, 0)
         let all = this.cardData.checklist.reduce((x, y) => x + y.weight, 0)
         return Math.round(done / all * 100)
-      }
+      },
     },
     props: {
       cardData: {
-        required: true
+        required: true,
       },
       postItem: {
         type: Function,
-        required: true
+        required: true,
       },
       updateItem: {
         type: Function,
-        required: true
+        required: true,
       },
       deleteItem: {
         type: Function,
-        required: true
-      }
+        required: true,
+      },
     },
     methods: {
       addCheck () {
@@ -89,8 +89,8 @@
       },
       deleteChecklistItem (id) {
         this.deleteItem(this.cardData.key, 'checklist', id)
-      }
-    }
+      },
+    },
   }
 </script>
 

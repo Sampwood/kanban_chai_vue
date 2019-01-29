@@ -6,12 +6,12 @@ export default {
   namespaced: true,
   state: {
     account: {}, // 登陆用户信息
-    isLogin: false
+    isLogin: false,
   },
   getters: {
     userIsLogin (state) {
       return state.isLogin
-    }
+    },
   },
   mutations: {
     [types.USER_LOGIN] (state, account) {
@@ -24,7 +24,7 @@ export default {
     [types.USER_LOGOUT] (state) {
       state.account = {}
       state.isLogin = false
-    }
+    },
   },
   actions: {
     register ({ commit }, params) {
@@ -44,6 +44,6 @@ export default {
       const data = await services.apiGetUserInfo(params)
       commit(types.USER_LOGIN, data)
       return data
-    }
-  }
+    },
+  },
 }

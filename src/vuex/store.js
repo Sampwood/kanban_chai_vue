@@ -14,14 +14,14 @@ const state = {
     key: '1',
     category: 'Feature',
     title: '',
-    description: ''
+    description: '',
   },
   asideDetail: {
     isShow: false,
     type: '',
     sectionKey: '',
-    cardKey: ''
-  }
+    cardKey: '',
+  },
 }
 
 // 用于更改状态的mutation函数，但只能进行同步操作
@@ -49,7 +49,7 @@ const mutations = {
         state.asideDetail.cardKey = detailData.cardKey
       }
     }
-  }
+  },
 }
 
 // 用于更改状态的action函数，能获取异步数据
@@ -82,7 +82,7 @@ const actions = {
   },
   deleteListInCard ({dispatch}, {sectionKey, cardKey, listName, id}) {
     server.deleteListInCard(sectionKey, cardKey, listName, id, () => dispatch('getSections'))
-  }
+  },
 }
 
 // 用于获取state的值
@@ -92,7 +92,7 @@ const getters = {
   },
   getterShowDetail (state) {
     return state.asideDetail
-  }
+  },
 }
 
 export default new Vuex.Store({
@@ -101,6 +101,6 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    auth
-  }
+    auth,
+  },
 })

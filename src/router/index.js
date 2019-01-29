@@ -13,17 +13,17 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
     },
     {
       path: '/',
       name: 'kanban',
       meta: {
-        requireLogin: true
+        requireLogin: true,
       },
-      component: Kanban
-    }
-  ]
+      component: Kanban,
+    },
+  ],
 })
 router.beforeEach((to, from, next) => {
   if (!to.matched.length) {

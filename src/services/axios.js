@@ -10,13 +10,13 @@ const api = axios.create({
   timeout: 30000, // 超时时间
   responseType: 'json', // default
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   },
   // `validateStatus` defines whether to resolve or reject the promise for a given
   // HTTP response status code. If `validateStatus` returns `true` (or is set to `null`
   // or `undefined`), the promise will be resolved otherwise, the promise will be
   // rejected.
-  validateStatus: status => status === 200
+  validateStatus: status => status === 200,
 })
 // const pendingList = []
 // const removePending = (config, cancel) => {
