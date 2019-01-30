@@ -43,7 +43,7 @@
   import asideTagsChai from './asideTags'
   import asideAttachmentsChai from './asideAttachments'
   import asideCommentsChai from './asideComments'
-  import { CLOSE } from '@/vuex/data-type'
+  import { CLOSE } from '@/config/data-type'
 
   export default {
     name: 'asideChai',

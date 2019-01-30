@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import cookie from 'js-cookie'
-import Kanban from '@/components/kanban'
-import Login from '@/components/login'
-import store from '@/vuex/store'
-import * as authTypes from '@/vuex/auth/mutation-types.js'
+import Kanban from '@/views/kanban'
+import Login from '@/views/login'
+import store from '@/store'
+import * as authTypes from '@/store/auth/mutation-types.js'
 
 Vue.use(Router)
 

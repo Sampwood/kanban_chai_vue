@@ -52,7 +52,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
-  import { CARD, TAG_COLOURS, PRIORITY } from '@/vuex/data-type'
+  import { CARD, TAG_COLOURS, PRIORITY } from '@/config/data-type'
   import 'vue-awesome/icons/hourglass-start'
   import 'vue-awesome/icons/hourglass-end'
   import 'vue-awesome/icons/clock-o'
@@ -60,9 +60,9 @@
   import 'vue-awesome/icons/comments'
   import 'vue-awesome/icons/paperclip'
   import 'vue-awesome/icons/align-left'
-  import colourTag from '../common/colourTag'
-  import checklistStatus from '../common/checklistStatus'
-  import priority from '../common/priority'
+  import colourTag from '@/components/colourTag'
+  import checklistStatus from '@/components/checklistStatus'
+  import priority from '@/components/priority'
 
   export default {
     name: 'card',

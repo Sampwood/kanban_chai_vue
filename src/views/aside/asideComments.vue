@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import autosizeTextarea from '../common/autosizeTextarea'
+  import autosizeTextarea from '@/components/autosizeTextarea'
 
   export default {
     name: 'asideCommentsChai',

@@ -15,8 +15,8 @@
 
 <script>
   import 'vue-awesome/icons/thermometer-0'
-  import { PRIORITY } from '@/vuex/data-type'
-  import priority from '../common/priority'
+  import { PRIORITY } from '@/config/data-type'
+  import priority from '@/components/priority'
 
   export default {
     name: 'asidePriorityChai',

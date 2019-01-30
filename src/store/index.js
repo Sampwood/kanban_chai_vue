@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import sectionService from '@/services/section'
 import cardService from '@/services/card'
-import { CARD, CLOSE } from './data-type.js'
+import { CARD, CLOSE } from '@/config/data-type.js'
 import auth from './auth'
 
 Vue.use(Vuex)

@@ -57,11 +57,11 @@
   import { mapActions, mapMutations } from 'vuex'
   import 'vue-awesome/icons/check-circle'
   import 'vue-awesome/icons/trash-o'
-  import colourTag from '../common/colourTag'
-  import colorPalette from '../common/colorPalette'
-  import autosizeTextarea from '../common/autosizeTextarea'
-  import checklistStatus from '../common/checklistStatus'
-  import { ALL_COLOURS, TAG_COLOURS, CLOSE } from '@/vuex/data-type'
+  import colourTag from '@/components/colourTag'
+  import colorPalette from '@/components/colorPalette'
+  import autosizeTextarea from '@/components/autosizeTextarea'
+  import checklistStatus from '@/components/checklistStatus'
+  import { ALL_COLOURS, TAG_COLOURS, CLOSE } from '@/config/data-type'
 
   export default {
     name: 'asideCardChai',

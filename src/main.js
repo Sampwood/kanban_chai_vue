@@ -4,7 +4,7 @@ import Vue from 'vue'
 import Icon from 'vue-awesome/components/Icon'
 import App from './App'
 import router from './router'
-import store from './vuex/store'
+import store from './store'
 
 if (process.env.NODE_ENV === 'production') {
   import(

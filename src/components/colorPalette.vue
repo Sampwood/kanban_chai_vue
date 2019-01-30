@@ -13,7 +13,7 @@
 
 <script>
   import 'vue-awesome/icons/paint-brush'
-  import { ALL_COLOURS } from '@/vuex/data-type'
+  import { ALL_COLOURS } from '@/config/data-type'
 
   export default {
     name: 'colorPalette',
