@@ -66,11 +66,12 @@
       },
       drop (event) {
         event.preventDefault()
-        var cardKey = event.dataTransfer.getData('cardKey')
-        var sectionKey = event.dataTransfer.getData('sectionKey')
+        const cardKey = event.dataTransfer.getData('cardKey')
+        const sectionKey = event.dataTransfer.getData('sectionKey')
+
         if (sectionKey !== this.sectionData.key) {
           this.updateCardParentSection({
-            cardKey: cardKey,
+            cardKey,
             oldSectionKey: sectionKey,
             newSectionKey: this.sectionData.key,
           })

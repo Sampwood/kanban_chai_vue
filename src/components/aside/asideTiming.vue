@@ -68,6 +68,14 @@
         if (!time) {
           return
         }
+        if (!(time instanceof Date)) {
+          time = new Date(time)
+        }
+        // 如果不能转成时间格式
+        if (isNaN(time.getTime())) {
+          time = new Date()
+        }
+
         let month = time.getMonth() + 1
         month = month > 9 ? month : '0' + month
         let date = time.getDate()

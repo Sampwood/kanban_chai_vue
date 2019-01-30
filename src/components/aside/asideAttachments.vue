@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="attach-info">
-          <span>{{ attachment.uploadDate.toLocaleDateString() }}</span>
+          <span>{{ formateDate(attachment.uploadDate).toLocaleDateString() }}</span>
           <img class="userpic" src="../../../static/avatar.jpg">
         </div>
       </div>
@@ -54,6 +54,19 @@
     methods: {
       updatePin (id, isPin) {
         this.updateItem(this.cardData.key, 'attachments', id, 'isPin', !isPin)
+      },
+      formateDate (time) {
+        if (!time) {
+          return
+        }
+        if (!(time instanceof Date)) {
+          time = new Date(time)
+        }
+        // 如果不能转成时间格式
+        if (isNaN(time.getTime())) {
+          time = new Date()
+        }
+        return time
       },
     },
   }

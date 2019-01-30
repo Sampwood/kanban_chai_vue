@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
   import 'vue-awesome/icons/check-circle'
   import 'vue-awesome/icons/trash-o'
   import colourTag from '../common/colourTag'
@@ -128,6 +128,9 @@
       },
     },
     methods: {
+      ...mapActions([
+        'deleteCard',
+      ]),
       ...mapMutations([
         'updateShowDetail',
       ]),

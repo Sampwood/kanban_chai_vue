@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import * as server from '@/services/dev/dataServer'
-import service from '@/services/section'
+import sectionService from '@/services/section'
+import cardService from '@/services/card'
 import { CARD, CLOSE } from './data-type.js'
 import auth from './auth'
 
@@ -36,8 +36,34 @@ const mutations = {
   updateCardForm (state, { key, value }) {
     state.cardForm[key] = value
   },
-  addCard (state, { section, card }) {
+  addCard (state, { sectionKey, card }) {
+    const section = state.sections.find(section => section.key === sectionKey)
     section.cards.push(card)
+  },
+  updateCardParentSection (state, { card, oldSectionKey, newSectionKey }) {
+    const newSection = state.sections.find(section => section.key === newSectionKey)
+    const cards = state.sections.find(section => section.key === oldSectionKey).cards
+    const index = cards.findIndex(item => item.key === card.key)
+    cards.splice(index, 1)
+    newSection.cards.push(card)
+  },
+  updateCard (state, { card, sectionKey }) {
+    const section = state.sections.find(section => section.key === sectionKey)
+    const cards = section.cards
+    const index = cards.findIndex(item => item.key === card.key)
+    cards.splice(index, 1, card)
+  },
+  deleteCard (state, { cardKey, sectionKey }) {
+    const section = state.sections.find(section => section.key === sectionKey)
+    const cards = section.cards
+    const index = cards.findIndex(card => card.key === cardKey)
+    cards.splice(index, 1)
+  },
+  deleteItemInCardList (state, { sectionKey, cardKey, listName, id }) {
+    const section = state.sections.find(section => section.key === sectionKey)
+    const list = section.cards.find(card => card.key === cardKey)[listName]
+    const index = list.findIndex(item => item.id === id)
+    list.splice(index, 1)
   },
   updateShowDetail (state, detailData) {
     if (detailData.type === CLOSE) {
@@ -59,33 +85,42 @@ const mutations = {
 // 用于更改状态的action函数，能获取异步数据
 const actions = {
   async getSections ({ commit }) {
-    const resData = await service.apiGetSections()
+    const resData = await sectionService.apiGetSections()
     commit('initSections', resData || [])
   },
   async postSection ({ commit }, section) {
-    const resData = await service.apiCreateSection(section)
+    const resData = await sectionService.apiCreateSection(section)
     commit('addSection', resData.section)
   },
-  postCard ({ dispatch }, { sectionKey, cardTitle }) {
-    server.postCard(sectionKey, cardTitle, () => dispatch('getSections'))
+  async postCard ({ commit }, { sectionKey, cardTitle }) {
+    const resData = await cardService.apiCreateCard({ sectionKey, title: cardTitle })
+    commit('addCard', { sectionKey, card: resData.card })
   },
-  updateCardParentSection ({ dispatch }, {cardKey, oldSectionKey, newSectionKey}) {
-    server.updateCardParentSection(cardKey, oldSectionKey, newSectionKey, () => dispatch('getSections'))
+  async updateCardParentSection ({ state, commit }, {cardKey, oldSectionKey, newSectionKey}) {
+    const oldSection = state.sections.find(section => section.key === oldSectionKey)
+    const card = oldSection.cards.find(card => card.key === cardKey)
+    const resData = await cardService.apiUpdateCard({ card, sectionKey: newSectionKey })
+    commit('updateCardParentSection', { card: resData.card, oldSectionKey, newSectionKey })
   },
-  updateCardData ({ dispatch }, {sectionKey, cardKey, key, value}) {
-    server.updateCardData(sectionKey, cardKey, key, value, () => dispatch('getSections'))
+  async updateCardData ({ commit }, { card, sectionKey, key, value }) {
+    const resData = await cardService.apiUpdateCard({ card, sectionKey, key, value })
+    commit('updateCard', { card: resData.card, sectionKey })
   },
-  deleteCard ({ dispatch }, {sectionKey, cardKey}) {
-    server.deleteCard(sectionKey, cardKey, () => dispatch('getSections'))
+  async deleteCard ({ commit }, { sectionKey, cardKey }) {
+    await cardService.apiDeleteCard({ sectionKey, cardKey })
+    commit('deleteCard', { sectionKey, cardKey })
   },
-  postListInCard ({dispatch}, {sectionKey, cardKey, listName, item}) {
-    server.postListInCard(sectionKey, cardKey, listName, item, () => dispatch('getSections'))
+  async postListInCard ({ commit }, {sectionKey, card, listName, item}) {
+    const resData = await cardService.apiCreateListItem({ sectionKey, card, listName, item })
+    commit('updateCard', { card: resData.card, sectionKey })
   },
-  updateListInCard ({dispatch}, {sectionKey, cardKey, listName, id, key, value}) {
-    server.updateListInCard(sectionKey, cardKey, listName, id, key, value, () => dispatch('getSections'))
+  async updateListInCard ({ commit }, {sectionKey, card, listName, id, key, value}) {
+    const resData = await cardService.apiUpdateListItem({ sectionKey, card, listName, id, key, value })
+    commit('updateCard', { card: resData.card, sectionKey })
   },
-  deleteListInCard ({dispatch}, {sectionKey, cardKey, listName, id}) {
-    server.deleteListInCard(sectionKey, cardKey, listName, id, () => dispatch('getSections'))
+  async deleteListInCard ({ commit }, {sectionKey, cardKey, listName, id}) {
+    await cardService.apiDeleteListItem({ sectionKey, cardKey, listName, id })
+    commit('deleteItemInCardList', { sectionKey, cardKey, listName, id })
   },
 }
 
