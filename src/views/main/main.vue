@@ -105,10 +105,6 @@
     flex-wrap: nowrap;
     height: 100%;
   }
-  .btn svg {
-    position: relative;
-    top: 3px;
-  }
   .section-add-column {
     min-width: 200px !important;
   }

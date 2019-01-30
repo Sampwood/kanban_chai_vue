@@ -75,6 +75,8 @@
 <style scoped>
   .attachment {
     cursor: pointer;
+    align-items: center;
+    height: 25px;
   }
   .attach-action {
     display: none;

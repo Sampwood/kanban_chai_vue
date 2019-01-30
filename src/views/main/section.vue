@@ -125,10 +125,6 @@
     background-color: #f8f9fa;
     border-radius: 19px;
   }
-  .btn svg {
-    position: relative;
-    top: 3px;
-  }
   .list-header {
     display: flex;
   }

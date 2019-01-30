@@ -110,4 +110,7 @@
   .spend-time {
     justify-content: space-between
   }
+  .spend-time .btn {
+    white-space: nowrap;
+  }
 </style>
