@@ -52,7 +52,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
-  import { CARD, TAG_COLOURS, PRIORITY } from '@/config/data-type'
+  import { CARD, TAG_COLOURS, PRIORITY, CLOSE } from '@/config/data-type'
   import 'vue-awesome/icons/hourglass-start'
   import 'vue-awesome/icons/hourglass-end'
   import 'vue-awesome/icons/clock-o'
@@ -155,6 +155,7 @@
         'updateShowDetail',
       ]),
       drag (event) {
+        this.updateShowDetail({type: CLOSE})
         event.dataTransfer.setData('cardKey', this.cardData.key)
         event.dataTransfer.setData('sectionKey', this.$parent.sectionData.key)
       },
