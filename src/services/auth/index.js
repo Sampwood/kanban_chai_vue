@@ -3,29 +3,58 @@ import getIndexedDB from '../indexedDB'
 export default {
   // 注册
   apiRegister: params => {
-    console.log(params)
+    return new Promise((resolve, reject) => {
+      getIndexedDB(db => {
+        let request = db.transaction(['person'], 'readwrite')
+          .objectStore('person')
+          .add({ username: params.username, password: params.password })
+
+        request.onsuccess = function (event) {
+          console.log('注册用户成功')
+          resolve({
+            username: params.username,
+            password: params.password,
+          })
+        }
+
+        request.onerror = function (event) {
+          console.log('注册用户失败', event)
+          reject({
+            message: '注册用户失败',
+          })
+        }
+      }, reject, params.username)
+    })
   },
   // 登陆
   apiLogin: params => {
     return new Promise((resolve, reject) => {
       getIndexedDB(db => {
-        let request = db.transaction(['person'], 'readwrite')
-          .objectStore('person')
-          .put({ username: params.username, password: params.password })
+        const transaction = db.transaction(['person'])
+        const objectStore = transaction.objectStore('person')
+        const request = objectStore.index('username').get(params.username)
 
-        request.onsuccess = function (event) {
-          console.log('数据更新成功')
-          resolve({
-            username: params.username,
-            token: 'sampwood.helloworld',
+        request.onerror = function (event) {
+          console.log('获取用户信息失败', event)
+          reject({
+            message: '获取用户信息失败',
           })
         }
 
-        request.onerror = function (event) {
-          console.log('数据更新失败')
-          reject({
-            message: '数据更新失败',
-          })
+        request.onsuccess = function (event) {
+          console.log('获取用户信息成功')
+          const userInfo = event.target.result
+
+          if (userInfo && userInfo.username === params.username && userInfo.password === params.password) {
+            resolve({
+              username: params.username,
+              token: 'sampwood.helloworld',
+            })
+          } else {
+            reject({
+              message: '用户名或密码错误',
+            })
+          }
         }
       }, reject, params.username)
     })
@@ -41,14 +70,14 @@ export default {
         const request = objectStore.index('username').get(params.username)
 
         request.onerror = function (event) {
-          console.log('事务失败')
+          console.log('获取用户信息失败', event)
           reject({
-            message: '事务失败',
+            message: '获取用户信息失败',
           })
         }
 
         request.onsuccess = function (event) {
-          console.log(event.target.result)
+          console.log('获取用户信息成功')
           resolve(event.target.result)
         }
       }, reject, params.username)

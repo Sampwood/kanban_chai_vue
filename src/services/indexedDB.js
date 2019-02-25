@@ -10,7 +10,7 @@ export default function getIndexedDB (resolve, reject, username) {
 
   let request = window.indexedDB.open(username)
   request.onerror = function (event) {
-    console.log('数据库打开报错')
+    console.log('数据库打开报错', event)
     reject({
       message: '数据库打开报错',
     })
@@ -30,6 +30,5 @@ export default function getIndexedDB (resolve, reject, username) {
       const objectStore = db.createObjectStore('person', { keyPath: 'id', autoIncrement: true })
       objectStore.createIndex('username', 'username', { unique: true })
     }
-    resolve(db)
   }
 }

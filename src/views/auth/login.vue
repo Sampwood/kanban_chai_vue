@@ -2,8 +2,9 @@
   <div class="container-login">
     <div class="main-login">
       <div class="login">
-        <div>
-          <div class="title">用户登录</div>
+        <div class="header">
+          <div class="title" :class="{'active': isLogin}" @click="isLogin=true">用户登录</div>
+          <div class="title" :class="{'active': !isLogin}" @click="isLogin=false">注册</div>
         </div>
         <div class="form-login">
           <div class="form-group row">
@@ -22,8 +23,11 @@
                 v-model="password">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row" v-if="isLogin">
             <button type="button" class="btn btn-primary" @click="login">登陆</button>
+          </div>
+          <div class="form-group row" v-else>
+            <button type="button" class="btn btn-primary" @click="register">注册</button>
           </div>
         </div>
       </div>
@@ -41,9 +45,14 @@
       return {
         username: '',
         password: '',
+        isLogin: true,
       }
     },
     methods: {
+      ...mapActions({
+        'loginAction': 'auth/login',
+        'registerAction': 'auth/register',
+      }),
       async login () {
         await this.loginAction({
           username: this.username,
@@ -51,9 +60,13 @@
         })
         this.$router.push('/')
       },
-      ...mapActions({
-        'loginAction': 'auth/login',
-      }),
+      async register () {
+        await this.registerAction({
+          username: this.username,
+          password: md5(this.password),
+        })
+        this.isLogin = true
+      },
     },
   }
 </script>
@@ -61,11 +74,11 @@
 <style scoped>
   .container-login {
     height: 100vh;
-    background: url('../assets/img/many.jpg') center top repeat-y;
+    background: url('~@/assets/img/many.jpg') center top repeat-y;
   }
   .main-login {
     height: 100%;
-    background: url('../assets/img/bg.jpg') center top no-repeat;
+    background: url('~@/assets/img/bg.jpg') center top no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,14 +87,23 @@
   .login {
     width: 400px;
   }
-  .title {
+  .header {
     color: #fff;
     font-weight: bold;
     width: fit-content;
     background: #B49590;
-    padding: 1rem 2rem 0 2rem;
     text-align: left;
     border-radius: 7px 7px 0 0;
+    display: flex;
+    overflow: hidden;
+  }
+  .title {
+    padding: 1rem 2rem .5rem 2rem;
+    cursor: pointer;
+    background-color: #9c6b6f;
+  }
+  .title.active {
+    background-color: transparent;
   }
   .form-login {
     background: #B49590;

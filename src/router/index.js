@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import cookie from 'js-cookie'
 import Kanban from '@/views/kanban'
-import Login from '@/views/login'
+import Login from '@/views/auth/login'
 import store from '@/store'
 import * as authTypes from '@/store/auth/mutation-types.js'
 
