@@ -19,6 +19,7 @@ export default {
       state.isLogin = true
       cookie.set('token', account.token, { expires: 7 })
       cookie.set('username', account.username, { expires: 7 })
+      cookie.set('userId', account.userId, { expires: 7 })
       sessionStorage.setItem('account', JSON.stringify(account))
     },
     [types.USER_LOGOUT] (state) {

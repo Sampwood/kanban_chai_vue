@@ -59,12 +59,6 @@ const mutations = {
     const index = cards.findIndex(card => card.key === cardKey)
     cards.splice(index, 1)
   },
-  deleteItemInCardList (state, { sectionKey, cardKey, listName, id }) {
-    const section = state.sections.find(section => section.key === sectionKey)
-    const list = section.cards.find(card => card.key === cardKey)[listName]
-    const index = list.findIndex(item => item.id === id)
-    list.splice(index, 1)
-  },
   updateShowDetail (state, detailData) {
     if (detailData.type === CLOSE) {
       Object.assign(state.asideDetail, {isShow: false, type: '', sectionKey: '', cardKey: ''})
@@ -99,7 +93,7 @@ const actions = {
   async updateCardParentSection ({ state, commit }, {cardKey, oldSectionKey, newSectionKey}) {
     const oldSection = state.sections.find(section => section.key === oldSectionKey)
     const card = oldSection.cards.find(card => card.key === cardKey)
-    const resData = await cardService.apiUpdateCard({ card, sectionKey: newSectionKey })
+    const resData = await cardService.apiUpdateCard({ card, sectionKey: newSectionKey, oldSectionKey })
     commit('updateCardParentSection', { card: resData.card, oldSectionKey, newSectionKey })
   },
   async updateCardData ({ commit }, { card, sectionKey, key, value }) {
@@ -118,9 +112,9 @@ const actions = {
     const resData = await cardService.apiUpdateListItem({ sectionKey, card, listName, id, key, value })
     commit('updateCard', { card: resData.card, sectionKey })
   },
-  async deleteListInCard ({ commit }, {sectionKey, cardKey, listName, id}) {
-    await cardService.apiDeleteListItem({ sectionKey, cardKey, listName, id })
-    commit('deleteItemInCardList', { sectionKey, cardKey, listName, id })
+  async deleteListInCard ({ commit }, {sectionKey, card, listName, id}) {
+    const resData = await cardService.apiDeleteListItem({ sectionKey, card, listName, id })
+    commit('updateCard', { sectionKey, card: resData.card })
   },
 }
 

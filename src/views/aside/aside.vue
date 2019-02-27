@@ -126,9 +126,10 @@
         })
       },
       deleteItem (cardKey, listName, id) {
+        const card = this.sectionData.cards.find(card => card.key === cardKey)
         this.deleteListInCard({
           sectionKey: this.sectionData.key,
-          cardKey,
+          card,
           listName,
           id,
         })

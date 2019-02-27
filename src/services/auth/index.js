@@ -49,6 +49,7 @@ export default {
             resolve({
               username: params.username,
               token: 'sampwood.helloworld',
+              userId: userInfo.id,
             })
           } else {
             reject({
