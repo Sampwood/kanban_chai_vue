@@ -32,7 +32,8 @@ module.exports = {
       // 如果使用NPM安装的jQuery
       'jquery': 'jquery',
       'popper': 'popper.js',
-      '~config': resolve('config')
+      '~config': resolve('config'),
+      '~services': process.env.npm_config_axios ? resolve('src/services-axios') : resolve('src/services')
     }
   },
   module: {

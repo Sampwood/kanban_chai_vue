@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import sectionService from '@/services/section'
-import cardService from '@/services/card'
+import sectionService from '~services/section'
+import cardService from '~services/card'
 import { CARD, CLOSE } from '@/config/data-type.js'
 import auth from './auth'
 
