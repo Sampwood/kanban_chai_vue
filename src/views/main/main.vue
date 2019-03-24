@@ -90,7 +90,7 @@
 
 <style scoped>
   .main-panel {
-    height: 100%;
+    height: calc(100% - 36px);
     padding: 3.5rem 0 0;
     display: flex;
   }

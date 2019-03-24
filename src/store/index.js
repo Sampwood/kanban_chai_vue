@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import dashboardService from '~services/dashboard'
 import sectionService from '~services/section'
 import cardService from '~services/card'
 import { CARD, CLOSE } from '@/config/data-type.js'
@@ -10,6 +11,7 @@ Vue.use(Vuex)
 
 // 创建一个对象来保存应用启动时的初始状态
 const state = {
+  dashboards: [],
   sections: [],
   cardForm: {
     key: '1',
@@ -27,6 +29,12 @@ const state = {
 
 // 用于更改状态的mutation函数，但只能进行同步操作
 const mutations = {
+  initDashboards (state, dashboards) {
+    state.dashboards = dashboards
+  },
+  addDahsboard (state, dashboard) {
+    if (dashboard) state.dashboards.push(dashboard)
+  },
   initSections (state, sections) {
     state.sections = sections
   },
@@ -78,6 +86,14 @@ const mutations = {
 
 // 用于更改状态的action函数，能获取异步数据
 const actions = {
+  async getDashboards ({ commit }) {
+    const resData = await dashboardService.apiGetDashboards()
+    commit('initDashboards', resData || [])
+  },
+  async postDashboard ({ commit }, dashboard) {
+    const resData = await dashboardService.apiCreateDashboard(dashboard)
+    commit('addDashboard', resData.dashboard)
+  },
   async getSections ({ commit }) {
     const resData = await sectionService.apiGetSections()
     commit('initSections', resData || [])
@@ -120,6 +136,9 @@ const actions = {
 
 // 用于获取state的值
 const getters = {
+  getterDashboards (state) {
+    return state.dashboards
+  },
   getterSections (state) {
     return state.sections
   },

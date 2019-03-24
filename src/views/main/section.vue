@@ -13,17 +13,6 @@
     <input type="text" class="form-control" aria-label="Add new card" 
         v-if="!show" v-focus v-on:keyup.enter="addCard" v-model="cardContent"
         v-on:keyup.esc="show = true" v-on:blur="show = true">
-    <!--
-    <button type="button" class="btn btn-secondary" data-toggle="modal" :data-target="'#' + modalId">
-      <icon name="plus"></icon>
-    </button>
-    <modal-chai :modal-id="modalId" modal-title="新的标签" :callback="addNewCard">
-      <!-- 替换modal组件中的<slot name="modal-body"></slot>插槽 
-      <div slot="modal-body">
-        <card-create-chai></card-create-chai>
-      </div>
-    </modal-chai>
-    -->
   </div>
 </template>
 
@@ -31,8 +20,6 @@
   import 'vue-awesome/icons/plus'
   import { mapActions } from 'vuex'
   import card from './card'
-  import modal from './modal'
-  import cardCreate from './cardCreate'
 
   export default {
     name: 'sectionChai',
@@ -52,8 +39,6 @@
     },
     components: {
       'card-chai': card,
-      'modal-chai': modal,
-      'card-create-chai': cardCreate,
     },
     props: {
       sectionData: {
