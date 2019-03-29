@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+- '11'
+branchs:
+  only:
+  - master
+addons:
+  ssh_known_hosts:
+  - 119.3.46.196
+cache:
+  directories:
+  - node_modules
+before_install:
+- openssl aes-256-cbc -K $encrypted_c9ab60b0281e_key -iv $encrypted_c9ab60b0281e_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+install:
+- npm install
+scripts:
+- npm run build:axios
+after_success:
+- chmod 600 ~/.ssh/id_rsa
+- ssh travis@119.3.46.196 -o StrictHostKeyChecking=no 'cd ~/code && ./kanban.sh'
+
