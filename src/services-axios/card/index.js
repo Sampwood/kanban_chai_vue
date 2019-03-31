@@ -2,11 +2,11 @@ import api from '../axios'
 
 export default {
   // 新建card
-  apiCreateCard: params => api.post('/api/createCard', params),
+  apiCreateCard: params => api.post('/api/card', params),
   // 改变card属性
   apiUpdateCard: params => api.put('/api/updateCard', params),
   // 删除card
-  apiDeleteCard: params => api.delete(`/api/deleteCard/${params.sectionKey}/${params.cardKey}`),
+  apiDeleteCard: params => api.delete(`/api/card/${params.sectionKey}/${params.cardKey}`),
   // 增加card中某个list
   apiCreateListItem: params => api.post('/api/createListItem', params),
   // 更新card中某个list

@@ -1,17 +1,17 @@
 <template>
   <div class="footer">
-    <div v-for="(item,index) in dashboards" :key="index" class="footer-item" :class="activeBoard === index ? 'active' : ''"
-      @click="handleBoardClick(item, index)">
-      {{ item }}
+    <div v-for="item in dashboards" :key="item.id" class="footer-item" :class="activeDashboard === item.id ? 'active' : ''"
+      @click="handleBoardClick(item)">
+      {{ item.name }}
     </div>
     <button v-if="!showInput" type="button" class="btn btn-secondary" @click="showInput=true">添加新的面板</button>
-    <input v-else type="text" class="footer-input" placeholder="请输入面板名"  v-model="dashboardName"
-      v-on:keyup.enter="addDashboard">
+    <input v-else type="text" class="footer-input" placeholder="请输入面板名" v-focus v-model="dashboardName"
+      v-on:keyup.enter="addDashboard" v-on:keyup.esc="showInput = false" v-on:blur="showInput = false">
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import modal from '@/components/base/modal'
 
 export default {
@@ -22,20 +22,19 @@ export default {
     return {
       dashboardName: '',
       showInput: false,
-      activeBoard: 0,
     }
   },
   computed: {
     ...mapGetters({
       dashboards: 'getterDashboards',
+      activeDashboard: 'getterActiveDashboard',
     }),
   },
-  created () {
-    this.getDashboards()
-  },
   methods: {
+    ...mapMutations({
+      updateActiveDashboard: 'updateActiveDashboard',
+    }),
     ...mapActions({
-      getDashboards: 'getDashboards',
       postDashboard: 'postDashboard',
     }),
     addDashboard () {
@@ -48,9 +47,8 @@ export default {
         this.showInput = false
       })
     },
-    handleBoardClick (item, index) {
-      console.log(item, index)
-      this.activeBoard = index
+    handleBoardClick (item) {
+      this.updateActiveDashboard(item.id)
     },
   },
 }

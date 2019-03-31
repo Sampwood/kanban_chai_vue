@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => {
           store.commit('auth/' + authTypes.USER_LOGIN, JSON.parse(account))
         } else {
           const username = cookie.get('username')
-          store.dispatch('auth/getUserInfo', { username, token })
+          store.dispatch('auth/getUserInfo', { username })
         }
       }
     } else {

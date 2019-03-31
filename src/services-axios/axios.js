@@ -56,7 +56,7 @@ api.interceptors.response.use((res) => {
     const code = parseInt(data.code, 10)
     // 登录超时
     if (code === 300001) {
-      Router.push('/')
+      Router.push('/login')
     } else if (code === 0) { // 成功 code === 0
       return data.data
     }

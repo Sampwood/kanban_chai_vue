@@ -8,5 +8,5 @@ export default {
   // 登出
   apiLogout: () => api.post('/api/logout'),
   // 获取用户信息
-  apiGetUserInfo: params => api.post('/api/getUserInfo', params),
+  apiGetUserInfo: params => api.get('/api/getUserInfo', { params }),
 }

@@ -46,6 +46,10 @@
       },
     },
     methods: {
+      ...mapActions([
+        'postCard',
+        'updateCardParentSection',
+      ]),
       allowDrop (event) {
         event.preventDefault()
       },
@@ -62,10 +66,6 @@
           })
         }
       },
-      ...mapActions([
-        'postCard',
-        'updateCardParentSection',
-      ]),
       addNewCard () {
         this.postCard({ sectionKey: this.sectionData.key })
         return true

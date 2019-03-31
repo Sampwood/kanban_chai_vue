@@ -52,11 +52,15 @@
       ...mapActions({
         'loginAction': 'auth/login',
         'registerAction': 'auth/register',
+        'getUserInfo': 'auth/getUserInfo',
       }),
       async login () {
         await this.loginAction({
           username: this.username,
           password: md5(this.password),
+        })
+        await this.getUserInfo({
+          username: this.username,
         })
         this.$router.push('/')
       },

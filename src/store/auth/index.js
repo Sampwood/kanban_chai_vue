@@ -15,16 +15,20 @@ export default {
   },
   mutations: {
     [types.USER_LOGIN] (state, account) {
-      state.account = account
       state.isLogin = true
       cookie.set('token', account.token, { expires: 7 })
-      cookie.set('username', account.username, { expires: 7 })
-      cookie.set('userId', account.userId, { expires: 7 })
-      sessionStorage.setItem('account', JSON.stringify(account))
     },
     [types.USER_LOGOUT] (state) {
       state.account = {}
       state.isLogin = false
+      sessionStorage.removeItem('account')
+    },
+    [types.USER_SET_INFO] (state, account) {
+      state.account = account
+      sessionStorage.setItem('account', JSON.stringify(account))
+
+      cookie.set('username', account.username, { expires: 7 })
+      cookie.set('userId', account.userId, { expires: 7 })
     },
   },
   actions: {
@@ -43,7 +47,7 @@ export default {
     },
     async getUserInfo ({commit}, params) {
       const data = await services.apiGetUserInfo(params)
-      commit(types.USER_LOGIN, data)
+      commit(types.USER_SET_INFO, data)
       return data
     },
   },

@@ -12,6 +12,7 @@ Vue.use(Vuex)
 // 创建一个对象来保存应用启动时的初始状态
 const state = {
   dashboards: [],
+  activeDashboard: '',
   sections: [],
   cardForm: {
     key: '1',
@@ -31,9 +32,21 @@ const state = {
 const mutations = {
   initDashboards (state, dashboards) {
     state.dashboards = dashboards
+    if (dashboards.length) {
+      state.activeDashboard = dashboards[0].id
+      state.sections = dashboards[0].sections || []
+    }
   },
-  addDahsboard (state, dashboard) {
+  addDashboard (state, dashboard) {
     if (dashboard) state.dashboards.push(dashboard)
+    if (state.dashboards.length === 1) {
+      state.activeDashboard = dashboard.id
+      state.sections = dashboard.sections || []
+    }
+  },
+  updateActiveDashboard (state, dashboardId) {
+    state.activeDashboard = dashboardId
+    state.sections = state.dashboards.filter(item => item.id === dashboardId)[0].sections || []
   },
   initSections (state, sections) {
     state.sections = sections
@@ -92,14 +105,15 @@ const actions = {
   },
   async postDashboard ({ commit }, dashboard) {
     const resData = await dashboardService.apiCreateDashboard(dashboard)
-    commit('addDashboard', resData.dashboard)
+    commit('addDashboard', resData)
   },
   async getSections ({ commit }) {
     const resData = await sectionService.apiGetSections()
     commit('initSections', resData || [])
   },
-  async postSection ({ commit }, section) {
-    const resData = await sectionService.apiCreateSection(section)
+  async postSection ({ state, commit }, section) {
+    const dashboardId = state.activeDashboard
+    const resData = await sectionService.apiCreateSection(Object.assign({ dashboardId }, section))
     commit('addSection', resData.section)
   },
   async postCard ({ commit }, { sectionKey, cardTitle }) {
@@ -138,6 +152,9 @@ const actions = {
 const getters = {
   getterDashboards (state) {
     return state.dashboards
+  },
+  getterActiveDashboard (state) {
+    return state.activeDashboard
   },
   getterSections (state) {
     return state.sections

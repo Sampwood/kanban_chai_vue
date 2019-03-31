@@ -83,7 +83,7 @@
       },
     },
     created () {
-      this.getSections()
+      // this.getSections()
     },
   }
 </script>
