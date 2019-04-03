@@ -116,11 +116,13 @@ const actions = {
     const resData = await sectionService.apiCreateSection(Object.assign({ dashboardId }, section))
     commit('addSection', resData.section)
   },
-  async postCard ({ commit }, { sectionKey, cardTitle }) {
-    const resData = await cardService.apiCreateCard({ sectionKey, title: cardTitle })
+  async postCard ({ state, commit }, { sectionKey, cardTitle }) {
+    const dashboardId = state.activeDashboard
+    const resData = await cardService.apiCreateCard({ dashboardId, sectionKey, title: cardTitle })
     commit('addCard', { sectionKey, card: resData.card })
   },
   async updateCardParentSection ({ state, commit }, {cardKey, oldSectionKey, newSectionKey}) {
+    console.log(state.activeDashboard)
     const oldSection = state.sections.find(section => section.key === oldSectionKey)
     const card = oldSection.cards.find(card => card.key === cardKey)
     const resData = await cardService.apiUpdateCard({ card, sectionKey: newSectionKey, oldSectionKey })

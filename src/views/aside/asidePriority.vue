@@ -2,7 +2,7 @@
   <div class="priority-selection d-flex m-3">
     <div class="dropdown">
       <priority class="btn btn-light dropdown-toggle py-1 c-pointer" :text="priorities[cardData.priority]"
-        :level="cardData.priority" data-toggle="dropdown"></priority>
+        :level="cardData.priority || 0" data-toggle="dropdown"></priority>
       <div class="dropdown-menu">
         <div class="dropdown-item c-pointer priority-item" :key="index"
           v-for="(priority, index) in priorities" @click="selectPriority(index)">
