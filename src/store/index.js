@@ -44,9 +44,18 @@ const mutations = {
       state.sections = dashboard.sections || []
     }
   },
-  updateActiveDashboard (state, dashboardId) {
+  setActiveDashboardId (state, dashboardId) {
     state.activeDashboard = dashboardId
     state.sections = state.dashboards.filter(item => item.id === dashboardId)[0].sections || []
+  },
+  updateActiveDashboard (state, { dashboardId, dashboard }) {
+    state.activeDashboard = dashboardId
+    const index = state.dashboards.findIndex(item => item.id === dashboardId)
+    state.dashboards.splice(index, 1)
+    state.dashboards.push(dashboard)
+    if (state.activeDashboard === dashboardId) {
+      state.sections = state.dashboards.filter(item => item.id === dashboardId)[0].sections || []
+    }
   },
   initSections (state, sections) {
     state.sections = sections
@@ -121,32 +130,37 @@ const actions = {
     const resData = await cardService.apiCreateCard({ dashboardId, sectionKey, title: cardTitle })
     commit('addCard', { sectionKey, card: resData.card })
   },
+  // TODO: 修改数据库结构
   async updateCardParentSection ({ state, commit }, {cardKey, oldSectionKey, newSectionKey}) {
-    console.log(state.activeDashboard)
     const oldSection = state.sections.find(section => section.key === oldSectionKey)
     const card = oldSection.cards.find(card => card.key === cardKey)
     const resData = await cardService.apiUpdateCard({ card, sectionKey: newSectionKey, oldSectionKey })
     commit('updateCardParentSection', { card: resData.card, oldSectionKey, newSectionKey })
   },
-  async updateCardData ({ commit }, { card, sectionKey, key, value }) {
-    const resData = await cardService.apiUpdateCard({ card, sectionKey, key, value })
-    commit('updateCard', { card: resData.card, sectionKey })
+  async updateCardData ({ state, commit }, { cardKey, sectionKey, key, value }) {
+    const dashboardId = state.activeDashboard
+    const resData = await cardService.apiUpdateCard({ dashboardId, cardKey, sectionKey, key, value })
+    commit('updateActiveDashboard', { dashboard: resData.dashboard, dashboardId })
   },
-  async deleteCard ({ commit }, { sectionKey, cardKey }) {
-    await cardService.apiDeleteCard({ sectionKey, cardKey })
+  async deleteCard ({ state, commit }, { sectionKey, cardKey }) {
+    const dashboardId = state.activeDashboard
+    await cardService.apiDeleteCard({ dashboardId, sectionKey, cardKey })
     commit('deleteCard', { sectionKey, cardKey })
   },
-  async postListInCard ({ commit }, {sectionKey, card, listName, item}) {
-    const resData = await cardService.apiCreateListItem({ sectionKey, card, listName, item })
-    commit('updateCard', { card: resData.card, sectionKey })
+  async postListInCard ({ state, commit }, {sectionKey, cardKey, listName, item}) {
+    const dashboardId = state.activeDashboard
+    const resData = await cardService.apiCreateListItem({ dashboardId, sectionKey, cardKey, listName, item })
+    commit('updateActiveDashboard', { dashboard: resData.dashboard, dashboardId })
   },
-  async updateListInCard ({ commit }, {sectionKey, card, listName, id, key, value}) {
-    const resData = await cardService.apiUpdateListItem({ sectionKey, card, listName, id, key, value })
-    commit('updateCard', { card: resData.card, sectionKey })
+  async updateListInCard ({ state, commit }, {sectionKey, cardKey, listName, itemId, key, value}) {
+    const dashboardId = state.activeDashboard
+    const resData = await cardService.apiUpdateListItem({ dashboardId, sectionKey, cardKey, listName, itemId, key, value })
+    commit('updateActiveDashboard', { dashboard: resData.dashboard, dashboardId })
   },
-  async deleteListInCard ({ commit }, {sectionKey, card, listName, id}) {
-    const resData = await cardService.apiDeleteListItem({ sectionKey, card, listName, id })
-    commit('updateCard', { sectionKey, card: resData.card })
+  async deleteListInCard ({ state, commit }, {sectionKey, cardKey, listName, itemId}) {
+    const dashboardId = state.activeDashboard
+    const resData = await cardService.apiDeleteListItem({ dashboardId, sectionKey, cardKey, listName, itemId })
+    commit('updateActiveDashboard', { dashboard: resData.dashboard, dashboardId })
   },
 }
 

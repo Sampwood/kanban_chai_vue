@@ -55,8 +55,8 @@
       },
       drop (event) {
         event.preventDefault()
-        const cardKey = Number(event.dataTransfer.getData('cardKey'))
-        const sectionKey = Number(event.dataTransfer.getData('sectionKey'))
+        const cardKey = event.dataTransfer.getData('cardKey')
+        const sectionKey = event.dataTransfer.getData('sectionKey')
 
         if (sectionKey !== this.sectionData.key) {
           this.updateCardParentSection({

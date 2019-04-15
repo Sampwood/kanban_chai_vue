@@ -51,8 +51,8 @@ api.interceptors.response.use((res) => {
   if (res.config && res.config.responseType === 'arraybuffer') {
     return res
   }
+  const data = res.data || {}
   if (/^2\d{2}/.test(status)) {
-    const data = res.data
     const code = parseInt(data.code, 10)
     // 登录超时
     if (code === 300001) {
@@ -61,7 +61,7 @@ api.interceptors.response.use((res) => {
       return data.data
     }
   }
-  throw new UserException('错误的response状态码')
+  throw new UserException(data.message || '错误的response状态码')
 }, () => Promise.reject('网络出错，请稍后再试~'))
 
 export default api

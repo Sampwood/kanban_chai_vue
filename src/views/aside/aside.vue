@@ -97,41 +97,37 @@
         this.updateShowDetail({type: CLOSE})
       },
       changeCardData (cardKey, key, value) {
-        const card = this.sectionData.cards.find(card => card.key === cardKey)
         this.updateCardData({
           sectionKey: this.sectionData.key,
-          card,
+          cardKey,
           key,
           value,
         })
       },
       postItem (cardKey, listName, item) {
-        const card = this.sectionData.cards.find(card => card.key === cardKey)
         this.postListInCard({
           sectionKey: this.sectionData.key,
-          card,
+          cardKey,
           listName,
           item,
         })
       },
-      updateItem (cardKey, listName, id, key, value) {
-        const card = this.sectionData.cards.find(card => card.key === cardKey)
+      updateItem (cardKey, listName, itemId, key, value) {
         this.updateListInCard({
           sectionKey: this.sectionData.key,
-          card,
+          cardKey,
           listName,
-          id,
+          itemId,
           key,
           value,
         })
       },
-      deleteItem (cardKey, listName, id) {
-        const card = this.sectionData.cards.find(card => card.key === cardKey)
+      deleteItem (cardKey, listName, itemId) {
         this.deleteListInCard({
           sectionKey: this.sectionData.key,
-          card,
+          cardKey,
           listName,
-          id,
+          itemId,
         })
       },
     },

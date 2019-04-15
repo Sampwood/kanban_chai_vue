@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      updateActiveDashboard: 'updateActiveDashboard',
+      setActiveDashboardId: 'setActiveDashboardId',
     }),
     ...mapActions({
       postDashboard: 'postDashboard',
@@ -48,7 +48,7 @@ export default {
       })
     },
     handleBoardClick (item) {
-      this.updateActiveDashboard(item.id)
+      this.setActiveDashboardId(item.id)
     },
   },
 }
